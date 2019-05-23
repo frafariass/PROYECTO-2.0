@@ -5,6 +5,9 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import ="java.sql.*" %>
+<%@ page import="Modelo.Usuario"%>
+<% Usuario usu = (Usuario)request.getSession().getAttribute("usu1"); %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -44,16 +47,20 @@
             <a class="nav-link" href="#">Carro de compras</a>
           </li>
           <%
-              if(request.getSession() == null)
+              if(usu == null)
                     {%>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Registro</a>
+                            <a class="nav-link" href="registro.jsp">Registro</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" href="#">Inicio de sesión</a>
+                          <a class="nav-link" href="login.jsp">Inicio de sesión</a>
                         </li>
-                    <%}
-              %>
+                    <%}else
+                      {%>
+                        <li class="nav-item">
+                            <a class="nav-link" href="CerrarSesion">Cerrar Sesión</a>
+                        </li>
+                      <%}%>
         </ul>
       </div>
     </div>

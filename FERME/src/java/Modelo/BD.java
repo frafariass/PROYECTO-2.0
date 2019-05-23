@@ -5,6 +5,12 @@
  */
 package Modelo;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 /**
  *
  * @author lordp
@@ -14,27 +20,33 @@ public class BD {
     public BD() {
     }
     
-    public String conectar() //se conecta a la BD con las credenciales que estamos usando 
+    public void update(String q) //se conecta a la BD con las credenciales que estamos usando 
     {
-        String conexion = '"' + "jdbc:oracle:thin:@localhost:1521:XE" + '"';
-        String usuario = '"' + "FERRETERIA" + '"';
-        String pass = '"' + "123" + '"';
-        conexion = conexion + "," + usuario + "," + pass  ;
-        return conexion;
+        try{
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection conexion = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","FERRETERIA","123");
+            Statement consulta = conexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE , ResultSet.CONCUR_UPDATABLE);
+            consulta.executeUpdate(q);
+            conexion.close();
+        }catch(ClassNotFoundException | SQLException e)
+        {
+        }
+        
     }
     
-    //despues de conectar, necesitan declarar el tipo de operacion que haran query o update
-    //ojo, es una declaracion por operacion
-    public String statementUpdate() //declarar que es update
+    public ResultSet read(String q) //se conecta a la BD con las credenciales que estamos usando 
     {
-        String consulta = "conexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE , ResultSet.CONCUR_UPDATABLE);";
-        return consulta;
-    }
-    
-    public String statementRead() //declarar que es read
-    {
-        String consulta = "conexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE , ResultSet.CONCUR_READ_ONLY);";
-        return consulta;
+        try{
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection conexion = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","FERRETERIA","123");
+            Statement consulta = conexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE , ResultSet.CONCUR_READ_ONLY);  
+            ResultSet res = consulta.executeQuery(q);
+            return res;
+        }catch(ClassNotFoundException | SQLException e)
+        {
+            return null;
+        }
+        
     }
     
     /*

@@ -13,8 +13,11 @@ public class ConsolaTest {
     
     public static void main(String[] args)
     {
-        BD bd = new BD();
-        System.out.println(bd.statementUpdate());
+        String rut = "193622879";
+        int rutint = 19362287;
+        String clavecifrada = "asd";
+        String q = "select * from cliente where rut = " +rutint+ " and " + "clave = '" +clavecifrada+"'";  
+        System.out.println(q);
     }
     
 }
