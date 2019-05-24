@@ -39,7 +39,6 @@ public class Registro extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        Connection conexion = null;
 
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
@@ -121,10 +120,6 @@ public class Registro extends HttpServlet {
                         String rutingresar = rutsinguion.substring(0,7);
                         rutint = Integer.parseInt(rutingresar);
                     }
-                    Usuario usu = new Usuario(rutint, digitochar, nombre, apellido, email, clavecifrada, 
-                            direccion, telefono, 1, 1);
-
-                    request.getSession().setAttribute("usu1", usu);
 
                     BD bd = new BD();
                     
@@ -132,18 +127,20 @@ public class Registro extends HttpServlet {
                                       + "values ('"+rutint+"', '"+digitochar+"', "
                                        + "'"+nombre+"', '"+apellido+"', '"+email+"', '"+clavecifrada+"', '"+direccion+"', "+telefono+", "+1+", "+1+")";
                     bd.update(q);
-                    request.getRequestDispatcher("exito.jsp").forward(request, response);
+                    q  = "select id_perf from perfil";
+                    ResultSet res = bd.read(q);
+                    res.last();
+                    String a = res.getString("id_perf");
+                    int b = Integer.parseInt(a) + 1;
+                    q = "insert into perfil "
+                        + "values ("+b+", "+rutint+", "+4+", "+1+", " +1+ ")";
+                    bd.update(q);
+                    response.sendRedirect("exito.jsp");
                 }catch (Exception e) { 
-                        request.getRequestDispatcher("error.jsp").forward(request, response);
-                }
-                try {
-                    if (conexion != null)
-                    conexion.close();    
-                }catch (SQLException e3) {
-                    request.getRequestDispatcher("error.jsp").forward(request, response);
+                    response.sendRedirect("error.jsp");
                 }
             }else{
-                request.getRequestDispatcher("error.jsp").forward(request, response);
+                response.sendRedirect("error.jsp");
             }
         }else
         {

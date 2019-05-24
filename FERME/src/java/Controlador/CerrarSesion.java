@@ -5,6 +5,7 @@
  */
 package Controlador;
 
+import Modelo.Perfil;
 import Modelo.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -36,7 +37,9 @@ public class CerrarSesion extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             Usuario usu = null;
+            Perfil perfil = null;
             request.getSession().setAttribute("usu1", usu);
+            request.getSession().setAttribute("perfil1", perfil);
             response.setHeader("Cache-Control", "no-cache");
             response.setHeader("Cache-Control", "no-store");
             response.setHeader("Pragma", "no-cache");

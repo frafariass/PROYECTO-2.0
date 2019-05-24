@@ -6,6 +6,7 @@
 package Controlador;
 
 import Modelo.BD;
+import Modelo.Perfil;
 import Modelo.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -52,50 +53,28 @@ public class Login extends HttpServlet {
                 rut = rut.replace(".", "");
                 if (rut.contains("-")) {
                     rut = rut.replace("-", "");
-                    if(rut.length() >= 9)
-                    {
-                        String rutingresar = rut.substring(0,8);
-                        rutint = Integer.parseInt(rutingresar);
-                    }else
-                    {
-                        String rutingresar = rut.substring(0,7);
-                        rutint = Integer.parseInt(rutingresar);
-                    }
-                    
-                    String q = "select * from usuario where rut_user = " +rutint+ " and " + "contrasena = '" +clavecifrada+"'";                
-                    ResultSet res = bd.read(q);
-                    if(res != null)
-                    {
-                        res.next(); 
-                        Usuario usu = new Usuario(Integer.parseInt(res.getString("rut_user")), res.getString("dv_user").charAt(0), 
-                        res.getString("nombre_user"), res.getString("apellido_user"), 
-                        res.getString("email_user"), res.getString("contrasena"), 
-                        res.getString("direccion_user"), res.getString("fono_user"), 
-                        Integer.parseInt(res.getString("rubro_id_rubro")), Integer.parseInt(res.getString("estado")));
-                        request.getSession().setAttribute("usu1", usu);
-                        response.sendRedirect("index.jsp");
-                    }else
-                    {
-                        response.sendRedirect("error.jsp");
-                    }
-                    
-                    
-                    
-                }else
-                {
-                    rut = rut.substring(0, rut.length()-1);
-                    rutint = Integer.parseInt(rut);
-                    String q = "select * from usuario where rut_user = " +rutint+ " and " + "contrasena = '" +clavecifrada+"'";               
-                    ResultSet res = bd.read(q);
-                    res.next();  
-                    Usuario usu = new Usuario(Integer.parseInt(res.getString("rut_user")), res.getString("dv_user").charAt(0), 
-                        res.getString("nombre_user"), res.getString("apellido_user"), 
-                        res.getString("email_user"), res.getString("contrasena"), 
-                        res.getString("direccion_user"), res.getString("fono_user"), 
-                        Integer.parseInt(res.getString("rubro_id_rubro")), Integer.parseInt(res.getString("estado")));
-                    request.getSession().setAttribute("usu1", usu);
-                    response.sendRedirect("index.jsp");
-                }
+                }                   
+
+                rut = rut.substring(0, rut.length()-1);
+                rutint = Integer.parseInt(rut);
+                String q = "select * from usuario where rut_user = " +rutint+ " and " + "contrasena = '" +clavecifrada+"'";               
+                ResultSet res = bd.read(q);
+                res.next();  
+                Usuario usu = new Usuario(Integer.parseInt(res.getString("rut_user")), res.getString("dv_user").charAt(0), 
+                    res.getString("nombre_user"), res.getString("apellido_user"), 
+                    res.getString("email_user"), res.getString("contrasena"), 
+                    res.getString("direccion_user"), res.getString("fono_user"), 
+                    Integer.parseInt(res.getString("rubro_id_rubro")), Integer.parseInt(res.getString("estado")));
+                q = "select * from perfil where usuario_rut_user = " +usu.getRut_user();
+                ResultSet res1   = bd.read(q);
+                res1.next();
+                Perfil perfil = new Perfil(Integer.parseInt(res1.getString("id_perf")), 
+                        Integer.parseInt(res1.getString("usuario_rut_user")), Integer.parseInt(res1.getString("rol_id_rol")),
+                                Integer.parseInt(res1.getString("estado")), Integer.parseInt(res1.getString("usuario_rubro_id_rubro")));
+                request.getSession().setAttribute("usu1", usu);
+                request.getSession().setAttribute("perfil1", perfil);
+                response.sendRedirect("index.jsp");
+                
                 
                 
                 

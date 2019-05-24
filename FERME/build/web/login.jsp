@@ -4,10 +4,18 @@
     Author     : lordp
 --%>
 
+<%@page import="Modelo.Perfil"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import ="java.sql.*" %>
 <%@ page import="Modelo.Usuario"%>
-<% Usuario usu = (Usuario)request.getSession().getAttribute("usuario"); %>
+<% 
+    Usuario usu = (Usuario)request.getSession().getAttribute("usu1"); 
+    Perfil perfil = (Perfil)request.getSession().getAttribute("perfil1");
+   if(request.getSession().getAttribute("usu1") != null)
+   {
+       response.sendRedirect("index.jsp");
+   }
+   %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -56,7 +64,17 @@
                           <a class="nav-link" href="login.jsp">Inicio de sesión</a>
                         </li>
                     <%}else
-                      {%>
+                      {
+                        if(perfil.getRol_id_rol() == 1 || perfil.getRol_id_rol() == 2 || perfil.getRol_id_rol() == 3)
+                        {%>
+                            <li class="nav-item">
+                                <a class="nav-link" href="administrar.jsp">Administrar</a>
+                            </li>
+                        <%}%>
+                        <li class="nav-item">
+                            <a class="nav-link" href="editarperfil.jsp">Editar perfil</a>
+                        </li>
+                        
                         <li class="nav-item">
                             <a class="nav-link" href="CerrarSesion">Cerrar Sesión</a>
                         </li>

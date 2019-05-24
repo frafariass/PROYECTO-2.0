@@ -34,7 +34,7 @@ public class BD {
         
     }
     
-    public ResultSet read(String q) //se conecta a la BD con las credenciales que estamos usando 
+    public ResultSet read(String q) //Ingresar la query en el argumento, pasos a seguir en los ejemplos abajo
     {
         try{
             Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -57,27 +57,27 @@ public class BD {
          tengo fe eso si xd)
     
     Para update (crear, eliminar, modificar)
-        Class.forName ("oracle.jdbc.OracleDriver");
-        BD bd = new BD();
-        Connection conexion = BD.conectar();
-        Statement consulta = BD.statementUpdate();
-        String q = "INSERT INTO USUARIO VALUES " + (ATRIBUTOS);
-        consulta.executeUpdate(q);
+        BD bd = new BD();            
+        String q = "insert into usuario "
+                          + "values ('"+rutint+"', '"+digitochar+"', "
+                           + "'"+nombre+"', '"+apellido+"', '"+email+"', '"+clavecifrada+"', '"+direccion+"', "+telefono+", "+1+", "+1+")";
+        bd.update(q);
         
-        SI QUIEREN REDIRECCIONAR DESPUES
-        request.getRequestDispatcher("exito.jsp").forward(request, response);
+       
     
     Para read (consultas)
-        Class.forName ("oracle.jdbc.OracleDriver");
-        BD bd = new BD();
-        Connection conexion = BD.conectar();
-        Statement consulta = BD.statementRead();
-        String q = "SELECT * FROM USUARIO"; 
-        ResultSet res = consulta.executeQuery(q);  (res tendra los resultados de la query)
-        res.last(); o res.next();  (para que el resulset "avance", no pregunten, asi funciona)
-        String resultado = res.getString("nombre");  esto deberia retornar el nombre de la ultima o primera fila, dependiendo de lo que eligieron arriba
+        String q = "select * from usuario where rut_user = " +rutint+ " and " + "contrasena = '" +clavecifrada+"'";  la query           
+        ResultSet res = bd.read(q);   ejecutando la query
+        res.next();  "moviendo la query" al primer resultado
+        Usuario usu = new Usuario(Integer.parseInt(res.getString("rut_user")), res.getString("dv_user").charAt(0), 
+            res.getString("nombre_user"), res.getString("apellido_user"), 
+            res.getString("email_user"), res.getString("contrasena"), 
+            res.getString("direccion_user"), res.getString("fono_user"), 
+            Integer.parseInt(res.getString("rubro_id_rubro")), Integer.parseInt(res.getString("estado")));   creando un usuario a partir del usuario obtenido en la BD
         
-    
+        
+     SI QUIEREN REDIRECCIONAR DESPUES
+        response.sendRedirect("login.jsp"); esto todo se hace en un SERVLET (controlador)
     
     */
     
