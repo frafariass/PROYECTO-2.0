@@ -6,6 +6,7 @@
 package Controlador;
 
 import Modelo.BD;
+import Modelo.Cifrado;
 import Modelo.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -65,9 +66,11 @@ public class EditarPerfil extends HttpServlet {
                     if(request.getParameter("nombre") != "")
                     {
                         usu.setNombre_user(request.getParameter("nombre"));
-                    }   
+                    }
+                    Cifrado ci = new Cifrado();
+                    String clavecifrada = ci.cifrar(usu.getContrasena());    
                     String q = "update usuario"
-                            + " set email_user = '" + usu.getEmail_user() + "', contrasena = '" + usu.getContrasena()
+                            + " set email_user = '" + usu.getEmail_user() + "', contrasena = '" + clavecifrada
                             + "', fono_user = " + usu.getFono_user() + ", direccion_user = '" + usu.getDireccion_user() 
                             + "' , apellido_user = '" + usu.getApellido_user() + "' , nombre_user = '" + usu.getNombre_user() 
                             + "' where rut_user = " + usu.getRut_user();

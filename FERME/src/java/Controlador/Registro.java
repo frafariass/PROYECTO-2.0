@@ -6,14 +6,10 @@
 package Controlador;
 
 import Modelo.BD;
-import Modelo.Usuario;
+import Modelo.Cifrado;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -102,9 +98,10 @@ public class Registro extends HttpServlet {
             String conclave = request.getParameter("conclave");
             if (clave.equals(conclave)) {
                 try {
-
+                    
                     char digitochar = digitorutingresado.charAt(0);
-                    String clavecifrada = clave;                                                                                   
+                    Cifrado ci = new Cifrado();
+                    String clavecifrada = ci.cifrar(clave);                                                                                   
                     String nombre = request.getParameter("nombre");
                     String email = request.getParameter("email");
                     String apellido = request.getParameter("apellido");

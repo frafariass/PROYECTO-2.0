@@ -6,6 +6,7 @@
 package Controlador;
 
 import Modelo.BD;
+import Modelo.Cifrado;
 import Modelo.Perfil;
 import Modelo.Usuario;
 import java.io.IOException;
@@ -44,7 +45,8 @@ public class Login extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             String rut = request.getParameter("rut");
         String clave = request.getParameter("clave");
-        String clavecifrada = clave;
+        Cifrado ci = new Cifrado();
+        String clavecifrada = ci.cifrar(clave);    
         if (rut != null && clave != null) {
             int rutint;
             BD bd = new BD();
@@ -60,6 +62,7 @@ public class Login extends HttpServlet {
                 String q = "select * from usuario where rut_user = " +rutint+ " and " + "contrasena = '" +clavecifrada+"'";               
                 ResultSet res = bd.read(q);
                 res.next();  
+                
                 Usuario usu = new Usuario(Integer.parseInt(res.getString("rut_user")), res.getString("dv_user").charAt(0), 
                     res.getString("nombre_user"), res.getString("apellido_user"), 
                     res.getString("email_user"), res.getString("contrasena"), 
