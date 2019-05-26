@@ -14,11 +14,26 @@ body {
   padding-top: 56px;
 }
 
-#formularioregistro
+.formularioregistro
 {
     margin: 0 auto;
     border: 1px solid black;
     padding: 10px;
-    width: 315px;
-    background-color: lemonchiffon;
+    width: 380px;
 }
+
+.list-group-item
+{
+    font-size: small;
+}
+
+.vfcx
+{
+    width: 247px;
+    height: 247px;
+    border: 1px solid black;
+     
+}
+
+
+

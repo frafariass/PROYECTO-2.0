@@ -3,12 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/lordp/Desktop/PROYECTO%202.0/FERME/src/java/Controlador/EspecificacionProducto.java</file>
             <file>file:/C:/Users/lordp/Desktop/PROYECTO%202.0/FERME/src/java/Modelo/ConsolaTest.java</file>
-            <file>file:/C:/Users/lordp/Desktop/PROYECTO%202.0/FERME/web/registro.jsp</file>
-            <file>file:/C:/Users/lordp/Desktop/PROYECTO%202.0/FERME/src/java/Modelo/Cifrado.java</file>
-            <file>file:/C:/Users/lordp/Desktop/PROYECTO%202.0/FERME/src/java/Controlador/Registro.java</file>
-            <file>file:/C:/Users/lordp/Desktop/PROYECTO%202.0/FERME/src/java/Controlador/EditarPerfil.java</file>
-            <file>file:/C:/Users/lordp/Desktop/PROYECTO%202.0/FERME/src/java/Controlador/Login.java</file>
+            <file>file:/C:/Users/lordp/Desktop/PROYECTO%202.0/FERME/src/java/Controlador/CatalogoTipoProd.java</file>
+            <file>file:/C:/Users/lordp/Desktop/PROYECTO%202.0/FERME/src/java/Modelo/Producto.java</file>
+            <file>file:/C:/Users/lordp/Desktop/PROYECTO%202.0/FERME/web/especificacionproducto.jsp</file>
+            <file>file:/C:/Users/lordp/Desktop/PROYECTO%202.0/FERME/web/css/estilosmaster.css</file>
+            <file>file:/C:/Users/lordp/Desktop/PROYECTO%202.0/FERME/web/catalogotipoproducto.jsp</file>
+            <file>file:/C:/Users/lordp/Desktop/PROYECTO%202.0/FERME/src/java/Modelo/BD.java</file>
         </group>
     </open-files>
 </project-private>

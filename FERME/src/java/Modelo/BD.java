@@ -5,11 +5,19 @@
  */
 package Modelo;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Base64;
 
 /**
  *
@@ -48,6 +56,26 @@ public class BD {
         }
         
     }
+    
+    public String insertarImagen(String imagen, String tabla, String columna, int id, String condicion) throws FileNotFoundException //se conecta a la BD con las credenciales que estamos usando 
+    {
+        try{
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection conexion = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","FERRETERIA","123");
+            PreparedStatement pstmt = conexion.prepareStatement("UPDATE " + tabla + " SET " + columna +" = ? WHERE "+ condicion + " = " + id);
+            InputStream in = new FileInputStream(imagen);
+            pstmt.setBlob(1, in);
+            pstmt.execute();
+            conexion.close();
+            return "ok";
+        }catch(ClassNotFoundException | SQLException e)
+        {
+            return "error " + e;
+        }
+        
+    }
+    
+    
     
     /*
     

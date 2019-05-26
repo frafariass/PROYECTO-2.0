@@ -44,16 +44,16 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Inicio
+                    <li class="nav-item active">
+            <a class="nav-link" href="index.jsp">Inicio
               <span class="sr-only">(current)</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Catálogo</a>
+            <a class="nav-link" href="catalogo.jsp">Catálogo</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Carro de compras</a>
+            <a class="nav-link" href="carro.jsp">Carro de compras</a>
           </li>
           <%
               if(usu == null)

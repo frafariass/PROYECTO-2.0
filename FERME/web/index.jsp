@@ -38,15 +38,15 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Inicio
+            <a class="nav-link" href="index.jsp">Inicio
               <span class="sr-only">(current)</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Catálogo</a>
+            <a class="nav-link" href="catalogo.jsp">Catálogo</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Carro de compras</a>
+            <a class="nav-link" href="carro.jsp">Carro de compras</a>
           </li>
           <%
               if(usu == null)
@@ -85,7 +85,7 @@
     <header class="jumbotron my-4">
       <h1 class="display-3">Te damos la bienvenida</h1>
       <p class="lead">La mejor calidad del mercado encuentrala aquí.</p>
-      <a href="#" class="btn btn-primary btn-lg">Ir al catálogo de productos</a>
+      <a href="catalogo.jsp" class="btn btn-primary btn-lg">Ir al catálogo de productos</a>
     </header>
 
     <!-- Page Features -->

@@ -16,12 +16,16 @@ public class Producto {
     public int precio_compra;               
     public int stock;                       
     public int stock_critico;               
-    public String fecha_venc;                  
-    public int familia_id_familia;           
+    public String fecha_venc;                        
     public int tipo_producto_id_tipoprod;   
     public int estado;
+    private String base64Image;
+    private String nombre;
 
-    public Producto(String id_producto, String desc_producto, int precio_unitario, int precio_compra, int stock, int stock_critico, String fecha_venc, int familia_id_familia, int tipo_producto_id_tipoprod, int estado) {
+    public Producto() {
+    }
+
+    public Producto(String id_producto, String desc_producto, int precio_unitario, int precio_compra, int stock, int stock_critico, String fecha_venc, int tipo_producto_id_tipoprod, int estado, String base64Image, String nombre) {
         this.id_producto = id_producto;
         this.desc_producto = desc_producto;
         this.precio_unitario = precio_unitario;
@@ -29,9 +33,10 @@ public class Producto {
         this.stock = stock;
         this.stock_critico = stock_critico;
         this.fecha_venc = fecha_venc;
-        this.familia_id_familia = familia_id_familia;
         this.tipo_producto_id_tipoprod = tipo_producto_id_tipoprod;
         this.estado = estado;
+        this.base64Image = base64Image;
+        this.nombre = nombre;
     }
 
     public String getId_producto() {
@@ -90,14 +95,6 @@ public class Producto {
         this.fecha_venc = fecha_venc;
     }
 
-    public int getFamilia_id_familia() {
-        return familia_id_familia;
-    }
-
-    public void setFamilia_id_familia(int familia_id_familia) {
-        this.familia_id_familia = familia_id_familia;
-    }
-
     public int getTipo_producto_id_tipoprod() {
         return tipo_producto_id_tipoprod;
     }
@@ -113,5 +110,24 @@ public class Producto {
     public void setEstado(int estado) {
         this.estado = estado;
     }
+
+    public String getBase64Image() {
+        return base64Image;
+    }
+
+    public void setBase64Image(String base64Image) {
+        this.base64Image = base64Image;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    
+    
     
 }

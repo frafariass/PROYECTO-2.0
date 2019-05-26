@@ -5,18 +5,20 @@
  */
 package Modelo;
 
+import java.io.FileNotFoundException;
+
 /**
  *
  * @author lordp
  */
 public class ConsolaTest {
     
-    public static void main(String[] args)
+    public static void main(String[] args) throws FileNotFoundException
     {
-        String pw = "rttr";
-        Cifrado ci = new Cifrado();
-        System.out.println(ci.cifrar(pw));
-        /*fbc3506e98f0b0b8cbb9deb935d6aaac000f08614c63d43052dcd2fd196e9fddaec693cd4f5e3addd61c52fa3367a15c88841c434fc39fab465a00dc00b62c7f*/
+        BD bd = new BD();
+       System.out.println(bd.insertarImagen("C:\\Users\\lordp\\Desktop\\PROYECTO 2.0\\images\\tipo_producto\\construccion\\productos\\clavogrande.jpg",
+                "producto", "imagen", 1, "id_producto"));
+       
     }
     
 }
