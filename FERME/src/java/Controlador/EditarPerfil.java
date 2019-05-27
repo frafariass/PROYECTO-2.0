@@ -40,7 +40,16 @@ public class EditarPerfil extends HttpServlet {
             try
             {
                 Usuario usu = (Usuario)request.getSession().getAttribute("usu1"); 
-                if(request.getParameter("clave").equals(usu.getContrasena()) && request.getParameter("nuevaclave").equals(request.getParameter("connuevaclave")))
+                Cifrado ci = new Cifrado();
+                String clavecifrada = ci.cifrar(request.getParameter("clave"));
+                String clavenuevaci = "";
+                String conclavenuevaci = "";
+                if(request.getParameter("nuevaclave") != "" && request.getParameter("connuevaclave") != "")
+                {
+                    clavenuevaci = ci.cifrar(request.getParameter("nuevaclave"));
+                    conclavenuevaci = ci.cifrar(request.getParameter("connuevaclave"));
+                }
+                if(clavecifrada.equals(usu.getContrasena()) && clavenuevaci.equals(conclavenuevaci))
                 {
                     BD bd = new BD();
                     if(request.getParameter("email") != "")
@@ -51,9 +60,9 @@ public class EditarPerfil extends HttpServlet {
                     {
                         usu.setFono_user(request.getParameter("telefono"));
                     }
-                    if(request.getParameter("nuevaclave") != "" && request.getParameter("clave") != "")
+                    if(clavenuevaci != "" && conclavenuevaci != "")
                     {
-                        usu.setContrasena(request.getParameter("connuevaclave"));
+                        usu.setContrasena(clavenuevaci);
                     } 
                     if(request.getParameter("direccion") != "")
                     {
@@ -66,9 +75,7 @@ public class EditarPerfil extends HttpServlet {
                     if(request.getParameter("nombre") != "")
                     {
                         usu.setNombre_user(request.getParameter("nombre"));
-                    }
-                    Cifrado ci = new Cifrado();
-                    String clavecifrada = ci.cifrar(usu.getContrasena());    
+                    }   
                     String q = "update usuario"
                             + " set email_user = '" + usu.getEmail_user() + "', contrasena = '" + clavecifrada
                             + "', fono_user = " + usu.getFono_user() + ", direccion_user = '" + usu.getDireccion_user() 

@@ -1,6 +1,6 @@
 <%-- 
-    Document   : exito
-    Created on : 23-05-2019, 2:07:02
+    Document   : login
+    Created on : 23-05-2019, 0:42:34
     Author     : lordp
 --%>
 
@@ -8,8 +8,14 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import ="java.sql.*" %>
 <%@ page import="Modelo.Usuario"%>
-<% Usuario usu = (Usuario)request.getSession().getAttribute("usu1"); 
-   Perfil perfil = (Perfil)request.getSession().getAttribute("perfil1"); %>
+<% 
+    Usuario usu = (Usuario)request.getSession().getAttribute("usu1"); 
+    Perfil perfil = (Perfil)request.getSession().getAttribute("perfil1");
+   if(request.getSession().getAttribute("usu1") != null)
+   {
+       response.sendRedirect("index.jsp");
+   }
+   %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -37,7 +43,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
+                   <li class="nav-item active">
             <a class="nav-link" href="index.jsp">Inicio
               <span class="sr-only">(current)</span>
             </a>
@@ -81,7 +87,30 @@
   <!-- Page Content -->
   <div class="container">
 
-      <h1>EXITO</h1>
+    <!-- Jumbotron Header -->
+   
+
+    <!-- Page Features -->
+    <div class="row text-center">
+
+      <div id="ingresar">
+            <h5>Ingrese sus datos</h5>
+            <form mode="post" action="Login">
+                <table>
+                    <tr>
+                        <td>Rut:</td><td><input type="text" name="rut"></td>
+                    </tr>
+                    <tr>
+                        <td>Clave:</td><td><input type="password" name="clave" ></td>
+                    </tr>
+                    <tr>
+                        <td><a href="registro.jsp">Registrarse</a>&nbsp;</td><td><input type="submit" value="Ingresar"></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+
+    </div>
     <!-- /.row -->
 
   </div>

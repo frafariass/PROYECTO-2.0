@@ -41,6 +41,7 @@ public class Registro extends HttpServlet {
 
         String rut = request.getParameter("rut");
         rut = rut.replace(".", "");
+        rut = rut.trim();
         String rutsinguion = rut;
         rutsinguion = rutsinguion.replace("-", "");
 
@@ -88,7 +89,7 @@ public class Registro extends HttpServlet {
         int resto = total % 11;
         resto = 11 - resto;
         String digitocalculado = Integer.toString(resto);
-        if (resto == 11) {
+        if (resto == 10) {
             digitocalculado = "k";
         }
         String digitorutingresado = Character.toString(rut.charAt(rut.length()-1));

@@ -1,6 +1,6 @@
 <%-- 
-    Document   : exito
-    Created on : 23-05-2019, 2:07:02
+    Document   : registro
+    Created on : 23-05-2019, 0:42:18
     Author     : lordp
 --%>
 
@@ -8,8 +8,15 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import ="java.sql.*" %>
 <%@ page import="Modelo.Usuario"%>
-<% Usuario usu = (Usuario)request.getSession().getAttribute("usu1"); 
-   Perfil perfil = (Perfil)request.getSession().getAttribute("perfil1"); %>
+<% 
+    Usuario usu = (Usuario)request.getSession().getAttribute("usu1"); 
+    Perfil perfil = (Perfil)request.getSession().getAttribute("perfil1");
+   if(request.getSession().getAttribute("usu1") != null)
+   {
+       response.sendRedirect("index.jsp");
+   }
+   
+   %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -37,7 +44,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
+                    <li class="nav-item active">
             <a class="nav-link" href="index.jsp">Inicio
               <span class="sr-only">(current)</span>
             </a>
@@ -81,7 +88,60 @@
   <!-- Page Content -->
   <div class="container">
 
-      <h1>EXITO</h1>
+
+    <!-- Page Features -->
+    <div class="formularioregistro">
+
+        <div id="registroDiv1">
+            <h5>Registro</h5>
+            <div id="registroDiv">
+                <form method="post" action="Registro">
+                    <table>
+                        <tr>
+                            <td>Rut:</td><td><input type="text" name="rut" required>*</td>
+                        </tr>
+
+                        <tr>
+                            <td>Clave:</td><td><input type="password" name="clave" required>*</td>
+                        </tr>
+
+                        <tr>
+                            <td>Confirmar Clave:</td><td><input type="password" name="conclave" required>*</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>Email:</td><td><input type="email" name="email" required>*</td>
+                        </tr>
+
+                        <tr>
+                            <td>Nombre:</td><td><input type="text" name="nombre" required>*</td>
+                        </tr>
+
+                        <tr>
+                            <td>Apellido:</td><td><input type="text" name="apellido" required></td>
+                        </tr>
+
+
+                        <tr>
+                            <td>Direccion:</td><td><input type="text" name="direccion"></td>
+                        </tr>
+
+                        <tr>
+                            <td>Teléfono de contacto:</td><td><input type="number" name="telefono"></td>
+                        </tr>
+
+                        <tr>
+                            <td><a href="javascript:window.history.back();">&laquo; Volver</a></td><td><input type="submit" value="Enviar" name="submitn"></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+      
+    </div>
+
+
+  </div>
     <!-- /.row -->
 
   </div>

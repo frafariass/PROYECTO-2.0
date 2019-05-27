@@ -1,6 +1,6 @@
 <%-- 
-    Document   : exito
-    Created on : 23-05-2019, 2:07:02
+    Document   : administrar
+    Created on : 23-05-2019, 23:44:40
     Author     : lordp
 --%>
 
@@ -8,8 +8,14 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import ="java.sql.*" %>
 <%@ page import="Modelo.Usuario"%>
-<% Usuario usu = (Usuario)request.getSession().getAttribute("usu1"); 
-   Perfil perfil = (Perfil)request.getSession().getAttribute("perfil1"); %>
+<% 
+    Usuario usu = (Usuario)request.getSession().getAttribute("usu1"); 
+    Perfil perfil = (Perfil)request.getSession().getAttribute("perfil1");
+   if(request.getSession().getAttribute("perfil1") == null)
+   {
+       response.sendRedirect("login.jsp");
+   }
+   %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -38,15 +44,15 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="index.jsp">Inicio
+            <a class="nav-link" href="#">Inicio
               <span class="sr-only">(current)</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="catalogo.jsp">Catálogo</a>
+            <a class="nav-link" href="#">Catálogo</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="carro.jsp">Carro de compras</a>
+            <a class="nav-link" href="#">Carro de compras</a>
           </li>
           <%
               if(usu == null)
@@ -81,7 +87,30 @@
   <!-- Page Content -->
   <div class="container">
 
-      <h1>EXITO</h1>
+    <!-- Jumbotron Header -->
+   
+
+    <!-- Page Features -->
+    <div class="row text-center">
+
+      <div id="ingresar">
+            <h5>Ingrese sus datos</h5>
+            <form mode="post" action="Login">
+                <table>
+                    <tr>
+                        <td>Rut:</td><td><input type="text" name="rut"></td>
+                    </tr>
+                    <tr>
+                        <td>Clave:</td><td><input type="password" name="clave"></td>
+                    </tr>
+                    <tr>
+                        <td><a href="registro.jsp">Registrarse</a>&nbsp;</td><td><input type="submit" value="Ingresar"></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+
+    </div>
     <!-- /.row -->
 
   </div>
