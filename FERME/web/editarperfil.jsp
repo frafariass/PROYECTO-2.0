@@ -91,14 +91,14 @@
    
 
     <!-- Page Features -->
-    <div class="row text-center">
+    <div class="formularioregistro">
 
       <div id="ingresar">
             <h5>Ingrese sus datos, los campos con * son necesarios</h5>
             <form mode="post" action="EditarPerfil">
                 <table>
                     <tr>
-                        <td>Clave:</td><td><input type="password" name="clave" required>*</td>
+                        <td>Clave actual:</td><td><input type="password" name="clave" required>*</td>
                     </tr>
                     <tr>
                         <td>Email:</td><td><input type="email" name="email"></td>

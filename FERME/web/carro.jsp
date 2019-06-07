@@ -80,6 +80,16 @@
 
   <!-- Page Content -->
   <div class="container">
+      <%
+          if(usu == null)
+            {%>
+            <%
+                response.sendRedirect("login.jsp");
+            %>
+          <%}else
+           {
+           out.println("<p hola</p>");
+           }%>
 
     <!-- Jumbotron Header -->
     <header class="jumbotron my-4">

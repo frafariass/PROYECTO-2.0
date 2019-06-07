@@ -175,8 +175,17 @@
                         out.println("<span class='text-warning'>&#9733; &#9733; &#9733; &#9733; &#9734;</span>");
                         out.println("</form>");
                         out.println("4.0 stars");
+                        out.println("<aside>");
+                        out.println("<form method='post' action='AgregarAlCarro'>");
+                        out.println("<div class='quantity'>");
+                        out.println("Cantidad <input type='number' name='cantidad' width='100px'");
+                        out.println("</div>");
+                        out.println("</form>");
+                        out.println("<a href='#' class='btn btn-success'>+</a> Agregar al Carro");
                         out.println("</div>");
                         out.println("</div>");
+                        
+                        
                         
                         
                         /* REVIEWS */

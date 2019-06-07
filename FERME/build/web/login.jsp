@@ -91,7 +91,7 @@
    
 
     <!-- Page Features -->
-    <div class="row text-center">
+    <div class="formularioregistro">
 
       <div id="ingresar">
             <h5>Ingrese sus datos</h5>
