@@ -4,6 +4,7 @@
     Author     : lordp
 --%>
 
+<%@page import="Modelo.BD"%>
 <%@page import="Modelo.Perfil"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import ="java.sql.*" %>
@@ -96,6 +97,17 @@
 
     <!-- Page Features -->
     <div class="container">
+        <%
+            BD bd = new BD();
+            String q_1 = "select ID_ORDEN,FECHA_CREACION,TOTAL_COMPRA from orden_compra oc join perfil_oc poc "
+                    + "on (oc.id_orden=poc.orden_compra_id_orden) "
+                    + "where oc.estado_id_estado=1 and poc.perfil_id_perfil=" + perfil.getId_perf();
+            ResultSet res_1 = bd.read(q_1);
+            String q_2 = "select pro.nombre, pro.precio_compra from oc_prod ocp join producto pro"
+                    + "on (ocp.producto_id_producto=pro.id_producto)"
+                    + "where ocp.orden_compra_id_orden =" + res_1.getInt("ID_ORDEN");
+            ResultSet res_2= bd.read(q_2);
+        %>
         <h1>Tu Carrito de Compra</h1>
         <hr>
         <table class="table table-bordered">
@@ -104,10 +116,15 @@
                 <th>Precio</th>
                 <th>Acciones</th>
             </tr>
+            <%
+                while (res_2.next()){
+             %>
             <tr>
+                <td><%= res_2.getString("pro.nombre")%></td>
+                <td><%= res_2.getInt("pro.precio_compra")%></td>
                 <td></td>
             </tr>
-            
+            <%}%>
         </table>
 
      
