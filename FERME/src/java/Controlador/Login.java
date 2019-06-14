@@ -67,13 +67,13 @@ public class Login extends HttpServlet {
                     res.getString("nombre_user"), res.getString("apellido_user"), 
                     res.getString("email_user"), res.getString("contrasena"), 
                     res.getString("direccion_user"), res.getString("fono_user"), 
-                    Integer.parseInt(res.getString("rubro_id_rubro")), Integer.parseInt(res.getString("estado")));
+                    Integer.parseInt(res.getString("rubro_id_rubro")), Integer.parseInt(res.getString("estado_id_estado")));
                 q = "select * from perfil where usuario_rut_user = " +usu.getRut_user();
                 ResultSet res1   = bd.read(q);
                 res1.next();
                 Perfil perfil = new Perfil(Integer.parseInt(res1.getString("id_perf")), 
                         Integer.parseInt(res1.getString("usuario_rut_user")), Integer.parseInt(res1.getString("rol_id_rol")),
-                                Integer.parseInt(res1.getString("estado")), Integer.parseInt(res1.getString("usuario_rubro_id_rubro")));
+                                Integer.parseInt(res1.getString("usuario_rubro_id_rubro")), Integer.parseInt(res1.getString("estado_id_estado")));
                 request.getSession().setAttribute("usu1", usu);
                 request.getSession().setAttribute("perfil1", perfil);
                 response.sendRedirect("index.jsp");

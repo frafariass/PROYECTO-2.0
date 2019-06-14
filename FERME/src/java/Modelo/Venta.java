@@ -15,14 +15,14 @@ public class Venta {
     public String fecha_boleta;
     public int total_venta;
     public int tipo_venta_id_tipoventa;
-    public int estado;
+    public int estado_id_estado;
 
-    public Venta(int id_boleta, String fecha_boleta, int total_venta, int tipo_venta_id_tipoventa, int estado) {
+    public Venta(int id_boleta, String fecha_boleta, int total_venta, int tipo_venta_id_tipoventa, int estado_id_estado) {
         this.id_boleta = id_boleta;
         this.fecha_boleta = fecha_boleta;
         this.total_venta = total_venta;
         this.tipo_venta_id_tipoventa = tipo_venta_id_tipoventa;
-        this.estado = estado;
+        this.estado_id_estado = estado_id_estado;
     }
 
     public int getId_boleta() {
@@ -57,12 +57,12 @@ public class Venta {
         this.tipo_venta_id_tipoventa = tipo_venta_id_tipoventa;
     }
 
-    public int getEstado() {
-        return estado;
+    public int getEstado_id_estado() {
+        return estado_id_estado;
     }
 
-    public void setEstado(int estado) {
-        this.estado = estado;
+    public void setEstado_id_estado(int estado_id_estado) {
+        this.estado_id_estado = estado_id_estado;
     }
     
     

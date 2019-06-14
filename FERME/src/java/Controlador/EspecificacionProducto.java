@@ -74,7 +74,7 @@ public class EspecificacionProducto extends HttpServlet {
                 prod.setStock_critico(Integer.parseInt(res.getString("stock_critico")));
                 prod.setFecha_venc(res.getString("fecha_venc"));
                 prod.setTipo_producto_id_tipoprod(tipo.getId_tipoprod());
-                prod.setEstado(Integer.parseInt(res.getString("estado")));
+                prod.setEstado_id_estado(Integer.parseInt(res.getString("estado")));
                 prod.setBase64Image(base64Image);
                 prod.setNombre(res.getString("nombre"));
                 request.getSession().setAttribute("prod1", prod);

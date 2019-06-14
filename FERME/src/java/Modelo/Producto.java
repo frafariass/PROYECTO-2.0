@@ -18,14 +18,14 @@ public class Producto {
     public int stock_critico;               
     public String fecha_venc;                        
     public int tipo_producto_id_tipoprod;   
-    public int estado;
+    public int estado_id_estado;
     private String base64Image;
     private String nombre;
 
     public Producto() {
     }
 
-    public Producto(String id_producto, String desc_producto, int precio_unitario, int precio_compra, int stock, int stock_critico, String fecha_venc, int tipo_producto_id_tipoprod, int estado, String base64Image, String nombre) {
+    public Producto(String id_producto, String desc_producto, int precio_unitario, int precio_compra, int stock, int stock_critico, String fecha_venc, int tipo_producto_id_tipoprod, int estado_id_estado, String base64Image, String nombre) {
         this.id_producto = id_producto;
         this.desc_producto = desc_producto;
         this.precio_unitario = precio_unitario;
@@ -34,7 +34,7 @@ public class Producto {
         this.stock_critico = stock_critico;
         this.fecha_venc = fecha_venc;
         this.tipo_producto_id_tipoprod = tipo_producto_id_tipoprod;
-        this.estado = estado;
+        this.estado_id_estado = estado_id_estado;
         this.base64Image = base64Image;
         this.nombre = nombre;
     }
@@ -103,12 +103,12 @@ public class Producto {
         this.tipo_producto_id_tipoprod = tipo_producto_id_tipoprod;
     }
 
-    public int getEstado() {
-        return estado;
+    public int getEstado_id_estado() {
+        return estado_id_estado;
     }
 
-    public void setEstado(int estado) {
-        this.estado = estado;
+    public void setEstado_id_estado(int estado_id_estado) {
+        this.estado_id_estado = estado_id_estado;
     }
 
     public String getBase64Image() {
