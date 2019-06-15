@@ -1,30 +1,17 @@
 <%-- 
-    Document   : exito
-    Created on : 23-05-2019, 2:07:02
+    Document   : ocgenerar
+    Created on : 15-06-2019, 5:04:25
     Author     : lordp
 --%>
 
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
-
-
 <%@ include file="master.jsp" %>
 <!DOCTYPE html>
 <html>
     
-
-  <!-- Page Content -->
-  <div class="container">
-
-      <h1>EXITO</h1>
-    <!-- /.row -->
-
-  </div>
-  <!-- /.container -->
-
-  <!-- Footer -->
-  <footer class="py-5 bg-dark">
+    <body>
+        <h1>Hello World!</h1>
+        <footer class="py-5 bg-dark">
     <div class="container">
       <p class="m-0 text-center text-white">Copyright &copy; Ferretería Ferme 2019</p>
     </div>

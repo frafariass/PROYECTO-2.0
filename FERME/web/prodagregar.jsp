@@ -1,54 +1,51 @@
 <%-- 
-    Document   : registro
-    Created on : 23-05-2019, 0:42:18
+    Document   : prodagregar
+    Created on : 15-06-2019, 5:03:42
     Author     : lordp
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ include file="master.jsp" %>
-
-<% 
-    
-   if(request.getSession().getAttribute("usu1") != null)
-   {
-       response.sendRedirect("index.jsp");
-   }
-   
-   %>
 <!DOCTYPE html>
 <html>
+    <script>
+        function agregarprod()
+        {
+            <%
+               BD bd = new BD();
+               String q = "inset into producto values ()";
+            %>
+        }
+    </script>
     
-
-  <!-- Page Content -->
-  <div class="container">
-
-
+    <body>
+    <div class="container">
     <!-- Page Features -->
-    <div class="formularioregistro">
+    <div class="formularioagregarprod">
 
         <div id="registroDiv1">
-            <h5>Registro</h5>
+            <h5>Agregar producto</h5>
             <div id="registroDiv">
-                <form method="post" action="Registro">
+                <form method="post" action="AgregarProd">
                     <table>
                         <tr>
-                            <td>Rut:</td><td><input type="text" name="rut" required>*</td>
+                            <td>Nombre:</td><td><input type="text" name="nombre" required>*</td>
                         </tr>
 
                         <tr>
-                            <td>Clave:</td><td><input type="password" name="clave" required>*</td>
+                            <td>Descripción:</td><td><input type="password" name="descripcion" required>*</td>
                         </tr>
 
                         <tr>
-                            <td>Confirmar Clave:</td><td><input type="password" name="conclave" required>*</td>
+                            <td>Precio unitario:</td><td><input type="number" name="preciou" required>*</td>
                         </tr>
                         
                         <tr>
-                            <td>Email:</td><td><input type="email" name="email" required>*</td>
+                            <td>Stock:</td><td><input type="number" name="stock" required>*</td>
                         </tr>
 
                         <tr>
-                            <td>Nombre:</td><td><input type="text" name="nombre" required>*</td>
+                            <td>Imagen:</td><td><input type="file" name="imagen" required>*</td>
                         </tr>
 
                         <tr>
@@ -76,11 +73,8 @@
 
 
   </div>
-    <!-- /.row -->
-  <!-- /.container -->
-
-  <!-- Footer -->
-  <footer class="py-5 bg-dark">
+        
+        <footer class="py-5 bg-dark">
     <div class="container">
       <p class="m-0 text-center text-white">Copyright &copy; Ferretería Ferme 2019</p>
     </div>

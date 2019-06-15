@@ -45,8 +45,9 @@ public class CatalogoFamilia extends HttpServlet {
             {
                 BD bd = new BD();
                 int idint = Integer.parseInt(String.valueOf(request.getParameter("dato").charAt(0)));
-                String id = String.valueOf(request.getParameter("dato").charAt(0));
-                String nombre = request.getParameter("dato").substring(2, request.getParameter("dato").length());
+                String asd = request.getParameter("dato");
+                String id = String.valueOf(asd.charAt(0));
+                String nombre = asd.substring(2, asd.length());
                 nombre = nombre.trim();
                 Familia fa = new Familia(Integer.parseInt(id), nombre);
                 request.getSession().setAttribute("fa1", fa);
