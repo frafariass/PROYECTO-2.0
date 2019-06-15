@@ -57,7 +57,7 @@
             <a class="nav-link" href="catalogo.jsp">Catálogo</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="carro.jsp">Carro de compras</a>
+            <a class="nav-link" href="carro.jsp">🛒 (0)</a>
           </li>
           <%
               if(usu == null)

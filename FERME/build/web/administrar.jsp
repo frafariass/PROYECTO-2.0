@@ -52,7 +52,7 @@
             <a class="nav-link" href="#">Catálogo</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Carro de compras</a>
+            <a class="nav-link" href="carro.jsp">🛒 (0)</a>
           </li>
           <%
               if(usu == null)
