@@ -16,7 +16,7 @@
     
 
   <!-- Page Content -->
-  <div class="container">
+
 
     
     <!-- Page Features -->
@@ -40,40 +40,13 @@
                 
             %>
         </div>
-      </div>
-      <!-- /.col-lg-3 -->
-     <div class="col-lg-9">
-
-        <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
-          <ol class="carousel-indicators">
-            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-          </ol>
-          <div class="carousel-inner" role="listbox">
-            <div class="carousel-item active">
-              <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="First slide">
-            </div>
-            <div class="carousel-item">
-              <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Second slide">
-            </div>
-            <div class="carousel-item">
-              <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Third slide">
-            </div>
-          </div>
-          <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-          </a>
-          <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-          </a>
         </div>
+      <!-- /.col-lg-3 -->
+     
 
-        <div class="row">
 
-            
+
+
         <%
             String n = "select * from PRODUCTO where tipo_producto_id_tipoprod = " + prod.getTipo_producto_id_tipoprod();
             ResultSet res1 = bd.read(n);
@@ -115,36 +88,39 @@
                         out.println("<a href='#' class='btn btn-success'>+</a> Agregar al Carro");
                         out.println("</div>");
                         out.println("</div>");
-                        
-                        
-                        
-                        
-                        /* REVIEWS */
-                        out.println("<div class='card card-outline-secondary my-4'>");
-                        out.println("<div class='card-header'>Product Reviews</div>");
-                        out.println("<div class='card-body'>");
-                        out.println("<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>");
-                        out.println("<small class='text-muted'>Posted by Anonymous on 3/1/17</small>");
-                        out.println("<hr>");
-                        out.println("<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>");
-                        out.println("<small class='text-muted'>Posted by Anonymous on 3/1/17</small>");
-                        out.println("<hr>");
-                        out.println("<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>");
-                        out.println("<small class='text-muted'>Posted by Anonymous on 3/1/17</small>");
-                        out.println("<hr>");
-                        out.println("<a href='#' class='btn btn-success'>Leave a Review</a>");
-                        out.println("</div>");
                         out.println("</div>");
                         
                         
-                    } while (res1.next());
+                        
+                        
+                        
+                        /* REVIEWS */ %>
+                        <div class="card card-outline-secondary my-4">
+                        <div class="card-header">
+                          Product Reviews
+                        </div>
+                        <div class="card-body">
+                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
+                          <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+                          <hr>
+                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
+                          <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+                          <hr>
+                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
+                          <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+                          <hr>
+                          <a href="#" class="btn btn-success">Leave a Review</a>
+                        </div>
+                      </div>
+                        
+                   <% out.println("</div>"); } while (res1.next());
             }else{
                 out.println("<p>No hay productos en esta categoria</p>");
             }
             
         %>    
         
-        </div>
+
         <!-- /.row -->
 
       </div>
@@ -153,16 +129,18 @@
     </div>
     <!-- /.row -->
 
-  </div>
-  <!-- /.container -->
+
 
 
   <!-- Footer -->
-  <footer class="py-5 bg-dark">
+
+ <footer class="py-5 bg-dark">
     <div class="container">
       <p class="m-0 text-center text-white">Copyright &copy; Ferretería Ferme 2019</p>
     </div>
     <!-- /.container -->
   </footer>
+
+  
     </body>
 </html>
