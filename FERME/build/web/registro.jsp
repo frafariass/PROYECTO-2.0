@@ -31,6 +31,12 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="css/estilosmaster.css">
+                  <!-- Custom fonts for this template-->
+        <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+        <!-- Custom styles for this template-->
+        <link href="css/sb-admin-2.min.css" rel="stylesheet">
         <title>Ferretería FERME</title>
     </head>
     
@@ -44,7 +50,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
+                    <li class="nav-item">
             <a class="nav-link" href="index.jsp">Inicio
               <span class="sr-only">(current)</span>
             </a>
@@ -93,48 +99,51 @@
     <div class="formularioregistro">
 
         <div id="registroDiv1">
-            <h5>Registro</h5>
-            <div id="registroDiv">
-                <form method="post" action="Registro">
-                    <table>
-                        <tr>
-                            <td>Rut:</td><td><input type="text" name="rut" required>*</td>
-                        </tr>
-
-                        <tr>
-                            <td>Clave:</td><td><input type="password" name="clave" required>*</td>
-                        </tr>
-
-                        <tr>
-                            <td>Confirmar Clave:</td><td><input type="password" name="conclave" required>*</td>
-                        </tr>
-                        
-                        <tr>
-                            <td>Email:</td><td><input type="email" name="email" required>*</td>
-                        </tr>
-
-                        <tr>
-                            <td>Nombre:</td><td><input type="text" name="nombre" required>*</td>
-                        </tr>
-
-                        <tr>
-                            <td>Apellido:</td><td><input type="text" name="apellido" required></td>
-                        </tr>
-
-
-                        <tr>
-                            <td>Direccion:</td><td><input type="text" name="direccion"></td>
-                        </tr>
-
-                        <tr>
-                            <td>Teléfono de contacto:</td><td><input type="number" name="telefono"></td>
-                        </tr>
-
-                        <tr>
-                            <td><a href="javascript:window.history.back();">&laquo; Volver</a></td><td><input type="submit" value="Enviar" name="submitn"></td>
-                        </tr>
-                    </table>
-                </form>
+            <div class="center-block">
+                <div class="p-5">
+                  <div class="text-center">
+                    <h1 class="h4 text-gray-900 mb-4">Registro!</h1>
+                    <h6><small>los campos con asterisco son <mark>obligatorios</mark></small></h6>
+                  </div>
+                  <form method="post" action="Registro">
+                    <div class="form-group">
+                      <input type="text" class="form-control form-control-user" id="exampleInputEmail" name="rut" placeholder="Rut *">
+                    </div>
+                      
+                    <div class="form-group">
+                    <input type="password" class="form-control form-control-user" id="exampleInputPassword" name="clave" placeholder="Clave *">
+                    </div>
+                      
+                    <div class="form-group">
+                    <input type="password" class="form-control form-control-user" id="exampleInputPassword" required name="conclave" placeholder="Confirmar Clave *">
+                    </div>
+                      
+                    <div class="form-group">
+                    <input type="email" class="form-control form-control-user" id="exampleInputPassword" required name="email" placeholder="E-Mail *">
+                    </div>
+                      
+                    <div class="form-group">
+                    <input type="text" class="form-control form-control-user" id="exampleInputPassword" required name="nombre" placeholder="Nombre *">
+                    </div>
+                      
+                    <div class="form-group">
+                    <input type="text" class="form-control form-control-user" id="exampleInputPassword" required name="apellido" placeholder="Apellido *">
+                    </div>
+                      
+                    <div class="form-group">
+                    <input type="text" class="form-control form-control-user" id="exampleInputPassword" name="direccion" placeholder="Dirección">
+                    </div>
+                      
+                    <div class="form-group">
+                    <input type="number" class="form-control form-control-user" id="exampleInputPassword" name="telefono" placeholder="Numero de Contacto">
+                    </div>
+                    <input type="submit" value="Enviar" name="submitn" class="btn btn-warning btn-user btn-block">
+                    <hr>
+                  </form>
+                  <div class="text-center">
+                    <a class="small" href="javascript:window.history.back();">&laquo; Volver</a>
+                  </div>
+                </div>
             </div>
         </div>
       

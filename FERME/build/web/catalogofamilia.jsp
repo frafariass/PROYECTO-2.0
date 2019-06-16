@@ -34,7 +34,12 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="css/estilosmaster.css">
-        
+                  <!-- Custom fonts for this template-->
+        <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+        <!-- Custom styles for this template-->
+        <link href="css/sb-admin-2.min.css" rel="stylesheet">
         <title>Ferretería FERME</title>
     </head>
     
@@ -48,7 +53,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
+          <li class="nav-item">
             <a class="nav-link" href="index.jsp">Inicio
               <span class="sr-only">(current)</span>
             </a>
@@ -100,7 +105,7 @@
 
       <div class="col-lg-3">
         <h1 class="my-4">Categorías</h1>
-        <div class="list-group">
+        <div class="list-group list-group-flush">
             <%
                 BD bd = new BD();
                 String q = "select * from familia";
@@ -108,7 +113,7 @@
                 res.next();
                 do {
                         out.println("<form method='post' action='CatalogoFamilia'>");
-                        out.println("<input class='list-group-item' type='submit' name = 'dato'"+ "value = '"+ res.getString("id_familia") + ": " + res.getString("NOMBRE_FAMILIA")+"'>");
+                        out.println("<input class='list-group-item list-group-item-action' type='submit' name = 'dato'"+ "value = '"+ res.getString("id_familia") + ": " + res.getString("NOMBRE_FAMILIA")+"'>");
                         out.println("</form>");
                     } while (res.next());
                 
@@ -126,13 +131,13 @@
           </ol>
           <div class="carousel-inner" role="listbox">
             <div class="carousel-item active">
-              <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="First slide">
+              <img class="d-block img-fluid" src="http://cesursa.com/wp-content/uploads/2015/08/Slide-Cesursa-02-03.png?291d7b&291d7b" alt="First slide">
             </div>
             <div class="carousel-item">
-              <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Second slide">
+              <img class="d-block img-fluid" src="http://www.ferreterianicholson.com/images/com_hikashop/upload/taladros-desarmadores-a-batera-para-tareas-bsicas-ferreteria-nicholson-01a_0001_1024px-bosch-brand_svg-copia-2.png" alt="Second slide">
             </div>
             <div class="carousel-item">
-              <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Third slide">
+              <img class="d-block img-fluid" src="http://cesursa.com/wp-content/uploads/2015/08/Slide-Cesursa-01-1.png?291d7b&291d7b" alt="Third slide">
             </div>
           </div>
           <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
