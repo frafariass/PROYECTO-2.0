@@ -45,69 +45,22 @@ public class Registro extends HttpServlet {
         String rutsinguion = rut;
         rutsinguion = rutsinguion.replace("-", "");
 
-        int indicefor = 0;
-        if (rutsinguion.length() == 8) {
-            indicefor = 1;
-        }
-    
-        int total = 0;
-            for (int i = 7; i >= indicefor; i--) {
-                int valor = rut.charAt(i) - '0';
-                if (rutsinguion.length() == 8) {
-                    valor = (rut.charAt(i-1)) - '0';
-                }
-                switch(i){
-                    case 0:
-                        total += valor * 3;
-                        break;
-                    case 1: 
-                        total += valor * 2;
-                        break;
-                    case 2: 
-                        total += valor * 7;
-                        break;
-                    case 3: 
-                        total += valor * 6;
-                        break;
-                    case 4: 
-                        total += valor * 5;
-                        break;
-                    case 5: 
-                        total += valor * 4;
-                        break;
-                    case 6: 
-                        total += valor * 3;
-                        break;
-                    case 7: 
-                        total += valor * 2;
-                        break;
-                    default:
-                        break;
-                }
-            }
-            
-        int resto = total % 11;
-        resto = 11 - resto;
-        String digitocalculado = Integer.toString(resto);
-        if (resto == 10) {
-            digitocalculado = "k";
-        }
+        
         String digitorutingresado = Character.toString(rut.charAt(rut.length()-1));
         
-        if (digitocalculado.equals(digitorutingresado) && request.getParameter("telefono").length() >= 9) {
-            String clave = request.getParameter("clave");
-            String conclave = request.getParameter("conclave");
-            if (clave.equals(conclave)) {
                 try {
                     
                     char digitochar = digitorutingresado.charAt(0);
-                    Cifrado ci = new Cifrado();
-                    String clavecifrada = ci.cifrar(clave);                                                                                   
+                    String clave = request.getParameter("clavesecreta");                                                                                 
                     String nombre = request.getParameter("nombre");
                     String email = request.getParameter("email");
                     String apellido = request.getParameter("apellido");
                     String direccion = request.getParameter("direccion");
                     String telefono = request.getParameter("telefono");
+                    if(telefono.length() == 0)
+                    {
+                        telefono = "0";
+                    }
                     int rutint;
                     if(rutsinguion.length() >= 9)
                     {
@@ -123,7 +76,7 @@ public class Registro extends HttpServlet {
                     
                     String q = "insert into usuario "
                                       + "values ('"+rutint+"', '"+digitochar+"', "
-                                       + "'"+nombre+"', '"+apellido+"', '"+email+"', '"+clavecifrada+"', '"+direccion+"', "+telefono+", "+1+", "+1+")";
+                                       + "'"+nombre+"', '"+apellido+"', '"+email+"', '"+clave+"', '"+direccion+"', "+telefono+", "+1+", "+1+")";
                     bd.update(q);
                     q  = "select id_perf from perfil";
                     ResultSet res = bd.read(q);
@@ -137,13 +90,8 @@ public class Registro extends HttpServlet {
                 }catch (Exception e) { 
                     response.sendRedirect("error.jsp");
                 }
-            }else{
-                response.sendRedirect("error.jsp");
-            }
-        }else
-        {
-            request.getRequestDispatcher("error.jsp").forward(request, response);
-        }
+
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

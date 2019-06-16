@@ -34,6 +34,8 @@
         <link rel="stylesheet" href="css/estilosmaster.css">
         <title>Ferretería FERME</title>
         <script src="js/contador.js"></script>
+        <script src="js/sha1.js"></script>
+        <script src="js/cifrado.js"></script>
     </head>
     
     <body onload="inicio()">
