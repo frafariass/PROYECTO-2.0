@@ -10,6 +10,7 @@ import Modelo.Cifrado;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -95,7 +96,7 @@ public class Registro extends HttpServlet {
                         + "values ("+b+", "+rutint+", "+4+", "+1+", " +1+ ")";
                     bd.update(q);
                     response.sendRedirect("exito.jsp");
-                }catch (Exception e) { 
+                }catch (IOException | NumberFormatException | SQLException e) { 
                     response.sendRedirect("error.jsp");
                 }
 
