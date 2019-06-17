@@ -81,12 +81,8 @@
 
   <!-- Page Content -->
   <div class="container">
-      <!--Validación de si esta logueado, en caso contrario redirige a login -->
-      <%
-          if(usu == null)
-            
-                response.sendRedirect("login.jsp");
-            %>
+      <!--Validación de si esta logueado, en caso contrario redirige a login 
+      
 
     <!-- Jumbotron Header -->
     <header class="jumbotron my-4">
@@ -101,16 +97,22 @@
             BD bd = new BD();
             String q_1 = "select ID_ORDEN,FECHA_CREACION,TOTAL_COMPRA from orden_compra oc join perfil_oc poc "
                     + "on (oc.id_orden=poc.orden_compra_id_orden) "
-                    + "where oc.estado_id_estado=1 and poc.perfil_id_perfil=" + perfil.getId_perf();
+                    + "where oc.estado_id_estado=1 and poc.perfil_id_perf=" + perfil.getId_perf();
             ResultSet res_1 = bd.read(q_1);
-            String q_2 = "select pro.nombre, pro.precio_compra from oc_prod ocp join producto pro"
-                    + "on (ocp.producto_id_producto=pro.id_producto)"
-                    + "where ocp.orden_compra_id_orden =" + res_1.getInt("ID_ORDEN");
+            String q_2 = "select pro.nombre, pro.precio_compra from oc_prod ocp join producto pro "
+                    + "on (ocp.producto_id_producto=pro.id_producto) "
+                    + "where ocp.orden_compra_id_orden in (select ID_ORDEN from orden_compra oc join perfil_oc poc "
+                    + "on (oc.id_orden=poc.orden_compra_id_orden) " 
+                    + "where oc.estado_id_estado=1 and poc.perfil_id_perf=" + perfil.getId_perf();
             ResultSet res_2= bd.read(q_2);
         %>
         <h1>Tu Carrito de Compra</h1>
         <hr>
         <table class="table table-bordered">
+            <%
+            if(res_2.next())
+            {
+           
             <tr>
                 <th>Nombre Producto</th>
                 <th>Precio</th>
@@ -120,10 +122,11 @@
                 while (res_2.next()){
              %>
             <tr>
-                <td><%= res_2.getString("pro.nombre")%></td>
-                <td><%= res_2.getInt("pro.precio_compra")%></td>
+                <td><%= res_2.getString("nombre")%></td>
+                <td><%= res_2.getInt("precio_compra")%></td>
                 <td></td>
             </tr>
+            <%}%>
             <%}%>
         </table>
 
