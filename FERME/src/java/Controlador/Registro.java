@@ -61,6 +61,14 @@ public class Registro extends HttpServlet {
                     {
                         telefono = "0";
                     }
+                    if(direccion.length() == 0)
+                    {
+                        direccion = "NO INGRESADO";
+                    }
+                    if(apellido.length() == 0)
+                    {
+                        direccion = "NO INGRESADO";
+                    }
                     int rutint;
                     if(rutsinguion.length() >= 9)
                     {

@@ -27,11 +27,11 @@
             var telefono = document.getElementById("telefono").value;
             if(telefono.length !== 9 && telefono.length !== 0)
             {
-                document.getElementById("ptelefono").innerHTML = "<font color='red'>* El teléfono debe tener 9 números</font>";
+                document.getElementById("ptelefono").innerHTML = "* El teléfono debe tener 9 números";
                 valido = false;
             }else
             {
-                document.getElementById("ptelefono").innerHTML = "<font color='red'>* </font>";
+                document.getElementById("ptelefono").innerHTML = "";
             }
             //fin validacion telefono
             
@@ -96,7 +96,7 @@
             
             if(digitocalculado !== digitorutingresado)
             {
-                document.getElementById("prut").innerHTML = "<font color='red'>* El rut no es válido</font>";
+                document.getElementById("prut").innerHTML = "* El rut no es válido";
                 valido = false;
             }else
             {
@@ -118,20 +118,20 @@
             var email = document.getElementById("email").value;
             if(!email.includes("@"))
             {
-                document.getElementById("pemail").innerHTML = "<font color='red'>* El email no es válido</font>";
+                document.getElementById("pemail").innerHTML = "* El email no es válido";
                 valido = false;
             }else
             {
-                document.getElementById("pemail").innerHTML = "<font color='red'>* </font>";
+                document.getElementById("pemail").innerHTML = "* ";
             }
             var nombre = document.getElementById("nombre").value;
             if(nombre.length <= 1)
             {
-                document.getElementById("pnombre").innerHTML = "<font color='red'>* El nombre no es válido</font>";
+                document.getElementById("pnombre").innerHTML = "* El nombre no es válido";
                 valido = false;
             }else
             {
-                document.getElementById("pnombre").innerHTML = "<font color='red'>* </font>";
+                document.getElementById("pnombre").innerHTML = "* ";
             }
 
             
@@ -141,34 +141,26 @@
         //cifrado clave, siempre hacer el cifrado ANTES de enviarlo al servidor
         //esto es para mas seguridad
         //la comparacion se ejecuta cada 1 segundo, avisando si no coinciden
-        window.setInterval(comparacion, 1000);
+        
         function comparacion()
         {
-            var clavecifrada = document.getElementById("clavesecreta").value;
-            var conclavecifrada = document.getElementById("conclavesecreta").value;
-            if(clavecifrada !== conclavecifrada)
+            var clave = document.getElementById("clave").value;
+            var conclave = document.getElementById("conclave").value;
+            if(clave !== conclave)
             {
-                document.getElementById("pconclave").innerHTML = "<font color='red'>* Las contraseñas no coinciden</font>";
+                document.getElementById("pconclave").innerHTML = "* Las contraseñas no coinciden";
+                return false;
             }else
             {
-                document.getElementById("pconclave").innerHTML = "<font color='red'>* </font>";
+                cifrado();
+                document.getElementById("pconclave").innerHTML = "* ";
+                return true;
             }
         }
         
         //CIFRADO DE CLAVES, SE CIFRA CADA VEZ QUE EL USUARIO APRIETA UNA TECLA
         //esto es para que la contraseña se compare y valide
-        window.onload = (function()
-        {
-            var timer = null;
-            $('#conclave').keydown(function(){
-                   clearTimeout(timer); 
-                   timer = setTimeout(cifrado, 5)
-            });
-            $('#clave').keydown(function(){
-                   clearTimeout(timer); 
-                   timer = setTimeout(cifrado, 5)
-            });
-        });
+        
         function cifrado() {
             
             var clavecifrada = new PBKDF2(document.getElementById("clave").value, 1234, 1000, 32);
@@ -184,6 +176,46 @@
             conclavecifrada.deriveKey(status_callback1, result_callback1);
             
         }
+        
+        
+        //VALIDA QUE LOS CAMPOS NECESARIOS ESTEN LLENOS
+        //SI NO ESTAN LLENOS, EL SUBMIT SE DESHABILITA
+        //ESTO TAMBIEN COMPARA LAS PASSWORD Y LAS ENCRIPTA CUANDO SON IGUALES
+        $(window).on('load', function() {
+            jQuery("#submitn").prop('disabled', true);
+
+            var toValidate = jQuery('#rut, #clave, #conclave, #email, #nombre, #apellido'),
+                valid = false;
+            toValidate.keyup(function () {
+                if (jQuery(this).val().length > 0) {
+                    jQuery(this).data('valid', true);
+                } else {
+                    jQuery(this).data('valid', false);
+                }
+                toValidate.each(function () {
+                    if (jQuery(this).data('valid') == true) {
+                        valid = true;
+                        if(comparacion())
+                        {
+                            return true;
+                        }else
+                        {
+                            valid = false;
+                            return false;
+                        }
+                    } else {
+                        valid = false;
+                        return false;
+                    }
+                });
+                if (valid === true) {
+                    jQuery("#submitn").prop('disabled', false);
+                } else {
+                    jQuery("#submitn").prop('disabled', true);
+                }
+            });
+        });
+            
         
         
     </script>
@@ -204,7 +236,7 @@
                 <form method="post" action="Registro" onsubmit="return validar()">
                     <table>
                         <tr>
-                            <td>Rut:</td><td><input type="text" name="rut" id="rut" ><label id="prut" name="prut"><font color="red">* </font> </label></td>
+                            <td>Rut:</td><td><input type="text" name="rut" id="rut" ><label ><font color="red" id="prut" name="prut">* </font> </label></td>
                         </tr>
 
                         <tr>
@@ -212,30 +244,30 @@
                         </tr>
 
                         <tr>
-                            <td>Confirmar Clave:</td><td><input type="password" name="conclave" id="conclave" ><label id="pconclave" name="pconclave"><font color="red">* </font></label> <input type="hidden" id="conclavesecreta" name="conclavesecreta"></td>
+                            <td>Confirmar Clave:</td><td><input type="password" name="conclave" id="conclave" ><label ><font color="red" id="pconclave" name="pconclave">* </font></label> <input type="hidden" id="conclavesecreta" name="conclavesecreta"></td>
                         </tr>
                         
                         <tr>
-                            <td>Email:</td><td><input type="text" name="email" id="email" ><label id="pemail" name="pemail"><font color="red">* </font> </label></td>
+                            <td>Email:</td><td><input type="text" name="email" id="email" ><label><font id="pemail" name="pemail" color="red">* </font> </label></td>
                         </tr>
 
                         <tr>
-                            <td>Nombre:</td><td><input type="text" name="nombre" id="nombre" ><label id="pnombre" name="pnombre"><font color="red">* </font> </label></td>
+                            <td>Nombre:</td><td><input type="text" name="nombre" id="nombre" ><label ><font color="red" id="pnombre" name="pnombre">* </font> </label></td>
                         </tr>
 
                         <tr>
-                            <td>Apellido:</td><td><input type="text" name="apellido" id="apellido" ><label id="papellido" name="papellido"></label></td>
+                            <td>Apellido:</td><td><input type="text" name="apellido" id="apellido"><label ><font id="papellido" name="papellido" color="red"></font></label></td>
                         </tr>
                         <tr>
                             <td>Direccion:</td><td><input type="text" name="direccion" id="direccion"></td>
                         </tr>
 
                         <tr>
-                            <td>Teléfono de contacto:</td><td><input type="number" name="telefono" id="telefono"><label id="ptelefono" name="ptelefono"><font color="red"> </font></label></td>
+                            <td>Teléfono de contacto:</td><td><input type="number" name="telefono" id="telefono"><label ><font color="red" id="ptelefono" name="ptelefono"> </font></label></td>
                         </tr>
 
                         <tr>
-                            <td><a href="javascript:window.history.back();">&laquo; Volver</a></td><td><input type="submit" value="Enviar" name="submitn"></td>
+                            <td><a href="javascript:window.history.back();">&laquo; Volver</a></td><td><input type="submit" value="Enviar" name="submitn" id="submitn"></td>
                         </tr>
                     </table>
                 </form>
