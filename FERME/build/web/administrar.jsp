@@ -4,86 +4,10 @@
     Author     : lordp
 --%>
 
-<%@page import="Modelo.Perfil"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ page import ="java.sql.*" %>
-<%@ page import="Modelo.Usuario"%>
-<% 
-    Usuario usu = (Usuario)request.getSession().getAttribute("usu1"); 
-    Perfil perfil = (Perfil)request.getSession().getAttribute("perfil1");
-   if(request.getSession().getAttribute("perfil1") == null)
-   {
-       response.sendRedirect("login.jsp");
-   }
-   %>
+<%@ include file="master.jsp" %>
 <!DOCTYPE html>
 <html>
-    <head>
-        
-        <!-- 
-        Todo esto debe estar en cada JSP (html) en el head, son referencias a bootstrap, jquery y popper
-        -->
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="css/estilosmaster.css">
-        <title>Ferretería FERME</title>
-    </head>
-    
-    <body>
-        <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <div class="container">
-      <a class="navbar-brand" href="#">Ferme</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Inicio
-              <span class="sr-only">(current)</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Catálogo</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="carro.jsp">🛒 (0)</a>
-          </li>
-          <%
-              if(usu == null)
-                    {%>
-                        <li class="nav-item">
-                            <a class="nav-link" href="registro.jsp">Registro</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="login.jsp">Inicio de sesión</a>
-                        </li>
-                    <%}else
-                      {
-                        if(perfil.getRol_id_rol() == 1 || perfil.getRol_id_rol() == 2 || perfil.getRol_id_rol() == 3)
-                        {%>
-                            <li class="nav-item">
-                                <a class="nav-link" href="administrar.jsp">Administrar</a>
-                            </li>
-                        <%}%>
-                        <li class="nav-item">
-                            <a class="nav-link" href="editarperfil.jsp">Editar perfil</a>
-                        </li>
-                        
-                        <li class="nav-item">
-                            <a class="nav-link" href="CerrarSesion">Cerrar Sesión</a>
-                        </li>
-                      <%}%>
-        </ul>
-      </div>
-    </div>
-  </nav>
-
   <!-- Page Content -->
   <div class="container">
 
@@ -93,22 +17,67 @@
     <!-- Page Features -->
     <div class="row text-center">
 
-      <div id="ingresar">
-            <h5>Ingrese sus datos</h5>
-            <form mode="post" action="Login">
-                <table>
-                    <tr>
-                        <td>Rut:</td><td><input type="text" name="rut"></td>
-                    </tr>
-                    <tr>
-                        <td>Clave:</td><td><input type="password" name="clave"></td>
-                    </tr>
-                    <tr>
-                        <td><a href="registro.jsp">Registrarse</a>&nbsp;</td><td><input type="submit" value="Ingresar"></td>
-                    </tr>
-                </table>
-            </form>
+        <div class="container-fluid">
+    <div class="row">
+        <div class="col-2 collapse d-md-flex bg-light pt-2 min-vh-100" id="sidebar">
+            <ul class="nav flex-column flex-nowrap">
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#submenu1" data-toggle="collapse" data-target="#submenu1">Administrar productos</a>
+                    <div class="collapse" id="submenu1" aria-expanded="false">
+                        <ul class="flex-column pl-2 nav">
+                            <li class="nav-item"><a class="nav-link py-0" href="prodanular.jsp">Anular producto</a></li>
+                            <li class="nav-item"><a class="nav-link py-0" href="prodbuscar.jsp">Buscar producto</a></li>
+                            <li class="nav-item"><a class="nav-link py-0" href="prodagregar.jsp">Agregar producto</a></li>
+                            <li class="nav-item"><a class="nav-link py-0" href="prodmodificar.jsp">Modificar producto</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#submenu1" data-toggle="collapse" data-target="#submenu2">Administrar orden de compra</a>
+                    <div class="collapse" id="submenu2" aria-expanded="false">
+                        <ul class="flex-column pl-2 nav">
+                            <li class="nav-item"><a class="nav-link py-0" href="ocanular.jsp">Anular OC</a></li>
+                            <li class="nav-item"><a class="nav-link py-0" href="ocbuscar.jsp">Buscar OC</a></li>
+                            <li class="nav-item"><a class="nav-link py-0" href="ocgenerar.jsp">Generar OC</a></li>
+                            <li class="nav-item"><a class="nav-link py-0" href="ocmodificar.jsp">Modificar OC</a></li>
+                            <li class="nav-item"><a class="nav-link py-0" href="ocrecepcionar.jsp">Recepcionar OC</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#submenu1" data-toggle="collapse" data-target="#submenu3">Administrar ventas</a>
+                    <div class="collapse" id="submenu3" aria-expanded="false">
+                        <ul class="flex-column pl-2 nav">
+                            <li class="nav-item"><a class="nav-link py-0" href="venanular.jsp">Anular venta</a></li>
+                            <li class="nav-item"><a class="nav-link py-0" href="venbuscar.jsp">Buscar venta</a></li>
+                            <li class="nav-item"><a class="nav-link py-0" href="venmodificar.jsp">Modificar venta</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <% if(perfil.rol_id_rol == 1)
+                {%>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="#submenu1" data-toggle="collapse" data-target="#submenu4">Administrar usuarios</a>
+                        <div class="collapse" id="submenu4" aria-expanded="false">
+                            <ul class="flex-column pl-2 nav">
+                                <li class="nav-item"><a class="nav-link py-0" href="usuanular.jsp">Anular usuario</a></li>
+                                <li class="nav-item"><a class="nav-link py-0" href="usubuscar.jsp">Buscar usuario</a></li>
+                                <li class="nav-item"><a class="nav-link py-0" href="usucrear.jsp">Crear usuario</a></li>
+                                <li class="nav-item"><a class="nav-link py-0" href="usumodificar.jsp">Modificar usuario</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                <%}%>
+            </ul>
         </div>
+        <div class="col pt-2">
+            <h2>
+                <a href="" data-target="#sidebar" data-toggle="collapse" class="d-md-none"><i class="fa fa-bars"></i></a>
+                Bienvenido al panel de administración
+            </h2>
+        </div>
+    </div>
+</div>
 
     </div>
     <!-- /.row -->
