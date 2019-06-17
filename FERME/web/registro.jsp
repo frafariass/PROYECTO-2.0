@@ -36,7 +36,12 @@
             //fin validacion telefono
             
             //validacion rut, que sea valido el que esta ingresando
+            //es un modulo 11
             var rut = document.getElementById("rut").value;
+            if(rut.charAt(0) === 0)
+            {
+                rut = rut.substring(1,rut.length);
+            }
             rut = rut.replace(".", "");
             rut = rut.trim();
             var rutsinguion = rut;
@@ -124,6 +129,9 @@
             {
                 document.getElementById("pemail").innerHTML = "* ";
             }
+            //fin validacion email
+            
+            //validacion nombre
             var nombre = document.getElementById("nombre").value;
             if(nombre.length <= 1)
             {
@@ -133,7 +141,7 @@
             {
                 document.getElementById("pnombre").innerHTML = "* ";
             }
-
+            //fin validacion nombre
             
             return valido;
         }
@@ -141,7 +149,6 @@
         //cifrado clave, siempre hacer el cifrado ANTES de enviarlo al servidor
         //esto es para mas seguridad
         //la comparacion se ejecuta cada 1 segundo, avisando si no coinciden
-        
         function comparacion()
         {
             var clave = document.getElementById("clave").value;
@@ -156,11 +163,7 @@
                 document.getElementById("pconclave").innerHTML = "* ";
                 return true;
             }
-        }
-        
-        //CIFRADO DE CLAVES, SE CIFRA CADA VEZ QUE EL USUARIO APRIETA UNA TECLA
-        //esto es para que la contraseña se compare y valide
-        
+        }        
         function cifrado() {
             
             var clavecifrada = new PBKDF2(document.getElementById("clave").value, 1234, 1000, 32);
@@ -176,11 +179,13 @@
             conclavecifrada.deriveKey(status_callback1, result_callback1);
             
         }
+        //fin cifrado y comparacion claves
         
         
         //VALIDA QUE LOS CAMPOS NECESARIOS ESTEN LLENOS
         //SI NO ESTAN LLENOS, EL SUBMIT SE DESHABILITA
         //ESTO TAMBIEN COMPARA LAS PASSWORD Y LAS ENCRIPTA CUANDO SON IGUALES
+        //PARA ASI ENVIARLAS SEGURAS AL SERVIDOR Y NO COLAPSAR EL PC DEL USUARIO
         $(window).on('load', function() {
             jQuery("#submitn").prop('disabled', true);
 
