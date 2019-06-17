@@ -40,16 +40,8 @@ public class EditarPerfil extends HttpServlet {
             try
             {
                 Usuario usu = (Usuario)request.getSession().getAttribute("usu1"); 
-                Cifrado ci = new Cifrado();
-                String clavecifrada = ci.cifrar(request.getParameter("clave"));
-                String clavenuevaci = "";
-                String conclavenuevaci = "";
-                if(request.getParameter("nuevaclave") != "" && request.getParameter("connuevaclave") != "")
-                {
-                    clavenuevaci = ci.cifrar(request.getParameter("nuevaclave"));
-                    conclavenuevaci = ci.cifrar(request.getParameter("connuevaclave"));
-                }
-                if(clavecifrada.equals(usu.getContrasena()) && clavenuevaci.equals(conclavenuevaci))
+                String clavecifrada = request.getParameter("nuevaclavesecreta");
+                if(request.getParameter("clavesecreta").equals(usu.getContrasena()))
                 {
                     BD bd = new BD();
                     if(request.getParameter("email") != "")
@@ -59,18 +51,27 @@ public class EditarPerfil extends HttpServlet {
                     if(request.getParameter("telefono") != "")
                     {
                         usu.setFono_user(request.getParameter("telefono"));
-                    }
-                    if(clavenuevaci != "" && conclavenuevaci != "")
+                    }else
                     {
-                        usu.setContrasena(clavenuevaci);
+                        usu.setFono_user("0");
+                    }
+                    if(clavecifrada != "")
+                    {
+                        usu.setContrasena(clavecifrada);
                     } 
                     if(request.getParameter("direccion") != "")
                     {
                         usu.setDireccion_user(request.getParameter("direccion"));
+                    }else
+                    {
+                        usu.setDireccion_user("NO INGRESADO");
                     }    
                     if(request.getParameter("apellido") != "")
                     {
                         usu.setApellido_user(request.getParameter("apellido"));
+                    }else
+                    {
+                        usu.setApellido_user("NO INGRESADO");
                     }
                     if(request.getParameter("nombre") != "")
                     {

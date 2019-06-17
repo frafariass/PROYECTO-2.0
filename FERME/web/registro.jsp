@@ -158,7 +158,6 @@
         //validacion de claves
         //cifrado clave, siempre hacer el cifrado ANTES de enviarlo al servidor
         //esto es para mas seguridad
-        //si las claves ingresadas son iguales, procede a cifrar
         function validarclaves()
         {
             var clave = document.getElementById("clave").value;
@@ -169,62 +168,45 @@
                 return false;
             }else
             {
-                cifrado();
                 document.getElementById("pconclave").innerHTML = "* ";
                 return true;
             }
         }        
         function cifrado() {
-            
-            var clavecifrada = new PBKDF2(document.getElementById("clave").value, 1234, 1000, 32);
-            var status_callback = function(percent_done) {};
-            var result_callback = function(key) {
-                document.getElementById("clavesecreta").value = key;};
-            clavecifrada.deriveKey(status_callback, result_callback);          
-
-            var conclavecifrada = new PBKDF2(document.getElementById("conclave").value, 1234, 1000, 32);
-            var status_callback1 = function(percent_done) {};
-            var result_callback1 = function(key) {
-                document.getElementById("conclavesecreta").value = key;};
-            conclavecifrada.deriveKey(status_callback1, result_callback1);
-            
-        }
-        function validarclavessincifrar()
-        {
-            var clave = document.getElementById("clave").value;
-            var conclave = document.getElementById("conclave").value;
-            if(clave !== conclave)
+            jQuery("#submitn").prop('disabled', true);
+            if(validarclaves())
             {
-                document.getElementById("pconclave").innerHTML = "* Las contraseñas no coinciden";
-                return false;
+                var clavecifrada = new PBKDF2(document.getElementById("clave").value, 1234, 1000, 32);
+                var status_callback = function(percent_done) {};
+                var result_callback = function(key) {
+                    document.getElementById("clavesecreta").value = key;
+                    jQuery("#submitn").prop('disabled', false);
+                    return true;
+                };
+                clavecifrada.deriveKey(status_callback, result_callback);          
             }else
             {
-                document.getElementById("pconclave").innerHTML = "* ";
-                return true;
+                return false;
             }
-        } 
+        }
         //fin validacion y cifrado de claves
         
         
         //VALIDA QUE LOS CAMPOS NECESARIOS ESTEN LLENOS
         //SI NO ESTAN LLENOS, EL SUBMIT SE DESHABILITA
-        $(window).on('load', function() {
+        $(window).on('load', function() {         
+            $("#clave").on("change paste keyup", function() {
+                cifrado();
+            });
+            $("#conclave").on("change paste keyup", function() {
+                cifrado();
+            });
             jQuery("#submitn").prop('disabled', true);
 
             var toValidate = jQuery('#rut, #clave, #conclave, #email, #nombre, #telefono'),
                 valid = false;
             toValidate.keyup(function () {
                 if (jQuery(this).val().length > 0) {
-                    if(jQuery(this).attr('id') === 'clave' || jQuery(this).attr('id') === 'conclave')
-                    {
-                        if(validarclaves())
-                        {                                
-                            valid = true;
-                        }else
-                        {
-                            valid = false;
-                        }
-                    }
                     if(jQuery(this).attr('id') === 'telefono')
                     {
                         if(validartelefono())
@@ -305,7 +287,7 @@
                     {
                         if(validartelefono())
                         {
-                            if(validarclavessincifrar())
+                            if(validarclaves())
                             {
                                 valido = true;
                             }else
@@ -361,11 +343,11 @@
                         </tr>
 
                         <tr>
-                            <td>Clave:</td><td><input type="password" name="clave" id="clave" ><font color="red">* </font> <input type="hidden" id="clavesecreta" name="clavesecreta"></td>
+                            <td>Clave:</td><td><input type="password" name="clave" id="clave" ><font color="red">* </font> <input type="hidden" style="display: none" id="clavesecreta" name="clavesecreta"></td>
                         </tr>
 
                         <tr>
-                            <td>Confirmar Clave:</td><td><input type="password" name="conclave" id="conclave" ><label ><font color="red" id="pconclave" name="pconclave">* </font></label> <input type="hidden" id="conclavesecreta" name="conclavesecreta"></td>
+                            <td>Confirmar Clave:</td><td><input type="password" name="conclave" id="conclave" ><label ><font color="red" id="pconclave" name="pconclave">* </font></label></td>
                         </tr>
                         
                         <tr>
