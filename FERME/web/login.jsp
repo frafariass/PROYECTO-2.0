@@ -4,13 +4,9 @@
     Author     : lordp
 --%>
 
-<%@page import="Modelo.Perfil"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ page import ="java.sql.*" %>
-<%@ page import="Modelo.Usuario"%>
+<%@ include file="master.jsp" %>
 <% 
-    Usuario usu = (Usuario)request.getSession().getAttribute("usu1"); 
-    Perfil perfil = (Perfil)request.getSession().getAttribute("perfil1");
    if(request.getSession().getAttribute("usu1") != null)
    {
        response.sendRedirect("index.jsp");
@@ -18,71 +14,177 @@
    %>
 <!DOCTYPE html>
 <html>
-    <head>
+
+    <script type="text/javascript">
+         function validarrut()
+        {
+            var rut = document.getElementById("rut").value;
+            if(rut.charAt(0) === "0")
+            {
+                rut = rut.substring(1,rut.length);
+            }
+            rut = rut.replace(".", "");
+            rut = rut.trim();
+            var rutsinguion = rut;
+            rutsinguion = rutsinguion.replace("-", "");
+            
+            if(rutsinguion.length === 8 || rutsinguion.length === 9)
+            {
+                var indicefor = 0;
+                if (rutsinguion.length === 8) {
+                    indicefor = 1;
+                }
+
+                var total = 0;
+                var i;
+                    for (i = 7; i >= indicefor; i--) {
+                        var valor = rut.charAt(i) - '0';
+                        if (rutsinguion.length === 8) {
+                            valor = (rut.charAt(i-1)) - '0';
+                        }
+                        switch(i){
+                            case 0:
+                                total += valor * 3;
+                                break;
+                            case 1: 
+                                total += valor * 2;
+                                break;
+                            case 2: 
+                                total += valor * 7;
+                                break;
+                            case 3: 
+                                total += valor * 6;
+                                break;
+                            case 4: 
+                                total += valor * 5;
+                                break;
+                            case 5: 
+                                total += valor * 4;
+                                break;
+                            case 6: 
+                                total += valor * 3;
+                                break;
+                            case 7: 
+                                total += valor * 2;
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+
+                var resto = total % 11;
+                resto = 11 - resto;
+                var digitocalculado = resto;
+                if (resto === 10) {
+                    digitocalculado = "k";
+                }
+                var digitorutingresado = rut.charAt(rut.length-1);
+
+                digitocalculado = digitocalculado.toString();
+
+                if(digitocalculado !== digitorutingresado)
+                {
+                    document.getElementById("prut").innerHTML = "* El rut no es válido";
+                    return false;
+                }else
+                {
+                    document.getElementById("prut").innerHTML = "<font color='red'>* </font>";
+                    return true;
+                }
+            }else
+            {
+                document.getElementById("prut").innerHTML = "* El rut no es válido";
+                return false;
+            }
+        }
+               
+        function cifrado() {
+            jQuery("#submitlogin").prop('disabled', true);
+            var clave = $('#clave').val();
+            var clavecifrada = new PBKDF2(clave, 1234, 1000, 32);
+            var status_callback = function(percent_done) {
+
+            };
+            var result_callback = function(key) {
+                jQuery("#submitlogin").prop('disabled', false);
+                document.getElementById("clavesecreta").value = key;};
+            clavecifrada.deriveKey(status_callback, result_callback);            
+        }
         
-        <!-- 
-        Todo esto debe estar en cada JSP (html) en el head, son referencias a bootstrap, jquery y popper
-        -->
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="css/estilosmaster.css">
-        <title>Ferretería FERME</title>
-    </head>
-    
-    <body>
-        <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <div class="container">
-      <a class="navbar-brand" href="#">Ferme</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ml-auto">
-                   <li class="nav-item active">
-            <a class="nav-link" href="index.jsp">Inicio
-              <span class="sr-only">(current)</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="catalogo.jsp">Catálogo</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="carro.jsp">🛒 (0)</a>
-          </li>
-          <%
-              if(usu == null)
-                    {%>
-                        <li class="nav-item">
-                            <a class="nav-link" href="registro.jsp">Registro</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="login.jsp">Inicio de sesión</a>
-                        </li>
-                    <%}else
-                      {
-                        if(perfil.getRol_id_rol() == 1 || perfil.getRol_id_rol() == 2 || perfil.getRol_id_rol() == 3)
-                        {%>
-                            <li class="nav-item">
-                                <a class="nav-link" href="administrar.jsp">Administrar</a>
-                            </li>
-                        <%}%>
-                        <li class="nav-item">
-                            <a class="nav-link" href="editarperfil.jsp">Editar perfil</a>
-                        </li>
-                        
-                        <li class="nav-item">
-                            <a class="nav-link" href="CerrarSesion">Cerrar Sesión</a>
-                        </li>
-                      <%}%>
-        </ul>
-      </div>
-    </div>
-  </nav>
+        $(window).on('load', function() {
+            jQuery("#submitlogin").prop('disabled', true);
+            
+            $("#clave").on("change paste keyup", function() {
+                cifrado();
+            });
+
+            var toValidate = jQuery('#rut, #clave, #conclave, #email, #nombre, #telefono'),
+                valid = false;
+            toValidate.keyup(function () {
+                if (jQuery(this).val().length > 0) {
+                    if(jQuery(this).attr('id') === 'rut')
+                    {
+                        if(validarrut())
+                        {
+                            valid = true;
+                        }else
+                        {
+                            valid = false;
+                        }
+                    }
+                    jQuery(this).data('valid', true);
+                } else {
+                    jQuery(this).data('valid', false);
+                }
+                toValidate.each(function () {
+                    if (jQuery(this).data('valid') == true && jQuery(this).attr('id') !== "telefono") {
+                        valid = true; 
+                    } else {
+                        if(jQuery(this).attr('id') === "telefono" && (jQuery(this).val().length === 0 || jQuery(this).val().length === 9))
+                        {
+                            valid = true;
+                        }else
+                        {
+                            valid = false;
+                            return false;
+                        }
+                    }
+                });
+                
+                if (valid === true) {
+                    jQuery("#submitlogin").prop('disabled', false);
+                } else {
+                    jQuery("#submitlogin").prop('disabled', true);
+                }
+            });
+        });
+        
+        function validar()
+        {
+            var valido = true;
+            if(validarrut()){
+                if($("#clavesecreta").val() !== "")
+                {
+                    valido = true;
+                }else
+                {
+                    valido = false;
+                }
+            }else
+            {
+                valido = false;
+            }
+            
+            if(valido)
+            {
+                jQuery("#submitlogin").prop('disabled', false);
+            }else
+            {
+                jQuery("#submitlogin").prop('disabled', true);
+            }
+            return valido;
+        }
+    </script>
 
   <!-- Page Content -->
   <div class="container">
@@ -95,16 +197,17 @@
 
       <div id="ingresar">
             <h5>Ingrese sus datos</h5>
-            <form mode="post" action="Login">
+            <form mode="post" action="Login" onsubmit="return validar()" id="formulariologin" name="formulariologin">
                 <table>
                     <tr>
-                        <td>Rut:</td><td><input type="text" name="rut"></td>
+                        <td>Rut:</td><td><input type="text" name="rut" id="rut" ><label ><font color="red" id="prut" name="prut">* </font> </label></td>
+                    </tr>
+
+                    <tr>
+                        <td>Clave:</td><td><input type="password" name="clave" id="clave" ><font color="red">* </font> <input type="hidden" style="display: none" id="clavesecreta" name="clavesecreta"></td>
                     </tr>
                     <tr>
-                        <td>Clave:</td><td><input type="password" name="clave" ></td>
-                    </tr>
-                    <tr>
-                        <td><a href="registro.jsp">Registrarse</a>&nbsp;</td><td><input type="submit" value="Ingresar"></td>
+                        <td><a href="registro.jsp">Registrarse</a>&nbsp;</td><td><input type="submit" value="Ingresar" id="submitlogin" name="submitlogin"></td>
                     </tr>
                 </table>
             </form>

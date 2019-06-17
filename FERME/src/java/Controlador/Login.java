@@ -43,11 +43,9 @@ public class Login extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String rut = request.getParameter("rut");
-        String clave = request.getParameter("clave");
-        Cifrado ci = new Cifrado();
-        String clavecifrada = ci.cifrar(clave);    
-        if (rut != null && clave != null) {
+        String rut = request.getParameter("rut");
+        String clavecifrada = request.getParameter("clavesecreta");
+        if (rut != null && clavecifrada != null) {
             int rutint;
             BD bd = new BD();
             try
