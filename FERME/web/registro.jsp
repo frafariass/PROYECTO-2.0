@@ -9,7 +9,7 @@
 
 <% 
     
-   if(request.getSession().getAttribute("usu1") != null)
+   if(perfil != null)
    {
        response.sendRedirect("index.jsp");
    }

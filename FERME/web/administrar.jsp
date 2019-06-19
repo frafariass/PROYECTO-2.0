@@ -10,9 +10,15 @@
 <html>
     
     <%
-        if(perfil.rol_id_rol == 4 || perfil.rol_id_rol == 5)
+        if(perfil == null)
         {
             response.sendRedirect("index.jsp");
+        }else
+        {
+            if(perfil.getRol_id_rol() != 4 && perfil.getRol_id_rol() != 5)
+            {
+                response.sendRedirect("index.jsp");
+            }
         }
     %>
     
