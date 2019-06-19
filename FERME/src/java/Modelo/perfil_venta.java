@@ -11,9 +11,14 @@ package Modelo;
  */
 public class perfil_venta {
     
-    public int perfil_id_perf;
-    public int venta_id_boleta;
+    private int perfil_id_perf;
+    private int venta_id_boleta;
 
+    public perfil_venta() {
+    }
+
+    
+    
     public perfil_venta(int perfil_id_perf, int venta_id_boleta) {
         this.perfil_id_perf = perfil_id_perf;
         this.venta_id_boleta = venta_id_boleta;

@@ -10,8 +10,8 @@ package Modelo;
  * @author lordp
  */
 public class TipoVenta {
-    public int id_tipoventa;
-    public String nombre_tvt;
+    private int id_tipoventa;
+    private String nombre_tvt;
 
     public int getId_tipoventa() {
         return id_tipoventa;

@@ -11,8 +11,8 @@ package Modelo;
  */
 public class Familia {
     
-    public int id_familia;
-    public String nombre_familia;
+    private int id_familia;
+    private String nombre_familia;
 
     public int getId_familia() {
         return id_familia;

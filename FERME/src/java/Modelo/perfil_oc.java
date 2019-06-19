@@ -11,13 +11,17 @@ package Modelo;
  */
 public class perfil_oc {
     
-    public int perfil_id_perf;
-    public int orden_compra_id_orden;
+    private int perfil_id_perf;
+    private int orden_compra_id_orden;
 
     public perfil_oc(int perfil_id_perf, int orden_compra_id_orden) {
         this.perfil_id_perf = perfil_id_perf;
         this.orden_compra_id_orden = orden_compra_id_orden;
     }
+
+    public perfil_oc() {
+    }
+    
 
     public int getPerfil_id_perf() {
         return perfil_id_perf;

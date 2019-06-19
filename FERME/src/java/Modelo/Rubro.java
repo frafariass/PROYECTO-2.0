@@ -11,13 +11,18 @@ package Modelo;
  */
 public class Rubro {
     
-    public int id_rubro;
-    public String nombre_rubro;
+    private int id_rubro;
+    private String nombre_rubro;
 
     public Rubro(int id_rubro, String nombre_rubro) {
         this.id_rubro = id_rubro;
         this.nombre_rubro = nombre_rubro;
     }
+
+    public Rubro() {
+    }
+    
+    
 
     public int getId_rubro() {
         return id_rubro;

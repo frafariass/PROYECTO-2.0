@@ -11,15 +11,20 @@ package Modelo;
  */
 public class RecepcionOC {
     
-    public int id_recepcion;
-    public int fecha_recepcion;
-    public int orden_compra_id_orden;
+    private int id_recepcion;
+    private int fecha_recepcion;
+    private int orden_compra_id_orden;
 
     public RecepcionOC(int id_recepcion, int fecha_recepcion, int orden_compra_id_orden) {
         this.id_recepcion = id_recepcion;
         this.fecha_recepcion = fecha_recepcion;
         this.orden_compra_id_orden = orden_compra_id_orden;
     }
+
+    public RecepcionOC() {
+    }
+    
+    
 
     public int getId_recepcion() {
         return id_recepcion;

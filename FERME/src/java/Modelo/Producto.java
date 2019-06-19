@@ -10,15 +10,15 @@ package Modelo;
  * @author lordp
  */
 public class Producto {
-    public String id_producto;                 
-    public String desc_producto;               
-    public int precio_unitario;            
-    public int precio_compra;               
-    public int stock;                       
-    public int stock_critico;               
-    public String fecha_venc;                        
-    public int tipo_producto_id_tipoprod;   
-    public int estado_id_estado;
+    private String id_producto;                 
+    private String desc_producto;               
+    private int precio_unitario;            
+    private int precio_compra;               
+    private int stock;                       
+    private int stock_critico;               
+    private String fecha_venc;                        
+    private int tipo_producto_id_tipoprod;   
+    private int estado_id_estado;
     private String base64Image;
     private String nombre;
     private int perfil_id_perf;

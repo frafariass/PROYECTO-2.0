@@ -11,10 +11,10 @@ package Modelo;
  */
 public class OrdenCompra {
     
-    public int id_orden;
-    public int fecha_creacion;
-    public int total_compra;
-    public int estado_id_estado;
+    private int id_orden;
+    private int fecha_creacion;
+    private int total_compra;
+    private int estado_id_estado;
 
     public OrdenCompra(int id_orden, int fecha_creacion, int total_compra, int estado_id_estado) {
         this.id_orden = id_orden;

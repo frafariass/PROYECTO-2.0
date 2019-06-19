@@ -11,18 +11,18 @@ package Modelo;
  */
 public class Usuario {
     
-    public int rut_user;
-    public char dv_user;
-    public String nombre_user;      
-    public String apellido_user;
-    public String email_user;
-    public String contrasena;       
-    public String direccion_user;   
-    public String fono_user;
-    public int rubro_id_rubro;
-    public int estado;
+    private int rut_user;
+    private char dv_user;
+    private String nombre_user;      
+    private String apellido_user;
+    private String email_user;
+    private String contrasena;       
+    private String direccion_user;   
+    private String fono_user;
+    private int estado;
+    private int rubro_id_rubro;
 
-    public Usuario(int rut_user, char dv_user, String nombre_user, String apellido_user, String email_user, String contrasena, String direccion_user, String fono_user, int rubro_id_rubro, int estado) {
+    public Usuario(int rut_user, char dv_user, String nombre_user, String apellido_user, String email_user, String contrasena, String direccion_user, String fono_user, int estado, int rubro_id_rubro) {
         this.rut_user = rut_user;
         this.dv_user = dv_user;
         this.nombre_user = nombre_user;
@@ -31,9 +31,15 @@ public class Usuario {
         this.contrasena = contrasena;
         this.direccion_user = direccion_user;
         this.fono_user = fono_user;
-        this.rubro_id_rubro = rubro_id_rubro;
         this.estado = estado;
+        this.rubro_id_rubro = rubro_id_rubro;
     }
+
+    public Usuario() {
+    }
+    
+
+    
 
     public int getRut_user() {
         return rut_user;

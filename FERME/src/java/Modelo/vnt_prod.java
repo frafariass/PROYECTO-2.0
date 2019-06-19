@@ -11,13 +11,28 @@ package Modelo;
  */
 public class vnt_prod {
     
-    public int venta_id_boleta;
-    public String producto_id_producto;
+    private int venta_id_boleta;
+    private String producto_id_producto;
+    private int cantidad;
 
-    public vnt_prod(int venta_id_boleta, String producto_id_producto) {
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public vnt_prod(int venta_id_boleta, String producto_id_producto, int cantidad) {
         this.venta_id_boleta = venta_id_boleta;
         this.producto_id_producto = producto_id_producto;
+        this.cantidad = cantidad;
     }
+
+    public vnt_prod() {
+    }
+
+    
 
     public int getVenta_id_boleta() {
         return venta_id_boleta;

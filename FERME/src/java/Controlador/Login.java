@@ -65,7 +65,8 @@ public class Login extends HttpServlet {
                     res.getString("nombre_user"), res.getString("apellido_user"), 
                     res.getString("email_user"), res.getString("contrasena"), 
                     res.getString("direccion_user"), res.getString("fono_user"), 
-                    Integer.parseInt(res.getString("rubro_id_rubro")), Integer.parseInt(res.getString("estado_id_estado")));
+                    Integer.parseInt(res.getString("estado_id_estado")), Integer.parseInt(res.getString("rubro_id_rubro")));
+                
                 q = "select * from perfil where usuario_rut_user = " +usu.getRut_user();
                 ResultSet res1   = bd.read(q);
                 res1.next();

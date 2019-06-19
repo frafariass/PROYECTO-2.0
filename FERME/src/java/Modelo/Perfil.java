@@ -11,10 +11,10 @@ package Modelo;
  */
 public class Perfil {
     
-    public int id_perf;                  
-    public int usuario_rut_user;         
-    public int rol_id_rol;               
-    public int estado_id_estado;                    
+    private int id_perf;                  
+    private int usuario_rut_user;         
+    private int rol_id_rol;               
+    private int estado_id_estado;                    
 
     public Perfil(int id_perf, int usuario_rut_user, int rol_id_rol, int estado_id_estado) {
         this.id_perf = id_perf;
@@ -22,6 +22,11 @@ public class Perfil {
         this.rol_id_rol = rol_id_rol;
         this.estado_id_estado = estado_id_estado;
     }
+
+    public Perfil() {
+    }
+    
+    
 
     public int getId_perf() {
         return id_perf;

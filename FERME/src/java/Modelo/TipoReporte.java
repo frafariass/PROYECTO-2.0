@@ -11,8 +11,8 @@ package Modelo;
  */
 public class TipoReporte {
     
-    public int id_tipoventa;
-    public String nombre_tvt;
+    private int id_tipoventa;
+    private String nombre_tvt;
 
     public TipoReporte(int id_tipoventa, String nombre_tvt) {
         this.id_tipoventa = id_tipoventa;

@@ -11,13 +11,18 @@ package Modelo;
  */
 public class oc_prod {
     
-    public String producto_id_producto;
-    public int orden_compra_id_orden;
+    private String producto_id_producto;
+    private int orden_compra_id_orden;
 
     public oc_prod(String producto_id_producto, int orden_compra_id_orden) {
         this.producto_id_producto = producto_id_producto;
         this.orden_compra_id_orden = orden_compra_id_orden;
     }
+
+    public oc_prod() {
+    }
+    
+    
 
     public String getProducto_id_producto() {
         return producto_id_producto;

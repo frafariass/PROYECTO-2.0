@@ -11,12 +11,17 @@ package Modelo;
  */
 public class Rol {
     
-    public int id_rol;
-    public String nombre_rol;
+    private int id_rol;
+    private String nombre_rol;
 
     public int getId_rol() {
         return id_rol;
     }
+
+    public Rol() {
+    }
+    
+    
 
     public void setId_rol(int id_rol) {
         this.id_rol = id_rol;

@@ -11,11 +11,11 @@ package Modelo;
  */
 public class Reportes {
     
-    public int id_reporte;
-    public String contenido_reporte;
-    public int fecha_reporte;
-    public int perfil_id_perf;
-    public int tipo_reporte_id_trep;
+    private int id_reporte;
+    private String contenido_reporte;
+    private int fecha_reporte;
+    private int perfil_id_perf;
+    private int tipo_reporte_id_trep;
 
     public Reportes(int id_reporte, String contenido_reporte, int fecha_reporte, int perfil_id_perf, int tipo_reporte_id_trep) {
         this.id_reporte = id_reporte;
@@ -24,6 +24,11 @@ public class Reportes {
         this.perfil_id_perf = perfil_id_perf;
         this.tipo_reporte_id_trep = tipo_reporte_id_trep;
     }
+
+    public Reportes() {
+    }
+    
+    
 
     public int getId_reporte() {
         return id_reporte;

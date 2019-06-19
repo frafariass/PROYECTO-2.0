@@ -11,11 +11,11 @@ package Modelo;
  */
 public class Venta {
     
-    public int id_boleta;
-    public String fecha_boleta;
-    public int total_venta;
-    public int tipo_venta_id_tipoventa;
-    public int estado_id_estado;
+    private int id_boleta;
+    private String fecha_boleta;
+    private int total_venta;
+    private int tipo_venta_id_tipoventa;
+    private int estado_id_estado;
 
     public Venta(int id_boleta, String fecha_boleta, int total_venta, int tipo_venta_id_tipoventa, int estado_id_estado) {
         this.id_boleta = id_boleta;
