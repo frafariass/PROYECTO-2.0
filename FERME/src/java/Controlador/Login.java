@@ -70,8 +70,8 @@ public class Login extends HttpServlet {
                 ResultSet res1   = bd.read(q);
                 res1.next();
                 Perfil perfil = new Perfil(Integer.parseInt(res1.getString("id_perf")), 
-                        Integer.parseInt(res1.getString("usuario_rut_user")), Integer.parseInt(res1.getString("rol_id_rol")),
-                                Integer.parseInt(res1.getString("usuario_rubro_id_rubro")), Integer.parseInt(res1.getString("estado_id_estado")));
+                        Integer.parseInt(res1.getString("usuario_rut_user")), Integer.parseInt(res1.getString("rol_id_rol")), 
+                        Integer.parseInt(res1.getString("estado_id_estado")));
                 request.getSession().setAttribute("usu1", usu);
                 request.getSession().setAttribute("perfil1", perfil);
                 response.sendRedirect("index.jsp");

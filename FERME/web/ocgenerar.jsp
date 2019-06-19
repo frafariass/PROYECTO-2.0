@@ -11,6 +11,8 @@
 <html>
     
     <%
+        int contador_proveedores = 100;
+        int contador_proveedores2 = 100;
         if(perfil == null)
         {
             response.sendRedirect("index.jsp");
@@ -30,19 +32,22 @@
         {
             var idprov = $('#i_proveedores').val();
             var ultimo = $('#last').val();
+            var current = $('#current').val();
+            
             if(idprov !== "0")
             {
-                $('#last').val(idprov.toString());
-                $('#current').val(idprov.toString());
+                $('#last').val(idprov.toString()+"select");
+                $('#current').val(idprov.toString()+"select");
                 document.getElementById("0").style.display = "none";
                 document.getElementById(ultimo.toString()).style.display = "none";
-                document.getElementById(idprov).style.display = "block";
+                document.getElementById(idprov+"select").style.display = "block";
             }else
             {
                 document.getElementById(ultimo.toString()).style.display = "none";
                 document.getElementById("0").style.display = "block";
             } 
         }
+
         
     </script>
     
@@ -67,6 +72,8 @@
                                         out.println("<option value='0' selected>No hay proveedores</option>");
                                     }else{
                                         do{
+                                            contador_proveedores++;
+                                            contador_proveedores2++;
                                             out.println("<option value='"+res.getString("id_perf") +"'>"+res.getString("nombre_user")+"</option>");
                                         }while(res.next());
                                     }
@@ -81,12 +88,32 @@
                             <%
                                 q = "select id_producto, nombre, perfil_id_perf from producto";
                                 res = bd.read(q);
-                                res.first();
-                                out.println("<select id='0'><option></option></select>");
-                                do
+                                out.println("<select id='0'><option>Éste proveedor no tiene productos</option></select>");                                                          
+                                String relleno = "";
+                                if(res.next())
                                 {
-                                    out.println("<select style='display: none' id='" + res.getString("perfil_id_perf") + "'><option value='"+ res.getString("id_producto") +"'>" + res.getString("nombre")+"</option></select>");
-                                }while (res.next());
+                                    
+                                    
+                                    int b;
+                                    for (int i = 101; i < contador_proveedores+1; i++) {
+                                        res.first();
+                                        relleno = "";
+                                        b = Integer.parseInt(res.getString("perfil_id_perf"));
+                                        do
+                                        {
+                                            if(b == i)
+                                            {
+                                               relleno = relleno + "<option value='"+ res.getString("id_producto") +"'>" + res.getString("nombre")+"</option>"; 
+                                            }
+                                        }while (res.next());
+                                        
+                                        out.println("<select style='display: none' id='" + i + "select'></select>");
+                                        String inputstring = i + "input";
+                                        %>
+                                        <input style="display: none" id="<%=inputstring%>" value="<%=relleno%>">
+                                        <%b = 0;
+                                    } 
+                                }                             
                             %>
                         </td>
                     </tr>
@@ -95,7 +122,17 @@
             </form>
         </div>
         
-        
+                        <script type="text/javascript">
+                            $(window).on('load', function()
+                            {
+                                var a = "<%= contador_proveedores2%>";
+                                a = parseInt(a,10);
+                                for (var i = 101; i < a+1; i++) {
+                                    document.getElementById(i.toString() + "select").innerHTML = "<"+document.getElementById(i.toString() + "input").value;
+                                }
+
+                            });
+                        </script>
   <footer class="py-5 bg-dark">
     <div class="container">
       <p class="m-0 text-center text-white">Copyright &copy; Ferretería Ferme 2019</p>

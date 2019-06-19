@@ -57,7 +57,7 @@ public class BD {
         
     }
     
-    public String insertarImagen(String imagen, String tabla, String columna, int id, String condicion) throws FileNotFoundException //se conecta a la BD con las credenciales que estamos usando 
+    public String insertarImagen(String imagen, String tabla, String columna, long id, String condicion) throws FileNotFoundException //se conecta a la BD con las credenciales que estamos usando 
     {
         try{
             Class.forName("oracle.jdbc.driver.OracleDriver");

@@ -101,7 +101,7 @@ public class Registro extends HttpServlet {
                         b = 1;
                     }  
                         q = "insert into perfil "
-                            + "values ("+b+", "+rutint+", "+4+", "+1+", " +1+ ")";
+                            + "values ("+b+", "+rutint+", "+4+", "+1+")";
                         bd.update(q);
                     response.sendRedirect("exito.jsp");
                 }catch (IOException | NumberFormatException | SQLException e) { 

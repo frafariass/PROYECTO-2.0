@@ -14,15 +14,13 @@ public class Perfil {
     public int id_perf;                  
     public int usuario_rut_user;         
     public int rol_id_rol;               
-    public int estado_id_estado;                   
-    public int usuario_rubro_id_rubro;   
+    public int estado_id_estado;                    
 
-    public Perfil(int id_perf, int usuario_rut_user, int rol_id_rol, int estado_id_estado, int usuario_rubro_id_rubro) {
+    public Perfil(int id_perf, int usuario_rut_user, int rol_id_rol, int estado_id_estado) {
         this.id_perf = id_perf;
         this.usuario_rut_user = usuario_rut_user;
         this.rol_id_rol = rol_id_rol;
         this.estado_id_estado = estado_id_estado;
-        this.usuario_rubro_id_rubro = usuario_rubro_id_rubro;
     }
 
     public int getId_perf() {
@@ -57,13 +55,6 @@ public class Perfil {
         this.estado_id_estado = estado_id_estado;
     }
 
-    public int getUsuario_rubro_id_rubro() {
-        return usuario_rubro_id_rubro;
-    }
-
-    public void setUsuario_rubro_id_rubro(int usuario_rubro_id_rubro) {
-        this.usuario_rubro_id_rubro = usuario_rubro_id_rubro;
-    }
     
     
 }
