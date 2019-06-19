@@ -8,6 +8,13 @@
 <%@ include file="master.jsp" %>
 <!DOCTYPE html>
 <html>
+    
+    <%
+        if(perfil.rol_id_rol != 1 || perfil.rol_id_rol != 3)
+        {
+            response.sendRedirect("index.jsp");
+        }
+    %>
 
     <body>
         <h1>Hello World!</h1>

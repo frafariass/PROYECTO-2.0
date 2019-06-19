@@ -8,6 +8,14 @@
 <%@ include file="master.jsp" %>
 <!DOCTYPE html>
 <html>
+    
+    <%
+        if(perfil.rol_id_rol == 4)
+        {
+            response.sendRedirect("index.jsp");
+        }
+    %>
+    
   <!-- Page Content -->
   <div class="container">
 
@@ -32,8 +40,10 @@
                         </ul>
                     </div>
                 </li>
+                
+                <% if(perfil.rol_id_rol == 1 || perfil.rol_id_rol == 2){%>
                 <li class="nav-item">
-                    <a class="nav-link collapsed" href="#submenu1" data-toggle="collapse" data-target="#submenu2">Administrar orden de compra</a>
+                    <a class="nav-link collapsed" href="#submenu2" data-toggle="collapse" data-target="#submenu2">Administrar orden de compra</a>
                     <div class="collapse" id="submenu2" aria-expanded="false">
                         <ul class="flex-column pl-2 nav">
                             <li class="nav-item"><a class="nav-link py-0" href="ocanular.jsp">Anular OC</a></li>
@@ -44,8 +54,11 @@
                         </ul>
                     </div>
                 </li>
+                <%}%>
+                
+                <% if(perfil.rol_id_rol == 1 || perfil.rol_id_rol == 3){%>
                 <li class="nav-item">
-                    <a class="nav-link collapsed" href="#submenu1" data-toggle="collapse" data-target="#submenu3">Administrar ventas</a>
+                    <a class="nav-link collapsed" href="#submenu3" data-toggle="collapse" data-target="#submenu3">Administrar ventas</a>
                     <div class="collapse" id="submenu3" aria-expanded="false">
                         <ul class="flex-column pl-2 nav">
                             <li class="nav-item"><a class="nav-link py-0" href="venanular.jsp">Anular venta</a></li>
@@ -54,10 +67,12 @@
                         </ul>
                     </div>
                 </li>
+                <%}%>
+                
                 <% if(perfil.rol_id_rol == 1)
                 {%>
                     <li class="nav-item">
-                        <a class="nav-link collapsed" href="#submenu1" data-toggle="collapse" data-target="#submenu4">Administrar usuarios</a>
+                        <a class="nav-link collapsed" href="#submenu4" data-toggle="collapse" data-target="#submenu4">Administrar usuarios</a>
                         <div class="collapse" id="submenu4" aria-expanded="false">
                             <ul class="flex-column pl-2 nav">
                                 <li class="nav-item"><a class="nav-link py-0" href="usuanular.jsp">Anular usuario</a></li>

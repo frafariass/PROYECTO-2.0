@@ -89,12 +89,20 @@ public class Registro extends HttpServlet {
                     bd.update(q);
                     q  = "select id_perf from perfil";
                     ResultSet res = bd.read(q);
-                    res.last();
-                    String a = res.getString("id_perf");
-                    int b = Integer.parseInt(a) + 1;
-                    q = "insert into perfil "
-                        + "values ("+b+", "+rutint+", "+4+", "+1+", " +1+ ")";
-                    bd.update(q);
+                    int b;
+                    if(res.last())
+                    {
+                        String a = "";
+                        a = res.getString("id_perf");
+                        b = Integer.parseInt(a) + 1;
+                        
+                    }else
+                    {
+                        b = 1;
+                    }  
+                        q = "insert into perfil "
+                            + "values ("+b+", "+rutint+", "+4+", "+1+", " +1+ ")";
+                        bd.update(q);
                     response.sendRedirect("exito.jsp");
                 }catch (IOException | NumberFormatException | SQLException e) { 
                     response.sendRedirect("error.jsp");

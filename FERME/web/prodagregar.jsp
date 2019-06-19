@@ -8,6 +8,14 @@
 <%@ include file="master.jsp" %>
 <!DOCTYPE html>
 <html>
+    
+    <%
+        if(perfil.rol_id_rol != 1 || perfil.rol_id_rol != 2 || perfil.rol_id_rol != 3)
+        {
+            response.sendRedirect("index.jsp");
+        }
+    %>
+    
     <script>
         function agregarprod()
         {

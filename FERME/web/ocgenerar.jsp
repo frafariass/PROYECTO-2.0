@@ -10,6 +10,13 @@
 <!DOCTYPE html>
 <html>
     
+    <%
+        if(perfil.rol_id_rol != 1 || perfil.rol_id_rol != 2)
+        {
+            response.sendRedirect("index.jsp");
+        }
+    %>
+    
     <body>
         <h1>Generar Orden de Compra</h1>
         <div class="generaroc">
