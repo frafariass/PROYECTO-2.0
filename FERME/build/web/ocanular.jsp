@@ -1,6 +1,6 @@
 <%-- 
-    Document   : usucrear
-    Created on : 15-06-2019, 5:05:35
+    Document   : ocanular
+    Created on : 15-06-2019, 5:04:00
     Author     : lordp
 --%>
 
@@ -15,6 +15,7 @@
             response.sendRedirect("index.jsp");
         }
     %>
+    
     
     <body>
         <h1>Hello World!</h1>

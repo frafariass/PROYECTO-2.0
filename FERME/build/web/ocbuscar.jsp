@@ -1,9 +1,8 @@
 <%-- 
-    Document   : usucrear
-    Created on : 15-06-2019, 5:05:35
+    Document   : ocbuscar
+    Created on : 15-06-2019, 5:04:07
     Author     : lordp
 --%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ include file="master.jsp" %>
 <!DOCTYPE html>

@@ -1,6 +1,6 @@
 <%-- 
-    Document   : usucrear
-    Created on : 15-06-2019, 5:05:35
+    Document   : venbuscar
+    Created on : 15-06-2019, 5:05:08
     Author     : lordp
 --%>
 
@@ -8,9 +8,9 @@
 <%@ include file="master.jsp" %>
 <!DOCTYPE html>
 <html>
-    
+
     <%
-        if(perfil.rol_id_rol != 1 || perfil.rol_id_rol != 2)
+        if(perfil.rol_id_rol != 1 || perfil.rol_id_rol != 3)
         {
             response.sendRedirect("index.jsp");
         }

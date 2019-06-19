@@ -1,6 +1,6 @@
 <%-- 
-    Document   : usucrear
-    Created on : 15-06-2019, 5:05:35
+    Document   : prodanular
+    Created on : 15-06-2019, 5:03:21
     Author     : lordp
 --%>
 
@@ -10,7 +10,7 @@
 <html>
     
     <%
-        if(perfil.rol_id_rol != 1 || perfil.rol_id_rol != 2)
+        if(perfil.rol_id_rol != 1 || perfil.rol_id_rol != 2 || perfil.rol_id_rol != 3)
         {
             response.sendRedirect("index.jsp");
         }

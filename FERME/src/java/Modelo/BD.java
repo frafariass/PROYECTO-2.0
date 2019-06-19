@@ -75,6 +75,24 @@ public class BD {
         
     }
     
+    public String insertarImagenIdVarchar(String imagen, String tabla, String columna, String id, String condicion) throws FileNotFoundException //se conecta a la BD con las credenciales que estamos usando 
+    {
+        try{
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection conexion = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","FERRETERIA","123");
+            PreparedStatement pstmt = conexion.prepareStatement("UPDATE " + tabla + " SET " + columna +" = ? WHERE "+ condicion + " = '" + id + "'");
+            InputStream in = new FileInputStream(imagen);
+            pstmt.setBlob(1, in);
+            pstmt.execute();
+            conexion.close();
+            return "ok";
+        }catch(ClassNotFoundException | SQLException e)
+        {
+            return "error " + e;
+        }
+        
+    }
+    
     
     
     /*

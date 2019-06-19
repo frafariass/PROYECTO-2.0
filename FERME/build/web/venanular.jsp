@@ -1,6 +1,6 @@
 <%-- 
-    Document   : usucrear
-    Created on : 15-06-2019, 5:05:35
+    Document   : venanular
+    Created on : 15-06-2019, 5:04:54
     Author     : lordp
 --%>
 
@@ -10,12 +10,12 @@
 <html>
     
     <%
-        if(perfil.rol_id_rol != 1 || perfil.rol_id_rol != 2)
+        if(perfil.rol_id_rol != 1 || perfil.rol_id_rol != 3)
         {
             response.sendRedirect("index.jsp");
         }
     %>
-    
+
     <body>
         <h1>Hello World!</h1>
         <footer class="py-5 bg-dark">
