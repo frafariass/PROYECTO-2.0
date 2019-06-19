@@ -10,7 +10,7 @@
 <html>
     
     <%
-        if(perfil.rol_id_rol == 4)
+        if(perfil.rol_id_rol == 4 || perfil.rol_id_rol == 5)
         {
             response.sendRedirect("index.jsp");
         }

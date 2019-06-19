@@ -21,6 +21,36 @@ public class Producto {
     public int estado_id_estado;
     private String base64Image;
     private String nombre;
+    private int perfil_id_perf;
+
+    public int getPerfil_id_perf() {
+        return perfil_id_perf;
+    }
+
+    public void setPerfil_id_perf(int perfil_id_perf) {
+        this.perfil_id_perf = perfil_id_perf;
+    }
+
+    public Producto(String id_producto, String desc_producto, int precio_unitario, int precio_compra, int stock, int stock_critico, String fecha_venc, int tipo_producto_id_tipoprod, int estado_id_estado, String base64Image, String nombre, int perfil_id_perf) {
+        this.id_producto = id_producto;
+        this.desc_producto = desc_producto;
+        this.precio_unitario = precio_unitario;
+        this.precio_compra = precio_compra;
+        this.stock = stock;
+        this.stock_critico = stock_critico;
+        this.fecha_venc = fecha_venc;
+        this.tipo_producto_id_tipoprod = tipo_producto_id_tipoprod;
+        this.estado_id_estado = estado_id_estado;
+        this.base64Image = base64Image;
+        this.nombre = nombre;
+        this.perfil_id_perf = perfil_id_perf;
+    }
+
+    
+    
+    
+
+    
 
     public Producto() {
     }
