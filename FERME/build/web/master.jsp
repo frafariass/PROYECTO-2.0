@@ -85,7 +85,7 @@
                             </li>
                         <%}
                         
-                        if(perfil.getRol_id_rol() == 4)
+                        if(perfil != null)
                         {%>
                             <li class="nav-item">
                                 <a class="nav-link" href="editarperfil.jsp">Mis compras</a>
