@@ -50,27 +50,39 @@
         
         function cargarProductoss()
         {
-            document.getElementById("test").value = document.getElementById("10110100000000101").innerHTML.split(', ')[1];
+            //Llamar al id del producto y usarla para obtener el precio.
+            var idpro = $("#h_idprod").val();
+            document.getElementById("precio").value = document.getElementById(idpro).innerHTML.split(', $')[1];
         }
-
+        
+        function actualizarTotal () {
+            //Se obtiene precio y se transforma a Int
+            var p1 = $("#precio").val();
+            var p2 = parseInt(p1);
+            //Se obtiene cantidad
+            var c = $("#cantid").val();
+            //Se multiplican las variables
+            var total = p2 * c;
+            //Se asigna el total al input precio
+            $("#precio").val(total);
+        }
         
     </script>
     
     <body>
         <h1>Generar Orden de Compra</h1>
-        <div class="generaroc">
+        <div class="container generaroc">
+            <div class="input-group mb-3">
             <form action="" method="post" id="data">
                 <table>
                     <tr>
                         <td>Seleccionar Proveedor</td>
                         <td>
-                            <select id="i_proveedores" name="proveedores" onchange="cargarProductos()">
+                            <select class="custom-select" id="i_proveedores" name="proveedores" onchange="cargarProductos()">
                                 <!--Query para rellenar select PROVEEDORES -->
                                 <%
                                     BD bd = new BD();
-                                    String q = "select * from perfil pe join usuario us "
-                                            + "on (pe.usuario_rut_user=us.rut_user) "
-                                            + "where pe.rol_id_rol = 5";
+                                    String q = "select * from usuario where rol_id_rol = 5";
                                     ResultSet res = bd.read(q);
                                     out.println("<option value='0'>Seleccione un proveedor</option>");
                                     if(!res.next()){
@@ -79,7 +91,7 @@
                                         do{
                                             contador_proveedores++;
                                             contador_proveedores2++;
-                                            out.println("<option value='"+res.getString("id_perf") +"'>"+res.getString("nombre_user")+"</option>");
+                                            out.println("<option value='"+res.getString("id_user") +"'>"+res.getString("nombre_user")+"</option>");
                                         }while(res.next());
                                     }
                                 %>
@@ -91,10 +103,11 @@
                         <td>Seleccionar Producto</td>
                         <td id="selects">
                             <%
-                                q = "select id_producto, nombre, perfil_id_perf, precio_unitario from producto";
+                                q = "select id_producto, nombre, usuario_id_proveedor, precio_unitario from producto";
                                 res = bd.read(q);
-                                out.println("<select id='0'><option>Éste proveedor no tiene productos</option></select>");                                                          
+                                out.println("<select class='custom-select' id='0'><option>Éste proveedor no tiene productos</option></select>");                                                          
                                 String relleno = "";
+                                String idprod = "";
                                 if(res.next())
                                 {
                                     
@@ -103,16 +116,18 @@
                                     for (int i = 101; i < contador_proveedores+1; i++) {
                                         res.first();
                                         relleno = "";
-                                        b = Integer.parseInt(res.getString("perfil_id_perf"));
+                                        idprod = "";
+                                        b = Integer.parseInt(res.getString("usuario_id_proveedor"));
                                         do
                                         {
                                             if(b == i)
                                             {
                                                relleno = relleno + "<option value='"+ res.getString("id_producto") +"' id='"+ res.getString("id_producto") +"'>" + res.getString("nombre")+", $"+ res.getString("precio_unitario") + "</option>"; 
+                                               idprod = res.getString("id_producto");
                                             }
                                         }while (res.next());
                                         
-                                        out.println("<select style='display: none' id='" + i + "select' onmouseover='cargarProductoss()'></select>");
+                                        out.println("<select class='custom-select' style='display: none' id='" + i + "select' onmouseover='cargarProductoss()'></select>");
                                         String inputstring = i + "input";
                                         %>
                                         <input style="display: none" id="<%=inputstring%>" value="<%=relleno%>">
@@ -120,12 +135,35 @@
                                     } 
                                 }                             
                             %>
-                            <input style="display: block" id="test" value="eee">
+                            <input type="hidden" id="h_idprod" value="<%=idprod%>">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Precio (CLP)</td>
+                        <td>
+                            <input class="form-control" style="display: block" id="precio" value="0" readonly>
+                        </td>
+                    <br>
+                        <td>Cantidad</td>
+                        <td>
+                            <input class="form-control" type="number" id="cantid" value="1" min="1" onchange="actualizarTotal()">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="submit" value="Agregar a Orden de Compra">
                         </td>
                     </tr>
                 </table>
-            
             </form>
+                        
+                    <form>
+                        <table>
+                            
+                        </table>
+                            
+                    </form>
+            </div>
         </div>
         
                         <script type="text/javascript">
