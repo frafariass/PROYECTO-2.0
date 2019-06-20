@@ -26,7 +26,7 @@
 
 
             <!-- Page Features -->
-            <div class="formularioregistro">
+            <div id="miscomprasdiv">
 
               <div id="ingresar">
                     <h5>Ingrese sus datos</h5>

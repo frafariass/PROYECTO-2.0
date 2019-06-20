@@ -47,6 +47,11 @@
                 document.getElementById("0").style.display = "block";
             } 
         }
+        
+        function cargarProductoss()
+        {
+            document.getElementById("test").value = document.getElementById("10110100000000101").innerHTML.split(', ')[1];
+        }
 
         
     </script>
@@ -86,7 +91,7 @@
                         <td>Seleccionar Producto</td>
                         <td id="selects">
                             <%
-                                q = "select id_producto, nombre, perfil_id_perf from producto";
+                                q = "select id_producto, nombre, perfil_id_perf, precio_unitario from producto";
                                 res = bd.read(q);
                                 out.println("<select id='0'><option>Éste proveedor no tiene productos</option></select>");                                                          
                                 String relleno = "";
@@ -103,11 +108,11 @@
                                         {
                                             if(b == i)
                                             {
-                                               relleno = relleno + "<option value='"+ res.getString("id_producto") +"'>" + res.getString("nombre")+"</option>"; 
+                                               relleno = relleno + "<option value='"+ res.getString("id_producto") +"' id='"+ res.getString("id_producto") +"'>" + res.getString("nombre")+", $"+ res.getString("precio_unitario") + "</option>"; 
                                             }
                                         }while (res.next());
                                         
-                                        out.println("<select style='display: none' id='" + i + "select'></select>");
+                                        out.println("<select style='display: none' id='" + i + "select' onmouseover='cargarProductoss()'></select>");
                                         String inputstring = i + "input";
                                         %>
                                         <input style="display: none" id="<%=inputstring%>" value="<%=relleno%>">
@@ -115,6 +120,7 @@
                                     } 
                                 }                             
                             %>
+                            <input style="display: block" id="test" value="eee">
                         </td>
                     </tr>
                 </table>
@@ -128,9 +134,8 @@
                                 var a = "<%= contador_proveedores2%>";
                                 a = parseInt(a,10);
                                 for (var i = 101; i < a+1; i++) {
-                                    document.getElementById(i.toString() + "select").innerHTML = "<"+document.getElementById(i.toString() + "input").value;
+                                    document.getElementById(i.toString() + "select").innerHTML = document.getElementById(i.toString() + "input").value;
                                 }
-
                             });
                         </script>
   <footer class="py-5 bg-dark">
