@@ -52,7 +52,7 @@
                                 <% } while (res.next()); %>
                             <%}%>
                             <tr>
-                                <td>Cantidad de productos: </td><td><%= cantidadproductos%></td><td>Precio total: </td><td><%= preciototal %></td>
+                                <td>Cantidad de productos: </td><td><%= cantidadproductos%></td><td>Valor total: </td><td><%= preciototal %></td>
                             </tr>
               </table>
                 </form>

@@ -35,7 +35,7 @@
 
             <!-- Page Features -->
             <div id="miscomprasdiv">
-                <form method="post" action="EspecificacionBoleta">
+                
               <table class="table">
                   <tr>
                       <td><b>NÚMERO DE BOLETA</b></td><td><b>FECHA</b></td><td><b>VALOR TOTAL</b></td>
@@ -43,10 +43,15 @@
                       <%
                             if(res.next())
                             {
-                                do {%>
+                                String nombreboleta = "";
+                                do {
+                                     nombreboleta = "boleta" + res.getString("numero_boleta"); 
+                                    %>
                                   <tr>
                                     <td><%= res.getString("numero_boleta") %></td><td><%= res.getString("fecha_boleta") %></td><td><%= res.getString("sum(total_venta)") %></td>
+                                    <form method="post" action="EspecificacionBoleta">
                                     <td><input type="submit" value="Ver detalle" name="submitboleta" id="submitboleta"><input name="nroboleta" style="display: none" value="<%= res.getString("numero_boleta")%>"></td>
+                                    </form>
                                   </tr>
                                 <% } while (res.next()); %>
                             <%}%>
@@ -56,7 +61,6 @@
                       
                       
               </table>
-                </form>
             </div>
             <!-- /.row -->
 
