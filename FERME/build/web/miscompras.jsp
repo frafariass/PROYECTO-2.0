@@ -28,7 +28,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <div class="container">
+        <div class="container" style="overflow-x:auto;">
 
             <!-- Jumbotron Header -->
 

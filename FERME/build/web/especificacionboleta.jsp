@@ -27,7 +27,7 @@
     <body>
    
         
-        <div class="container">
+        <div class="container" style="overflow-x:auto;">
             
             <form method="post" action="EspecificacionBoleta">
               <table class="table">
