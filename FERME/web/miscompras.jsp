@@ -10,10 +10,14 @@
 <html>
     
     <%
-        if(perfil == null)
+        if(usu == null)
         {
             response.sendRedirect("index.jsp");
         }
+        
+        BD bd = new BD();
+        String q = ""
+        ResultSet res = null;
     %>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -28,23 +32,14 @@
             <!-- Page Features -->
             <div id="miscomprasdiv">
 
-              <div id="ingresar">
-                    <h5>Ingrese sus datos</h5>
-                    <form mode="post" action="Login" onsubmit="return validar()" id="formulariologin" name="formulariologin">
-                        <table>
-                            <tr>
-                                <td>Rut:</td><td><input type="text" name="rut" id="rut" ><label ><font color="red" id="prut" name="prut">* </font> </label></td>
-                            </tr>
-
-                            <tr>
-                                <td>Clave:</td><td><input type="password" name="clave" id="clave" ><font color="red">* </font> <input type="hidden" style="display: none" id="clavesecreta" name="clavesecreta"></td>
-                            </tr>
-                            <tr>
-                                <td><a href="registro.jsp">Registrarse</a>&nbsp;</td><td><input type="submit" value="Ingresar" id="submitlogin" name="submitlogin"></td>
-                            </tr>
-                        </table>
-                    </form>
-                </div>
+              <table class="table">
+                  <tr>
+                      <td><b>Test</b></td><td><b>Test2</b></td>
+                  </tr>
+                  <tr>
+                      <td>Testresultado</td><td>Testresultado2</td>
+                  </tr>
+              </table>
 
             </div>
             <!-- /.row -->

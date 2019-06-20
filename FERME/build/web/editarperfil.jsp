@@ -171,10 +171,7 @@
         {
             var valido = true;
             var claveusuariologeado = "<%= usu.getContrasena()%>";
-            var telefono = "<%= usu.getFono_user()%>";
-            var direccion = "<%= usu.getDireccion_user()%>";
-            var nombre = "<%= usu.getNombre_user()%>";
-            var apellido = "<%= usu.getApellido_user()%>";
+
             
             if(claveusuariologeado !== document.getElementById("clavesecreta").value)   
             {

@@ -14,18 +14,30 @@ public class Reportes {
     private int id_reporte;
     private String contenido_reporte;
     private int fecha_reporte;
-    private int perfil_id_perf;
     private int tipo_reporte_id_trep;
+    private int usuario_id_user;
 
-    public Reportes(int id_reporte, String contenido_reporte, int fecha_reporte, int perfil_id_perf, int tipo_reporte_id_trep) {
+    
+
+    public Reportes() {
+    }
+
+    public Reportes(int id_reporte, String contenido_reporte, int fecha_reporte, int tipo_reporte_id_trep, int usuario_id_user) {
         this.id_reporte = id_reporte;
         this.contenido_reporte = contenido_reporte;
         this.fecha_reporte = fecha_reporte;
-        this.perfil_id_perf = perfil_id_perf;
         this.tipo_reporte_id_trep = tipo_reporte_id_trep;
+        this.usuario_id_user = usuario_id_user;
     }
 
-    public Reportes() {
+    
+    
+    public int getUsuario_id_user() {
+        return usuario_id_user;
+    }
+
+    public void setUsuario_id_user(int usuario_id_user) {
+        this.usuario_id_user = usuario_id_user;
     }
     
     
@@ -54,13 +66,7 @@ public class Reportes {
         this.fecha_reporte = fecha_reporte;
     }
 
-    public int getPerfil_id_perf() {
-        return perfil_id_perf;
-    }
 
-    public void setPerfil_id_perf(int perfil_id_perf) {
-        this.perfil_id_perf = perfil_id_perf;
-    }
 
     public int getTipo_reporte_id_trep() {
         return tipo_reporte_id_trep;

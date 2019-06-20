@@ -11,13 +11,10 @@
 <%@page import="Modelo.Familia"%>
 <%@page import="Modelo.BD"%>
 <%@page import="Modelo.Contador"%>
-<%@page import="Modelo.Perfil"%>
 <%@page import ="java.sql.*" %>
 <%@page import="Modelo.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<% Usuario usu = (Usuario)request.getSession().getAttribute("usu1"); 
-   Perfil perfil = (Perfil)request.getSession().getAttribute("perfil1");
-   Contador cont = new Contador();%>
+<% Usuario usu = (Usuario)request.getSession().getAttribute("usu1");%> 
 <!DOCTYPE html>
 <html>
     <head>
@@ -71,24 +68,24 @@
                         </li>
                     <%}else
                       {
-                        if(perfil.getRol_id_rol() == 1 || perfil.getRol_id_rol() == 2 || perfil.getRol_id_rol() == 3)
+                        if(usu.getRol_id_rol() == 1 || usu.getRol_id_rol() == 2 || usu.getRol_id_rol() == 3)
                         {%>
                             <li class="nav-item">
                                 <a class="nav-link" href="administrar.jsp">Administrar</a>
                             </li>
                         <%}
                         
-                        if(perfil.getRol_id_rol() == 5)
+                        if(usu.getRol_id_rol() == 5)
                         {%>
                             <li class="nav-item">
-                                <a class="nav-link" href="editarperfil.jsp">Ver órdenes de compra</a>
+                                <a class="nav-link" href="verocs.jsp">Ver órdenes de compra</a>
                             </li>
                         <%}
                         
-                        if(perfil != null)
+                        if(usu != null)
                         {%>
                             <li class="nav-item">
-                                <a class="nav-link" href="editarperfil.jsp">Mis compras</a>
+                                <a class="nav-link" href="miscompras.jsp">Mis compras</a>
                             </li>
                         <%}%>
                         <li class="nav-item">

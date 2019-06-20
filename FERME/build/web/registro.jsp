@@ -9,7 +9,7 @@
 
 <% 
     
-   if(perfil != null)
+   if(usu != null)
    {
        response.sendRedirect("index.jsp");
    }
@@ -85,7 +85,10 @@
                     digitocalculado = "k";
                 }
                 var digitorutingresado = rut.charAt(rut.length-1);
-
+                if(digitorutingresado === "K")
+                {
+                    digitorutingresado = "k";
+                }
                 digitocalculado = digitocalculado.toString();
 
                 if(digitocalculado !== digitorutingresado)

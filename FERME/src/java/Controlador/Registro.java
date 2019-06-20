@@ -58,6 +58,11 @@ public class Registro extends HttpServlet {
                     String apellido = request.getParameter("apellido");
                     String direccion = request.getParameter("direccion");
                     String telefono = request.getParameter("telefono");
+                    int rol = 4;
+                    if(request.getSession().getAttribute("usu1") != null)
+                    {
+                        rol = Integer.parseInt(request.getParameter("rol"));
+                    }
                     if(telefono.length() == 0)
                     {
                         telefono = "0";
@@ -82,27 +87,40 @@ public class Registro extends HttpServlet {
                     }
 
                     BD bd = new BD();
-                    
-                    String q = "insert into usuario "
-                                      + "values ('"+rutint+"', '"+digitochar+"', "
-                                       + "'"+nombre+"', '"+apellido+"', '"+email+"', '"+clave+"', '"+direccion+"', "+telefono+", "+1+", "+1+")";
-                    bd.update(q);
-                    q  = "select id_perf from perfil";
-                    ResultSet res = bd.read(q);
-                    int b;
-                    if(res.last())
+                    String q;
+                    int idmaximo = 0;
+                    if(rol == 5)
                     {
-                        String a = "";
-                        a = res.getString("id_perf");
-                        b = Integer.parseInt(a) + 1;
-                        
+                        q = "select max(id_user) from usuario WHERE ID_USER <= 999";
                     }else
                     {
-                        b = 1;
-                    }  
-                        q = "insert into perfil "
-                            + "values ("+b+", "+rutint+", "+4+", "+1+")";
-                        bd.update(q);
+                        q  = "select max(id_user) from usuario where id_user >= 1001";
+                    }
+                    ResultSet res = bd.read(q);
+                    if(res.next())
+                    {
+                        if(res.getString("max(id_user)") != null)
+                        {
+                            idmaximo = Integer.parseInt(res.getString("max(id_user)")) + 1;
+                        }else
+                        {
+                            if(rol == 5)
+                            {
+                                idmaximo = 101;
+                            }else
+                            {
+                                idmaximo = 1001;
+                            }
+                            
+                        }
+                    }
+                    
+               
+                    q = "insert into usuario "
+                                      + "values ('"+digitochar+"', '"+nombre+"', "
+                                       + "'"+apellido+"', '"+email+"', '"+clave+"', '"+direccion+"', "
+                            + "'"+telefono+"', "+1+", "+1+", "+idmaximo+", "+rol+", "+rutint+")";
+                    bd.update(q);
                     response.sendRedirect("exito.jsp");
                 }catch (IOException | NumberFormatException | SQLException e) { 
                     response.sendRedirect("error.jsp");

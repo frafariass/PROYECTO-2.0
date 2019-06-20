@@ -28,13 +28,13 @@
             BD bd = new BD();
             String q_1 = "select ID_ORDEN,FECHA_CREACION,TOTAL_COMPRA from orden_compra oc join perfil_oc poc "
                     + "on (oc.id_orden=poc.orden_compra_id_orden) "
-                    + "where oc.estado_id_estado=1 and poc.perfil_id_perf=" + perfil.getId_perf();
+                    + "where oc.estado_id_estado=1 and poc.perfil_id_perf=" + usu.getId_perf();
             ResultSet res_1 = bd.read(q_1);
             String q_2 = "select pro.nombre, pro.precio_compra from oc_prod ocp join producto pro "
                     + "on (ocp.producto_id_producto=pro.id_producto) "
                     + "where ocp.orden_compra_id_orden in (select ID_ORDEN from orden_compra oc join perfil_oc poc "
                     + "on (oc.id_orden=poc.orden_compra_id_orden) " 
-                    + "where oc.estado_id_estado=1 and poc.perfil_id_perf=" + perfil.getId_perf();
+                    + "where oc.estado_id_estado=1 and poc.perfil_id_perf=" + usu.getId_perf();
             ResultSet res_2= bd.read(q_2);
         %>
         <h1>Tu Carrito de Compra</h1>

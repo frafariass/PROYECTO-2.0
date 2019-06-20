@@ -10,12 +10,12 @@
 <html>
     
     <%
-        if(perfil == null)
+        if(usu == null)
         {
             response.sendRedirect("index.jsp");
         }else
         {
-            if(perfil.getRol_id_rol() != 1 && perfil.getRol_id_rol() != 2 && perfil.getRol_id_rol() != 3)
+            if(usu.getRol_id_rol() != 1 && usu.getRol_id_rol() != 2 && usu.getRol_id_rol() != 3)
             {
                 response.sendRedirect("index.jsp");
             }
@@ -47,7 +47,7 @@
                     </div>
                 </li>
                 
-                <% if(perfil.getRol_id_rol() == 1 || perfil.getRol_id_rol() == 2){%>
+                <% if(usu.getRol_id_rol() == 1 || usu.getRol_id_rol() == 2){%>
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#submenu2" data-toggle="collapse" data-target="#submenu2">Administrar orden de compra</a>
                     <div class="collapse" id="submenu2" aria-expanded="false">
@@ -62,7 +62,7 @@
                 </li>
                 <%}%>
                 
-                <% if(perfil.getRol_id_rol() == 1 || perfil.getRol_id_rol() == 3){%>
+                <% if(usu.getRol_id_rol() == 1 || usu.getRol_id_rol() == 3){%>
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#submenu3" data-toggle="collapse" data-target="#submenu3">Administrar ventas</a>
                     <div class="collapse" id="submenu3" aria-expanded="false">
@@ -75,7 +75,7 @@
                 </li>
                 <%}%>
                 
-                <% if(perfil.getRol_id_rol() == 1)
+                <% if(usu.getRol_id_rol() == 1)
                 {%>
                     <li class="nav-item">
                         <a class="nav-link collapsed" href="#submenu4" data-toggle="collapse" data-target="#submenu4">Administrar usuarios</a>

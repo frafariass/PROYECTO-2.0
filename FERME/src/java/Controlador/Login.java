@@ -7,7 +7,6 @@ package Controlador;
 
 import Modelo.BD;
 import Modelo.Cifrado;
-import Modelo.Perfil;
 import Modelo.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -59,22 +58,25 @@ public class Login extends HttpServlet {
                 rutint = Integer.parseInt(rut);
                 String q = "select * from usuario where rut_user = " +rutint+ " and " + "contrasena = '" +clavecifrada+"'";               
                 ResultSet res = bd.read(q);
-                res.next();  
+                res.next();
                 
-                Usuario usu = new Usuario(Integer.parseInt(res.getString("rut_user")), res.getString("dv_user").charAt(0), 
-                    res.getString("nombre_user"), res.getString("apellido_user"), 
-                    res.getString("email_user"), res.getString("contrasena"), 
-                    res.getString("direccion_user"), res.getString("fono_user"), 
-                    Integer.parseInt(res.getString("estado_id_estado")), Integer.parseInt(res.getString("rubro_id_rubro")));
+                int rutquery = Integer.parseInt(res.getString("rut_user"));
+                char dv = res.getString("dv_user").charAt(0);
+                String nombre = res.getString("nombre_user");
+                String apellido = res.getString("apellido_user");
+                String email = res.getString("email_user");
+                String contrasena = res.getString("contrasena");
+                String direccion = res.getString("direccion_user");
+                String fono = res.getString("fono_user");
+                int estado_id_estado = Integer.parseInt(res.getString("estado_id_estado"));
+                int rubro_id = Integer.parseInt(res.getString("rubro_id_rubro"));
+                int rol_id_rol = Integer.parseInt(res.getString("rol_id_rol"));
+                int id_user = Integer.parseInt(res.getString("id_user"));
                 
-                q = "select * from perfil where usuario_rut_user = " +usu.getRut_user();
-                ResultSet res1   = bd.read(q);
-                res1.next();
-                Perfil perfil = new Perfil(Integer.parseInt(res1.getString("id_perf")), 
-                        Integer.parseInt(res1.getString("usuario_rut_user")), Integer.parseInt(res1.getString("rol_id_rol")), 
-                        Integer.parseInt(res1.getString("estado_id_estado")));
+                Usuario usu = new Usuario(dv,nombre,apellido,email,contrasena,direccion,fono,estado_id_estado,
+                                        rubro_id,id_user,rol_id_rol,rutquery);
+               
                 request.getSession().setAttribute("usu1", usu);
-                request.getSession().setAttribute("perfil1", perfil);
                 response.sendRedirect("index.jsp");
                 
                 

@@ -11,19 +11,23 @@ package Modelo;
  */
 public class Usuario {
     
-    private int rut_user;
-    private char dv_user;
-    private String nombre_user;      
+    private int dv_user;
+    private String nombre_user;
     private String apellido_user;
     private String email_user;
-    private String contrasena;       
-    private String direccion_user;   
+    private String contrasena;
+    private String direccion_user;
     private String fono_user;
-    private int estado;
+    private int estado_id_estado;
     private int rubro_id_rubro;
+    private int id_user;
+    private int rol_id_rol;
+    private int rut_user;
 
-    public Usuario(int rut_user, char dv_user, String nombre_user, String apellido_user, String email_user, String contrasena, String direccion_user, String fono_user, int estado, int rubro_id_rubro) {
-        this.rut_user = rut_user;
+    public Usuario() {
+    }
+
+    public Usuario(int dv_user, String nombre_user, String apellido_user, String email_user, String contrasena, String direccion_user, String fono_user, int estado_id_estado, int rubro_id_rubro, int id_user, int rol_id_rol, int rut_user) {
         this.dv_user = dv_user;
         this.nombre_user = nombre_user;
         this.apellido_user = apellido_user;
@@ -31,29 +35,18 @@ public class Usuario {
         this.contrasena = contrasena;
         this.direccion_user = direccion_user;
         this.fono_user = fono_user;
-        this.estado = estado;
+        this.estado_id_estado = estado_id_estado;
         this.rubro_id_rubro = rubro_id_rubro;
-    }
-
-    public Usuario() {
-    }
-    
-
-    
-
-    public int getRut_user() {
-        return rut_user;
-    }
-
-    public void setRut_user(int rut_user) {
+        this.id_user = id_user;
+        this.rol_id_rol = rol_id_rol;
         this.rut_user = rut_user;
     }
 
-    public char getDv_user() {
+    public int getDv_user() {
         return dv_user;
     }
 
-    public void setDv_user(char dv_user) {
+    public void setDv_user(int dv_user) {
         this.dv_user = dv_user;
     }
 
@@ -105,6 +98,14 @@ public class Usuario {
         this.fono_user = fono_user;
     }
 
+    public int getEstado_id_estado() {
+        return estado_id_estado;
+    }
+
+    public void setEstado_id_estado(int estado_id_estado) {
+        this.estado_id_estado = estado_id_estado;
+    }
+
     public int getRubro_id_rubro() {
         return rubro_id_rubro;
     }
@@ -113,13 +114,31 @@ public class Usuario {
         this.rubro_id_rubro = rubro_id_rubro;
     }
 
-    public int getEstado() {
-        return estado;
+    public int getId_user() {
+        return id_user;
     }
 
-    public void setEstado(int estado) {
-        this.estado = estado;
+    public void setId_user(int id_user) {
+        this.id_user = id_user;
     }
+
+    public int getRol_id_rol() {
+        return rol_id_rol;
+    }
+
+    public void setRol_id_rol(int rol_id_rol) {
+        this.rol_id_rol = rol_id_rol;
+    }
+
+    public int getRut_user() {
+        return rut_user;
+    }
+
+    public void setRut_user(int rut_user) {
+        this.rut_user = rut_user;
+    }
+
+    
 
     
     

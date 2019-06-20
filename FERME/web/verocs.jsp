@@ -10,12 +10,12 @@
 <html>
     
     <%
-        if(perfil == null)
+        if(usu == null)
         {
             response.sendRedirect("index.jsp");
         }else
         {
-            if(perfil.getRol_id_rol() != 5)
+            if(usu.getRol_id_rol() != 5)
             {
                 response.sendRedirect("index.jsp");
             }
