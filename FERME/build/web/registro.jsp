@@ -340,7 +340,7 @@
             <h5>Registro</h5>
             <div id="registroDiv">
                 <form method="post" action="Registro" onsubmit="return validar()">
-                    <table>
+                    <table class="table">
                         <tr>
                             <td>Rut:</td><td><input type="text" name="rut" id="rut" ><label ><font color="red" id="prut" name="prut">* </font> </label></td>
                         </tr>

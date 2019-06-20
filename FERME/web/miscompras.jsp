@@ -36,7 +36,7 @@
             <!-- Page Features -->
             <div id="miscomprasdiv">
                 
-              <table class="table">
+              <table class="table table-bordered">
                   
                       <%
                             if(res.next())

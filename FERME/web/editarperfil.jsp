@@ -221,7 +221,7 @@
       <div id="ingresar">
             <h5>Ingrese sus datos, los campos con * son necesarios</h5>
             <form mode="post" action="EditarPerfil" onsubmit="return validar()">
-                <table>
+                <table class="table">
                     <tr>
                         <td>Clave actual:</td><td><input type="password" name="clave" id="clave" ><font color="red">* </font><input type="hidden" style="display: none" id="clavesecreta" name="clavesecreta"></td>
                     </tr>

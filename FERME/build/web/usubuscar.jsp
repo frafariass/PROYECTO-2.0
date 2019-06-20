@@ -107,11 +107,11 @@
     </script>
     
     <body>
-        <div class="container">
+        <div class="container formularioregistro">
         <div id="ingresar">
             <h5>Ingrese el rut del usuario a buscar</h5>
             <form mode="post" action="BuscarUser" onsubmit="return validarrut()" id="formulariobuscaruser" name="formulariobuscaruser">
-                <table>
+                <table class="table">
                     <tr>
                         <td>Rut:</td><td><input type="text" name="rut" id="rut" ><label ><font color="red" id="prut" name="prut">* </font> </label></td>
                     </tr>

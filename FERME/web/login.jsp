@@ -198,7 +198,7 @@
       <div id="ingresar">
             <h5>Ingrese sus datos</h5>
             <form mode="post" action="Login" onsubmit="return validar()" id="formulariologin" name="formulariologin">
-                <table>
+                <table class="table">
                     <tr>
                         <td>Rut:</td><td><input type="text" name="rut" id="rut" ><label ><font color="red" id="prut" name="prut">* </font> </label></td>
                     </tr>

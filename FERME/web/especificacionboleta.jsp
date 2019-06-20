@@ -30,7 +30,7 @@
         <div class="container" style="overflow-x:auto;">
             
             <form method="post" action="EspecificacionBoleta">
-              <table class="table">
+              <table class="table table-bordered">
                   <tr>
                       <td><b>#</b></td><td><b>NOMBRE</b></td><td><b>CANTIDAD</b></td><td><b>PRECIO UNITARIO</b></td><td><b>PRECIO TOTAL</b></td>
                   </tr>
