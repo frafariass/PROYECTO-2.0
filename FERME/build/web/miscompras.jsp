@@ -37,13 +37,14 @@
             <div id="miscomprasdiv">
                 
               <table class="table">
-                  <tr>
-                      <td><b>NÚMERO DE BOLETA</b></td><td><b>FECHA</b></td><td><b>VALOR TOTAL</b></td><td><b>ESTADO</b></td>
-                  </tr>
+                  
                       <%
                             if(res.next())
-                            {
-                                String estado = "";
+                            {%>
+                                <tr>
+                                    <td><b>NÚMERO DE BOLETA</b></td><td><b>FECHA</b></td><td><b>VALOR TOTAL</b></td><td><b>ESTADO</b></td>
+                                </tr>
+                               <% String estado = "";
                                 do {
                                      estado = res.getString("ESTADO_ID_ESTADO");
                                      if(estado.equals("1"))
@@ -66,6 +67,9 @@
                                     </form>
                                   </tr>
                                 <% } while (res.next()); %>
+                            <%}else
+                            {%>
+                            <h4>No hay compras, compra aquí: </h4><a href="catalogo.jsp">Catálogo</a>
                             <%}%>
                           
             
