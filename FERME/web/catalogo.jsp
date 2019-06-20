@@ -24,8 +24,7 @@
                 BD bd = new BD();
                 String q = "select * from familia";
                 ResultSet res = bd.read(q);
-                res.last();
-                res.first();
+                res.next();
                 do {
                         out.println("<form method='post' action='CatalogoFamilia'>");
                         out.println("<input class='list-group-item' type='submit' name = 'dato'"+ "value = '"+ res.getString("id_familia") + ": " + res.getString("NOMBRE_FAMILIA")+"'>");
