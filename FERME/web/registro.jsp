@@ -300,7 +300,7 @@
                     jQuery(this).data('valid', false);
                 }
                 toValidate.each(function () {
-                    if (jQuery(this).data('valid') == true && jQuery(this).attr('id') !== "telefono") {
+                    if (jQuery(this).data('valid') === true && jQuery(this).attr('id') !== "telefono") {
                         valid = true; 
                     } else {
                         if(jQuery(this).attr('id') === "telefono" && (jQuery(this).val().length === 0 || jQuery(this).val().length === 9))

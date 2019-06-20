@@ -67,13 +67,14 @@
             $("#precio").val(total);
         }
         
+        
     </script>
     
     <body>
         <h1>Generar Orden de Compra</h1>
         <div class="container generaroc">
             <div class="input-group mb-3">
-            <form action="" method="post" id="data">
+            <form action="agregarAOC()" method="post" id="data">
                 <table>
                     <tr>
                         <td>Seleccionar Proveedor</td>
@@ -135,7 +136,7 @@
                                     } 
                                 }                             
                             %>
-                            <input type="hidden" id="h_idprod" value="<%=idprod%>">
+                            <input type="hidden" id="h_idprod" name="h_idprod" value="<%=idprod%>">
                         </td>
                     </tr>
                     <tr>
@@ -146,7 +147,7 @@
                     <br>
                         <td>Cantidad</td>
                         <td>
-                            <input class="form-control" type="number" id="cantid" value="1" min="1" onchange="actualizarTotal()">
+                            <input class="form-control" type="number" id="cantid" name="cantid" value="1" min="1" onchange="actualizarTotal()">
                         </td>
                     </tr>
                     <tr>
@@ -155,11 +156,20 @@
                         </td>
                     </tr>
                 </table>
+                   <%int userid = usu.getId_user();%>
+                   <input type="hidden" value="<%=userid%>" id="auxuser" name="auxuser">
             </form>
                         
                     <form>
                         <table>
-                            
+                            <tr>
+                                <th>Nombre Producto</th>
+                                <th>Cantidad</th>                                
+                                <th>Total</th>
+                            </tr>
+                            <tr>
+                                
+                            </tr>
                         </table>
                             
                     </form>
