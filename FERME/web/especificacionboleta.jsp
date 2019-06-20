@@ -35,7 +35,7 @@
                       <td><b>#</b></td><td><b>NOMBRE</b></td><td><b>CANTIDAD</b></td><td><b>PRECIO UNITARIO</b></td><td><b>PRECIO TOTAL</b></td>
                   </tr>
                       <%
-                          int cantidadproductos = 1;
+                          int cantidadproductos = 0;
                           int preciototal = 0;
                             if(res.next())
                             {

@@ -16,8 +16,8 @@
         }
         
         BD bd = new BD();
-        String q = "select numero_boleta, sum(total_venta), TO_CHAR(FECHA_BOLETA, 'DD-MM-YYYY') AS FECHA_BOLETA from venta where usuario_id_usuario = "
-                + usu.getId_user() + " group by numero_boleta, FECHA_BOLETA";
+        String q = "select numero_boleta, sum(total_venta), TO_CHAR(FECHA_BOLETA, 'DD-MM-YYYY') AS FECHA_BOLETA, ESTADO_ID_ESTADO from venta where usuario_id_usuario = "
+                + usu.getId_user() + " group by numero_boleta, FECHA_BOLETA, ESTADO_ID_ESTADO";
         ResultSet res = bd.read(q);
         
 
@@ -38,17 +38,29 @@
                 
               <table class="table">
                   <tr>
-                      <td><b>NÚMERO DE BOLETA</b></td><td><b>FECHA</b></td><td><b>VALOR TOTAL</b></td>
+                      <td><b>NÚMERO DE BOLETA</b></td><td><b>FECHA</b></td><td><b>VALOR TOTAL</b></td><td><b>ESTADO</b></td>
                   </tr>
                       <%
                             if(res.next())
                             {
-                                String nombreboleta = "";
+                                String estado = "";
                                 do {
-                                     nombreboleta = "boleta" + res.getString("numero_boleta"); 
+                                     estado = res.getString("ESTADO_ID_ESTADO");
+                                     if(estado.equals("1"))
+                                     {
+                                         estado = "Pendiente";
+                                     }
+                                     if(estado.equals("3"))
+                                     {
+                                         estado = "Enviado";
+                                     }
+                                     if(estado.equals("4"))
+                                     {
+                                         estado = "Pagado";
+                                     }
                                     %>
                                   <tr>
-                                    <td><%= res.getString("numero_boleta") %></td><td><%= res.getString("fecha_boleta") %></td><td><%= res.getString("sum(total_venta)") %></td>
+                                    <td><%= res.getString("numero_boleta") %></td><td><%= res.getString("fecha_boleta") %></td><td><%= res.getString("sum(total_venta)") %></td><td><%= estado %></td>
                                     <form method="post" action="EspecificacionBoleta">
                                     <td><input type="submit" value="Ver detalle" name="submitboleta" id="submitboleta"><input name="nroboleta" style="display: none" value="<%= res.getString("numero_boleta")%>"></td>
                                     </form>
