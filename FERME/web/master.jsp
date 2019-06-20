@@ -3,6 +3,8 @@
     Created on : 15-06-2019, 5:17:05
     Author     : lordp
 --%>
+<%@page import="Modelo.Boleta"%>
+<%@page import="Modelo.Venta"%>
 <%@page import="java.util.Base64"%>
 <%@page import="java.io.ByteArrayOutputStream"%>
 <%@page import="java.io.InputStream"%>

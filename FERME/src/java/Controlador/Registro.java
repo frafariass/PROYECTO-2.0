@@ -111,7 +111,6 @@ public class Registro extends HttpServlet {
                             {
                                 idmaximo = 1001;
                             }
-                            
                         }
                     }
                     
