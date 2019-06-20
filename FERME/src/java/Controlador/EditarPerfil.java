@@ -39,56 +39,67 @@ public class EditarPerfil extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             try
             {
-                Usuario usu = (Usuario)request.getSession().getAttribute("usu1"); 
-                String clavecifrada = request.getParameter("nuevaclavesecreta");
-                if(request.getParameter("clavesecreta").equals(usu.getContrasena()))
+                Usuario usu = (Usuario)request.getSession().getAttribute("usu1");
+                Usuario usueditar;
+                String auxsaber = request.getParameter("tipomod");
+                if(auxsaber.equals("modadmin"))
                 {
-                    BD bd = new BD();
-                    if(request.getParameter("email") != "")
-                    {
-                        usu.setEmail_user(request.getParameter("email"));
-                    }
-                    if(request.getParameter("telefono") != "")
-                    {
-                        usu.setFono_user(request.getParameter("telefono"));
-                    }else
-                    {
-                        usu.setFono_user("0");
-                    }
-                    if(clavecifrada != "")
-                    {
-                        usu.setContrasena(clavecifrada);
-                    } 
-                    if(request.getParameter("direccion") != "")
-                    {
-                        usu.setDireccion_user(request.getParameter("direccion"));
-                    }else
-                    {
-                        usu.setDireccion_user("NO INGRESADO");
-                    }    
-                    if(request.getParameter("apellido") != "")
-                    {
-                        usu.setApellido_user(request.getParameter("apellido"));
-                    }else
-                    {
-                        usu.setApellido_user("NO INGRESADO");
-                    }
-                    if(request.getParameter("nombre") != "")
-                    {
-                        usu.setNombre_user(request.getParameter("nombre"));
-                    }   
-                    String q = "update usuario"
-                            + " set email_user = '" + usu.getEmail_user() + "', contrasena = '" + clavecifrada
-                            + "', fono_user = " + usu.getFono_user() + ", direccion_user = '" + usu.getDireccion_user() 
-                            + "' , apellido_user = '" + usu.getApellido_user() + "' , nombre_user = '" + usu.getNombre_user() 
-                            + "' where rut_user = " + usu.getRut_user();
-                    bd.update(q);
-                    request.getSession().setAttribute("usu1", usu);
-                    response.sendRedirect("exito.jsp");
+                    usueditar = (Usuario)request.getSession().getAttribute("usubuscar1");
+                    int aux = Integer.parseInt(request.getParameter("selectrol"));
+                    int aux2 = Integer.parseInt(request.getParameter("selectrubro"));
+                    usueditar.setRol_id_rol(aux);
+                    usueditar.setRubro_id_rubro(aux2);
                 }else
                 {
-                    response.sendRedirect("error.jsp");
+                    usueditar = usu;
                 }
+                String clavecifrada = request.getParameter("nuevaclavesecreta");
+                BD bd = new BD();
+                if(request.getParameter("email") != "")
+                {
+                    usueditar.setEmail_user(request.getParameter("email"));
+                }
+                if(request.getParameter("telefono") != "")
+                {
+                    usueditar.setFono_user(request.getParameter("telefono"));
+                }else
+                {
+                    usueditar.setFono_user("0");
+                }
+                if(clavecifrada != "")
+                {
+                    usueditar.setContrasena(clavecifrada);
+                } 
+                if(request.getParameter("direccion") != "")
+                {
+                    usueditar.setDireccion_user(request.getParameter("direccion"));
+                }else
+                {
+                    usueditar.setDireccion_user("NO INGRESADO");
+                }    
+                if(request.getParameter("apellido") != "")
+                {
+                    usueditar.setApellido_user(request.getParameter("apellido"));
+                }else
+                {
+                    usueditar.setApellido_user("NO INGRESADO");
+                }
+                if(request.getParameter("nombre") != "")
+                {
+                    usueditar.setNombre_user(request.getParameter("nombre"));
+                }   
+                String q = "update usuario"
+                        + " set email_user = '" + usueditar.getEmail_user() + "', contrasena = '" + usueditar.getContrasena()
+                        + "', fono_user = '" + usueditar.getFono_user() + "', direccion_user = '" + usueditar.getDireccion_user() 
+                        + "' , apellido_user = '" + usueditar.getApellido_user() + "' , nombre_user = '" + usueditar.getNombre_user() 
+                        + "', rol_id_rol = "+usueditar.getRol_id_rol()+" , rubro_id_rubro ="+ usueditar.getRubro_id_rubro()+
+                        "where rut_user = " + usueditar.getRut_user();
+                bd.update(q);
+                if(usu.getRol_id_rol() != 1)
+                {
+                    request.getSession().setAttribute("usu1", usueditar);
+                }
+                response.sendRedirect("exito.jsp");
             }catch(Exception e)
             {
                 response.sendRedirect("error.jsp");

@@ -248,6 +248,7 @@
                     <tr>
                         <td><input type="submit" value="Editar perfil" name="submiteditar" id="submiteditar"></td>
                     </tr>
+                    <input type="hidden" style="display: none" id="tipomod" name="tipomod" value="modnormal">
                 </table>
             </form>
         </div>

@@ -4,19 +4,24 @@
     Author     : lordp
 --%>
 
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ include file="master.jsp" %>
-<% Usuario usubuscar = (Usuario)request.getSession().getAttribute("usubuscar1");%> 
+<% Usuario usubuscar = (Usuario)request.getSession().getAttribute("usubuscar1");
+    Rol rolbuscar = (Rol)request.getSession().getAttribute("rolbuscar1");
+    Rubro rubrobuscar = (Rubro)request.getSession().getAttribute("rubrobuscar1");
+    Estado estadobuscar = (Estado)request.getSession().getAttribute("estadobuscar1");
+%> 
 <!DOCTYPE html>
 <html>
     
     <body>
         <div class="container"  id="tablausubuscar2" style="overflow-x:auto;">
-        <table class="table table-bordered table-spacing">
+        <table class="table table-spacing">
             
             <%
-                            if(usubuscar != null)
-                            {%>
+               if(usubuscar != null)
+                {%>
             <tr class="tableformat">
                 <td class="tableformat"><b>RUT</b></td><td class="tableformat"><b>NOMBRE</b></td class="tableformat"><td><b>EMAIL</b></td>
                 <td class="tableformat"><b>DIRECCION</b></td><td  class="tableformat"><b>FONO</b></td><td  class="tableformat"><b>ESTADO</b></td>
@@ -26,58 +31,10 @@
                 <%
                     String rut = usubuscar.getRut_user() + "-" + usubuscar.getDv_user();
                     String nombrecompleto = usubuscar.getNombre_user()+" "+ usubuscar.getApellido_user();
-                    String estado = usubuscar.getEstado_id_estado() + "";
-                    int aux = usubuscar.getRol_id_rol();
-                    String rol = "";
-                    
-                    if(estado.equals("0"))
-                    {
-                        estado = "Default";
-                    }else
-                    {
-                        estado = "Anulado";
-                    }
-                    
-                    switch(aux)
-                    {
-                        case 1:
-                            rol = "Administrador";
-                            break;
-                        case 2:
-                            rol = "Empleado";
-                            break;
-                        case 3:
-                            rol = "Vendedor";
-                            break;
-                        case 4:
-                            rol = "Cliente";
-                            break;
-                        case 5:
-                            rol = "Proveedor";
-                            break;
-                    }
-                    
-                    aux = usu.getRubro_id_rubro();
-                    String rubro = "";
-                    switch(aux)
-                    {
-                        case 1:
-                            rubro = "No aplica";
-                            break;
-                        case 2:
-                            rubro = "Construccion";
-                            break;
-                        case 3:
-                            rubro = "Pinturas";
-                            break;
-                        case 4:
-                            rubro = "Herramientas";
-                            break;
-                        case 5:
-                            rubro = "Variado";
-                            break;
-                    }
-                    
+                    String estado = estadobuscar.getNombre_estado();
+                    String rol = rolbuscar.getNombre_rol();
+                    String rubro = rubrobuscar.getNombre_rubro();
+
                     %>
                 <td class="tableformat"><%= rut%></td><td class="tableformat"><%= nombrecompleto%></td><td class="tableformat"><%= usubuscar.getEmail_user()%></td>
                 <td class="tableformat"><%= usubuscar.getDireccion_user()%></td><td class="tableformat"><%= usubuscar.getFono_user()%></td><td class="tableformat"><%= estado%></td>
@@ -97,6 +54,9 @@
                 <td><input type="submit" value="Activar Usuario" name="submitactivarusu" id="submitactivarusu"><input name="iduserac" style="display: none" value="<%= usubuscar.getId_user()%>"></td>
             </form>
             <%}%>
+            <form action="usumodificar.jsp" method="post">
+                    <td><input type="submit" value="Modificar Usuario" name="submitmodiusu" id="submitmodiusu"><input name="idusermod" style="display: none" value="<%= usubuscar.getId_user()%>"></td>
+            </form>
             </tr>
             <%}else
             {

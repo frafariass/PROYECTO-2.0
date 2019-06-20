@@ -157,6 +157,42 @@
             }   
         }
         //fin validacion nombre
+        
+        //validacion apellido
+        function validarapellido()
+        {
+            jQuery("#submiteditar").prop('disabled', true);
+            var apellido = document.getElementById("apellido").value;
+            if(apellido.length <= 1)
+            {
+                document.getElementById("papellido").innerHTML = "* El apellido no es válido";
+                return false;
+            }else
+            {
+                jQuery("#submiteditar").prop('disabled', false);
+                document.getElementById("papellido").innerHTML = "* ";
+                return true;
+            }   
+        }
+        //fin validacion apellido
+        
+        //validacion apellido
+        function validardireccion()
+        {
+            jQuery("#submiteditar").prop('disabled', true);
+            var direccion = document.getElementById("direccion").value;
+            if(direccion.length <= 1)
+            {
+                document.getElementById("pdireccion").innerHTML = "* La dirección no es válida";
+                return false;
+            }else
+            {
+                jQuery("#submiteditar").prop('disabled', false);
+                document.getElementById("pdireccion").innerHTML = "* ";
+                return true;
+            }   
+        }
+        //fin validacion apellido
 
         //validacion de claves
         //cifrado clave, siempre hacer el cifrado ANTES de enviarlo al servidor
@@ -182,7 +218,7 @@
                 var clavecifrada = new PBKDF2(document.getElementById("clave").value, 1234, 1000, 32);
                 var status_callback = function(percent_done) {};
                 var result_callback = function(key) {
-                    document.getElementById("clavesecreta").value = key;
+                    document.getElementById("nuevaclavesecreta").value = key;
                     jQuery("#submitn").prop('disabled', false);
                     return true;
                 };
@@ -204,6 +240,15 @@
             $("#conclave").on("change paste keyup", function() {
                 cifrado();
             });
+            
+            $("#apellido").on("change paste keyup input", function() {
+                validarapellido();
+            });
+            
+            $("#direccion").on("change paste keyup input", function() {
+                validardireccion();
+            });
+            
             jQuery("#submitn").prop('disabled', true);
 
             var toValidate = jQuery('#rut, #clave, #conclave, #email, #nombre, #telefono'),
@@ -283,6 +328,17 @@
         function validar()
         {
             var valido = true;
+            
+            if(!validarapellido())
+            {
+                valido = false;
+            }
+            
+            if(!validardireccion())
+            {
+                valido = false;
+            }
+            
             if(validarrut()){
                 if(validaremail())
                 {
@@ -346,7 +402,7 @@
                         </tr>
 
                         <tr>
-                            <td>Clave:</td><td><input type="password" name="clave" id="clave" ><font color="red">* </font> <input type="hidden" style="display: none" id="clavesecreta" name="clavesecreta"></td>
+                            <td>Clave:</td><td><input type="password" name="clave" id="clave" ><font color="red">* </font> <input type="hidden" style="display: none" id="nuevaclavesecreta" name="nuevaclavesecreta"></td>
                         </tr>
 
                         <tr>
@@ -362,10 +418,10 @@
                         </tr>
 
                         <tr>
-                            <td>Apellido:</td><td><input type="text" name="apellido" id="apellido"><label ><font id="papellido" name="papellido" color="red"></font></label></td>
+                            <td>Apellido:</td><td><input type="text" name="apellido" id="apellido"><label ><font id="papellido" name="papellido" color="red">*  </font></label></td>
                         </tr>
                         <tr>
-                            <td>Direccion:</td><td><input type="text" name="direccion" id="direccion"></td>
+                            <td>Direccion:</td><td><input type="text" name="direccion" id="direccion"><label ><font color="red" id="pdireccion" name="pdireccion">* </font> </label></td>
                         </tr>
 
                         <tr>
@@ -375,6 +431,7 @@
                         <tr>
                             <td><a href="javascript:window.history.back();">&laquo; Volver</a></td><td><input type="submit" value="Enviar" name="submitn" id="submitn"></td>
                         </tr>
+                        <input type="hidden" style="display: none" id="tiporegistro" name="tiporegistro" value="reguser">
                     </table>
                 </form>
             </div>

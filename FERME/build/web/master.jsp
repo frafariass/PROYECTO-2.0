@@ -3,6 +3,9 @@
     Created on : 15-06-2019, 5:17:05
     Author     : lordp
 --%>
+<%@page import="Modelo.Estado"%>
+<%@page import="Modelo.Rubro"%>
+<%@page import="Modelo.Rol"%>
 <%@page import="Modelo.Boleta"%>
 <%@page import="Modelo.Venta"%>
 <%@page import="java.util.Base64"%>

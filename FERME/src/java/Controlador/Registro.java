@@ -50,19 +50,22 @@ public class Registro extends HttpServlet {
         String digitorutingresado = Character.toString(rut.charAt(rut.length()-1));
         
                 try {
+                    int rol = 4;
+                    int rubro = 1;
+                    if(request.getParameter("tiporegistro").equals("regadmin"))
+                    {
+                        rol = Integer.parseInt(request.getParameter("selectrol"));
+                        rubro = Integer.parseInt(request.getParameter("selectrubro"));
+                    }
                     
                     char digitochar = digitorutingresado.charAt(0);
-                    String clave = request.getParameter("clavesecreta");                                                                                 
+                    String clave = request.getParameter("nuevaclavesecreta");                                                                                 
                     String nombre = request.getParameter("nombre");
                     String email = request.getParameter("email");
                     String apellido = request.getParameter("apellido");
                     String direccion = request.getParameter("direccion");
                     String telefono = request.getParameter("telefono");
-                    int rol = 4;
-                    if(request.getSession().getAttribute("usu1") != null)
-                    {
-                        rol = Integer.parseInt(request.getParameter("rol"));
-                    }
+                    
                     if(telefono.length() == 0)
                     {
                         telefono = "0";
@@ -118,8 +121,9 @@ public class Registro extends HttpServlet {
                     q = "insert into usuario "
                                       + "values ('"+digitochar+"', '"+nombre+"', "
                                        + "'"+apellido+"', '"+email+"', '"+clave+"', '"+direccion+"', "
-                            + "'"+telefono+"', "+1+", "+1+", "+idmaximo+", "+rol+", "+rutint+")";
+                            + "'"+telefono+"', "+0+", "+rubro+", "+idmaximo+", "+rol+", "+rutint+")";
                     bd.update(q);
+                    
                     response.sendRedirect("exito.jsp");
                 }catch (IOException | NumberFormatException | SQLException e) { 
                     response.sendRedirect("error.jsp");

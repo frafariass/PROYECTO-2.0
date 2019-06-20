@@ -6,6 +6,9 @@
 package Controlador;
 
 import Modelo.BD;
+import Modelo.Estado;
+import Modelo.Rol;
+import Modelo.Rubro;
 import Modelo.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -45,16 +48,41 @@ public class BuscarUser extends HttpServlet {
             rut = rut.replace("-", "");
             rut = rut.substring(0, rut.length()-1);
             BD bd = new BD();
-            String q = "select * from usuario where rut_user = " + rut;
+            String q = "SELECT RUT_USER, DV_USER, NOMBRE_USER, APELLIDO_USER, " +
+                        " EMAIL_USER, DIRECCION_USER, FONO_USER, ES.NOMBRE_ESTADO, ID_USER, RO.NOMBRE_ROL, RU.NOMBRE_RUBRO, " +
+                        " ESTADO_ID_ESTADO, ROL_ID_ROL, RUBRO_ID_RUBRO FROM USUARIO US JOIN ESTADO ES " +
+                        " ON (US.ESTADO_ID_ESTADO = ES.ID_ESTADO) " +
+                        " JOIN ROL RO " +
+                        " ON (US.ROL_ID_ROL = RO.ID_ROL) " +
+                        " JOIN RUBRO RU " +
+                        " ON (US.RUBRO_ID_RUBRO = RU.ID_RUBRO) " +
+                        " WHERE RUT_USER = " + rut;
             ResultSet res = bd.read(q);
             if(res.next())
             {
-                Usuario usu = new Usuario(Integer.parseInt(res.getString("dv_user")), res.getString("nombre_user"),
-                res.getString("apellido_user"), res.getString("email_user"), res.getString("contrasena"),
-                res.getString("direccion_user"), res.getString("fono_user"), Integer.parseInt(res.getString("estado_id_estado")),
-                Integer.parseInt(res.getString("rubro_id_rubro")), Integer.parseInt(res.getString("id_user")),
-                Integer.parseInt(res.getString("rol_id_rol")), Integer.parseInt(res.getString("rut_user")));
+                int dv = Integer.parseInt(res.getString("dv_user"));
+                String nombre = res.getString("nombre_user");
+                String apellido = res.getString("apellido_user");
+                String email = res.getString("email_user");
+                String contra = "";
+                String direccion = res.getString("direccion_user");
+                String fono = res.getString("fono_user");
+                int estadoid = Integer.parseInt(res.getString("estado_id_estado"));
+                int rubroid = Integer.parseInt(res.getString("rubro_id_rubro"));
+                int id_user = Integer.parseInt(res.getString("id_user"));
+                int rolid = Integer.parseInt(res.getString("rol_id_rol"));
+                int rutuser = Integer.parseInt(res.getString("rut_user"));
                 
+                Usuario usu = new Usuario(dv, nombre,
+                apellido, email, contra, direccion, fono, estadoid, rubroid, id_user, rolid, rutuser);
+                
+                Rol rol = new Rol(Integer.parseInt(res.getString("rol_id_rol")), res.getString("nombre_rol"));
+                Rubro rubro = new Rubro(Integer.parseInt(res.getString("rubro_id_rubro")), res.getString("nombre_rubro"));
+                Estado estado = new Estado(Integer.parseInt(res.getString("estado_id_estado")), res.getString("nombre_estado"));
+                
+                request.getSession().setAttribute("rolbuscar1", rol);
+                request.getSession().setAttribute("rubrobuscar1", rubro);
+                request.getSession().setAttribute("estadobuscar1", estado);
                 request.getSession().setAttribute("usubuscar1", usu);
                 response.sendRedirect("usubuscarpaso2.jsp");
             }
