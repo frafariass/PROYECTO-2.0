@@ -10,6 +10,7 @@
 <%@ include file="master.jsp" %>
 
 <% 
+    
    Producto prod = (Producto)request.getSession().getAttribute("prod1"); %>
 <!DOCTYPE html>
 <html>
@@ -56,79 +57,62 @@
 
 
 
-
+        <div class='col-lg-9'>
+            <div class='card mt-4'>
+                <div class='card-body'>
         <%
-            String n = "select * from PRODUCTO where tipo_producto_id_tipoprod = " + prod.getTipo_producto_id_tipoprod();
-            ResultSet res1 = bd.read(n);
             
-            if(res1.next())
+            if(prod != null)
             {
-                do {
-                    
-                        Blob blob = res1.getBlob("imagen");
-                 
-                        InputStream inputStream = blob.getBinaryStream();
-                        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-                        byte[] buffer = new byte[4096];
-                        int bytesRead = -1;
-
-                        while ((bytesRead = inputStream.read(buffer)) != -1) {
-                            outputStream.write(buffer, 0, bytesRead);                  
+                if(usu != null)
+                {
+                    if(usu.getRol_id_rol() == 1 || usu.getRol_id_rol() == 2 || usu.getRol_id_rol() == 3)
+                    {
+                        String fechavenc = "No aplica";
+                        if(!prod.getFecha_venc().equals("00000000"))
+                        {
+                            fechavenc = "";
+                            fechavenc = prod.getFecha_venc().substring(0,2);
+                            fechavenc = fechavenc + "-" + prod.getFecha_venc().substring(2,4);
+                            fechavenc = fechavenc + "-" + prod.getFecha_venc().substring(4,prod.getFecha_venc().length());
                         }
-
-                        byte[] imageBytes = outputStream.toByteArray();
-                        String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+        %>
+                         <h5>Datos empleado:</h5>
+                         <h5 class='card-text' style='font-size: small'>Fecha de vencimiento: <% out.println(fechavenc); %></h5>
+                         <h5 class='card-text' style='font-size: small'>Valor precio compra a proveedor: <% out.println(prod.getPrecio_unitario()); %></h5>
+                         <h5 class='card-text' style='font-size: small'>Id proveedor asociado: <% out.println(prod.getUsuario_id_proveedor()); %></h5>
+                         <h5 class='card-text' style='font-size: small'>Stock crítico: <% out.println(prod.getStock_critico()); %></h5>
+                    
+                    <%}
+                }%>
                         
-                        out.println("<div class='col-lg-9'>");
-                        out.println("<div class='card mt-4'>");
-                        out.println("<img class='card-img-top img-fluid' src='data:image/jpg;base64," + base64Image + "' alt=''>");
-                        out.println("<div class='card-body'>");
-                        out.println("<h3 class='card-title'>" + res1.getString("nombre") +"</h3>");
-                        out.println("<h4> Precio unitario: $"+ res1.getString("precio_unitario") +"</h4>");
-                        out.println("<p class='card-text'>"+ res1.getString("desc_producto") +"</p>");
-                        out.println("<span class='text-warning'>&#9733; &#9733; &#9733; &#9733; &#9734;</span>");
-                        out.println("</form>");
-                        out.println("4.0 stars");
-                        out.println("<aside>");
-                        out.println("<form method='post' action='AgregarAlCarro'>");
-                        out.println("<div class='quantity'>");
-                        out.println("Cantidad <input type='number' name='cantidad' width='100px'");
-                        out.println("</div>");
-                        out.println("</form>");
-                        out.println("<a href='#' class='btn btn-success'>+</a> Agregar al Carro");
-                        out.println("</div>");
-                        out.println("</div>");
-                        out.println("</div>");
-                        
-                        
-                        
-                        
-                        
-                        /* REVIEWS */ %>
-                        <div class="card card-outline-secondary my-4">
-                        <div class="card-header">
-                          Product Reviews
-                        </div>
-                        <div class="card-body">
-                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-                          <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-                          <hr>
-                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-                          <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-                          <hr>
-                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-                          <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-                          <hr>
-                          <a href="#" class="btn btn-success">Leave a Review</a>
-                        </div>
-                      </div>
-                        
-                   <% out.println("</div>"); } while (res1.next());
+                                <img class='card-img-top img-fluid' src='data:image/jpg;base64,<% out.println(prod.getBase64Image()); %>' alt=''>
+                                
+                                    <h5 class='card-text' style='font-size: small'>Código de producto: <% out.println(prod.getId_producto()); %></h5>
+                                    <h3 class='card-title'><% out.println(prod.getNombre()); %></h3>
+                                    <h4>Stock: <% out.println(prod.getStock());%> unidades</h4>
+                                    <h4>Valor: $<% out.println(Math.round(prod.getPrecio_compra()*1.19));%></h4>
+                                    <p class='card-text'><% out.println(prod.getDesc_producto()); %></p>
+                                    <aside>
+                                    <form method='post' action='AgregarAlCarro'>
+                                    <div class='quantity'>
+                                        Cantidad <input type='number' name='cantidad' width='100px'>
+                                    </div>
+                                    </form>
+                                    <a href='#' class='btn btn-success'>+</a> Agregar al Carro
+                                
+                            
+                   <% 
             }else{
-                out.println("<p>No hay productos en esta categoria</p>");
+                Error error = new Error("Producto nulo");
+                request.getSession().setAttribute("error1", error);
+                response.sendRedirect("error.jsp");
             }
             
-        %>    
+        %>
+                </div>
+            </div>
+        </div> 
         
 
         <!-- /.row -->

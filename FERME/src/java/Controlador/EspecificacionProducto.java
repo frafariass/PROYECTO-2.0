@@ -15,6 +15,7 @@ import java.io.PrintWriter;
 import java.sql.Blob;
 import java.sql.ResultSet;
 import java.util.Base64;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -42,12 +43,13 @@ public class EspecificacionProducto extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            String id = "";
             try
             {
-                String nombre = request.getParameter("dato");
-                nombre = nombre.trim();
+                id = request.getParameter("dato");
+                id = id.trim();
                 BD bd = new BD();
-                String q = "select * from producto where nombre = '" + nombre + "'";
+                String q = "select * from producto where id_producto = '" + id + "'";
                 ResultSet res = bd.read(q);
                 res.next();
                 Producto prod = new Producto();
@@ -65,7 +67,6 @@ public class EspecificacionProducto extends HttpServlet {
 
                 byte[] imageBytes = outputStream.toByteArray();
                 String base64Image = Base64.getEncoder().encodeToString(imageBytes);
-                TipoProducto tipo = (TipoProducto)request.getSession().getAttribute("tipo1");
                 prod.setId_producto(res.getString("id_producto"));
                 prod.setDesc_producto(res.getString("desc_producto"));
                 prod.setPrecio_unitario(Integer.parseInt(res.getString("precio_unitario")));
@@ -73,15 +74,20 @@ public class EspecificacionProducto extends HttpServlet {
                 prod.setStock(Integer.parseInt(res.getString("stock")));
                 prod.setStock_critico(Integer.parseInt(res.getString("stock_critico")));
                 prod.setFecha_venc(res.getString("fecha_venc"));
-                prod.setTipo_producto_id_tipoprod(tipo.getId_tipoprod());
+                prod.setTipo_producto_id_tipoprod(Integer.parseInt(res.getString("tipo_producto_id_tipoprod")));
                 prod.setEstado_id_estado(Integer.parseInt(res.getString("estado_id_estado")));
                 prod.setBase64Image(base64Image);
                 prod.setNombre(res.getString("nombre"));
+                prod.setUsuario_id_proveedor(Integer.parseInt(res.getString("usuario_id_proveedor")));
                 request.getSession().setAttribute("prod1", prod);
-                response.sendRedirect("especificacionproducto.jsp");
+                RequestDispatcher requestDispatcher = request.getRequestDispatcher("especificacionproducto.jsp");
+                requestDispatcher.forward(request, response);
             }catch(Exception e)
             {
-                response.sendRedirect("index.jsp");
+                Error error = new Error("La id " + id + " no corresponde a un producto ingresado en el sistema");
+                request.getSession().setAttribute("error1", error);
+                RequestDispatcher requestDispatcher = request.getRequestDispatcher("error.jsp");
+                requestDispatcher.forward(request, response);
             }
         }
     }

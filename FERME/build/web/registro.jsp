@@ -113,9 +113,9 @@
         {
 
             var telefono = document.getElementById("telefono").value;
-            if(telefono.length !== 9 && telefono.length !== 0)
+            if(telefono.length !== 9)
             {
-                document.getElementById("ptelefono").innerHTML = "El teléfono debe tener 9 números";
+                document.getElementById("ptelefono").innerHTML = "* El teléfono debe tener 9 números";
                 return false;
             }else
             {
@@ -213,11 +213,23 @@
         }        
         function cifrado() {
             jQuery("#submitn").prop('disabled', true);
+            var estatus = true;
             if(validarclaves())
             {
                 var clavecifrada = new PBKDF2(document.getElementById("clave").value, 1234, 1000, 32);
-                var status_callback = function(percent_done) {};
+                var status_callback = function(percent_done) {
+                    $("#clave").on("paste keyup", function() {
+                        estatus = false;
+                    });
+                    $("#conclave").on("paste keyup", function() {
+                        estatus = false;
+                    });
+                };
                 var result_callback = function(key) {
+                    if(estatus === false)
+                    {
+                        return false;
+                    }
                     document.getElementById("nuevaclavesecreta").value = key;
                     jQuery("#submitn").prop('disabled', false);
                     return true;
@@ -363,7 +375,7 @@
                     if (jQuery(this).data('valid') === true && jQuery(this).attr('id') !== "telefono") {
                         valid = true; 
                     } else {
-                        if(jQuery(this).attr('id') === "telefono" && (jQuery(this).val().length === 0 || jQuery(this).val().length === 9))
+                        if(jQuery(this).attr('id') === "telefono" && jQuery(this).val().length === 9)
                         {
                             valid = true;
                         }else
@@ -399,35 +411,29 @@
                 valido = false;
             }
             
-            if(validarrut()){
-                if(validaremail())
-                {
-                    if(validarnombre())
-                    {
-                        if(validartelefono())
-                        {
-                            if(validarclaves())
-                            {
-                                valido = true;
-                            }else
-                            {
-                                valido = false;
-                            }
-                        }else
-                        {
-                            valido = false;
-                        }
-                    }else
-                    {
-                        valido = false;
-                    }
-                }else
-                {
-                    valido = false;
-                }
-            }else
+            if(!validarrut())
             {
-                valido  = false;
+                valido = false;
+            }
+            
+            if(!validaremail())
+            {
+                valido = false;
+            }
+            
+            if(!validarnombre())
+            {
+                valido = false;
+            }
+            
+            if(!validartelefono())
+            {
+                valido = false;
+            }
+            
+            if(!validarclaves())
+            {
+                valido = false;
             }
             
             if(valido)
@@ -485,7 +491,7 @@
                         </tr>
 
                         <tr>
-                            <td>Teléfono de contacto:</td><td><input type="number" name="telefono" id="telefono"><label ><font color="red" id="ptelefono" name="ptelefono"> </font></label></td>
+                            <td>Teléfono de contacto:</td><td><input type="number" name="telefono" id="telefono"><label ><font color="red" id="ptelefono" name="ptelefono">* </font></label></td>
                         </tr>
                         <tr id="trrubro">
                         <td>Rubro:</td><td><select id='selectrubro' name='selectrubro'></select></td>

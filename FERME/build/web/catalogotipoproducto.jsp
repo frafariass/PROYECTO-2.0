@@ -105,17 +105,14 @@
                         <div class='card h-100'>
                         <img class='card-img-top' src='data:image/jpg;base64, <%  out.println(base64Image); %>'/>
                         <div class='card-body'>
-                        <form method='post' action='EspecificacionProducto'>
+                        <form method='get' action='EspecificacionProducto'>
                         <h4 class='card-title'>
-                        <input class='list-group-item' type='submit' name = 'dato' value = '<% out.println(res1.getString("nombre")); %>'>
+                        <input class='list-group-item' type='submit' value = '<% out.println(res1.getString("nombre")); %>'>
+                        <input name='dato' type='hidden' style="display:none" value = '<% out.println(res1.getString("id_producto")); %>'>
                         </h4>
                         </form>
                         </form>
-                        <h5> Precio: $ <% out.println(Integer.parseInt(res1.getString("precio_compra"))*1.19); %></h5>
-                        <p class='card-text'><% out.println(res1.getString("desc_producto")); %></p>
-                        </div>
-                        <div class='card-footer'>
-                        <small class='text-muted'>&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                        <h5> Valor: $<% out.println(Math.round(Integer.parseInt(res1.getString("precio_compra"))*1.19)); %></h5>
                         </div>
                         </div>
                         </div>

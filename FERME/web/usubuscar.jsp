@@ -110,13 +110,13 @@
         <div class="container formularioregistro">
         <div id="ingresar">
             <h5>Ingrese el rut del usuario a buscar</h5>
-            <form mode="post" action="BuscarUser" onsubmit="return validarrut()" id="formulariobuscaruser" name="formulariobuscaruser">
+            <form mode="get" action="BuscarUser" onsubmit="return validarrut()" id="formulariobuscaruser" name="formulariobuscaruser">
                 <table class="table">
                     <tr>
                         <td>Rut:</td><td><input type="text" name="rut" id="rut" ><label ><font color="red" id="prut" name="prut">* </font> </label></td>
                     </tr>
                     <tr>
-                        <td></td><td><input type="submit" value="Buscar usuario" id="submitbuscarusuario" name="submitbuscarusuario"></td>
+                        <td></td><td><input type="submit" value="Buscar usuario" id="submitbuscarusuario"></td>
                     </tr>
                 </table>
             </form>

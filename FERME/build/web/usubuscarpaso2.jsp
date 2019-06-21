@@ -15,6 +15,19 @@
 <!DOCTYPE html>
 <html>
     
+    <%
+        if(usu == null)
+        {
+            response.sendRedirect("index.jsp");
+        }else
+        {
+            if(usu.getRol_id_rol() != 1)
+            {
+                response.sendRedirect("index.jsp");
+            }
+        }
+    %>
+    
     <body>
         <div class="container"  id="tablausubuscar2" style="overflow-x:auto;">
         <table class="table table-spacing">

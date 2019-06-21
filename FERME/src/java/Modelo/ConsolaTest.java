@@ -30,7 +30,13 @@ public class ConsolaTest {
                "tipo_producto", "tipoprod_imagen", 106L, "id_tipoprod"));
                                        System.out.println(bd.insertarImagen("C:\\Users\\lordp\\Desktop\\PROYECTO 2.0\\images\\tipo_producto\\productos\\clavogrande.jpg",
                 "producto", "imagen", 10110100000000101L, "id_producto"));
-
+                                       
+      String fechavenctest = "21062019";
+      String fechavenc = "";
+      fechavenc = fechavenctest.substring(0,2);
+        fechavenc = fechavenc + "-" + fechavenctest.substring(2,4);
+        fechavenc = fechavenc + "-" + fechavenctest.substring(4,fechavenctest.length());
+        System.out.println(fechavenc);
 
         
        

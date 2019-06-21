@@ -18,23 +18,7 @@
 <html>
     <script type="text/javascript">
         
-        function validartelefono()
-        {
-
-            var telefono = document.getElementById("telefono").value;
-            if(telefono.length !== 9 && telefono.length !== 0)
-            {
-                document.getElementById("ptelefono").innerHTML = "El teléfono debe tener 9 números";
-                return false;
-            }else
-            {
-                document.getElementById("ptelefono").innerHTML = "";
-                return true;
-            }
-        }
-        //fin validacion telefono
-        
-        //validacion email
+          //validacion email
         function validaremail()
         {
             var email = document.getElementById("email").value;
@@ -44,7 +28,7 @@
                 return false;
             }else
             {
-                document.getElementById("pemail").innerHTML = "";
+                document.getElementById("pemail").innerHTML = "* ";
                 return true;
             }
         }
@@ -60,11 +44,63 @@
                 return false;
             }else
             {
-                document.getElementById("pnombre").innerHTML = "";
+                document.getElementById("pnombre").innerHTML = "* ";
                 return true;
             }   
         }
         //fin validacion nombre
+        
+        //validacion de telefono
+        function validartelefono()
+        {
+
+            var telefono = document.getElementById("telefono").value;
+            if(telefono.length !== 9)
+            {
+                document.getElementById("ptelefono").innerHTML = "* El teléfono debe tener 9 números";
+                return false;
+            }else
+            {
+                document.getElementById("ptelefono").innerHTML = "* ";
+                return true;
+            }
+        }
+        //fin validacion telefono
+        
+        function validarapellido()
+        {
+            jQuery("#submiteditar").prop('disabled', true);
+            var apellido = document.getElementById("apellido").value;
+            if(apellido.length <= 1)
+            {
+                document.getElementById("papellido").innerHTML = "* El apellido no es válido";
+                return false;
+            }else
+            {
+                jQuery("#submiteditar").prop('disabled', false);
+                document.getElementById("papellido").innerHTML = "* ";
+                return true;
+            }   
+        }
+        //fin validacion apellido
+        
+        //validacion apellido
+        function validardireccion()
+        {
+            jQuery("#submiteditar").prop('disabled', true);
+            var direccion = document.getElementById("direccion").value;
+            if(direccion.length <= 1)
+            {
+                document.getElementById("pdireccion").innerHTML = "* La dirección no es válida";
+                return false;
+            }else
+            {
+                jQuery("#submiteditar").prop('disabled', false);
+                document.getElementById("pdireccion").innerHTML = "* ";
+                return true;
+            }   
+        }
+        //fin validacion apellido
         
         //validacion de claves
         //cifrado clave, siempre hacer el cifrado ANTES de enviarlo al servidor
@@ -87,11 +123,23 @@
         function cifrado() {
             
             jQuery("#submiteditar").prop('disabled', true);
+            var estatus = true;
             if(validarclaves())
             {
                 var clavecifrada = new PBKDF2(document.getElementById("nuevaclave").value, 1234, 1000, 32);
-                var status_callback = function(percent_done) {};
+                var status_callback = function(percent_done) {
+                    $("#nuevaclave").on("paste keyup", function() {
+                        estatus = false;
+                    });
+                    $("#nuevaconclave").on("paste keyup", function() {
+                        estatus = false;
+                    });
+                };
                 var result_callback = function(key) {
+                    if(estatus === false)
+                    {
+                        return false;
+                    }
                     document.getElementById("nuevaclavesecreta").value = key;
                     jQuery("#submiteditar").prop('disabled', false);
                     return true;               
@@ -106,14 +154,24 @@
         function cifradoclaveactual() {
             
             jQuery("#submiteditar").prop('disabled', true);
+            var estatus = true;
             if(validarclaves())
             {
                 var clavecifrada = new PBKDF2(document.getElementById("clave").value, 1234, 1000, 32);
-                var status_callback = function(percent_done) {};
+                var status_callback = function(percent_done) {
+                    $("#aclave").on("paste keyup", function() {
+                        estatus = false;
+                    });
+                    
+                };
                 var result_callback = function(key) {
+                    if(estatus === false)
+                    {
+                        return estatus;
+                    }
                     document.getElementById("clavesecreta").value = key;
                     jQuery("#submiteditar").prop('disabled', false);
-                    return true;               
+                    return estatus;               
                 };
                 clavecifrada.deriveKey(status_callback, result_callback);          
             }else
@@ -236,6 +294,10 @@
             $('#direccion').val(direccion);
             $('#nombre').val(nombre);
             $('#apellido').val(apellido);
+            
+            
+            
+            
         });
         
         function validar()
@@ -281,9 +343,6 @@
             if(valido)
             {
                 jQuery("#submiteditar").prop('disabled', false);
-            }else
-            {
-                jQuery("#submiteditar").prop('disabled', true);
             }
             return valido;
         }
@@ -312,7 +371,7 @@
                         <%}
                     %>
                     <tr>
-                        <td>Email:</td><td><input type="email" name="email" id="email"><label><font id="pemail" name="pemail" color="red"></font> </label></td>
+                        <td>Email:</td><td><input type="email" name="email" id="email"><label><font id="pemail" name="pemail" color="red">* </font> </label></td>
                     <tr>
                         <td>Nueva clave:</td><td><input type="password" id="nuevaclave" > <input type="hidden" style="display: none" id="nuevaclavesecreta" name="nuevaclavesecreta"></td>
                     </tr>
@@ -320,16 +379,16 @@
                         <td>Confirmar clave:</td><td><input type="password" id="connuevaclave" ><label><font color="red" id="pconclave" name="pconclave"></font></label></td>
                     </tr>
                     <tr>
-                        <td>Nombre:</td><td><input type="text" name="nombre" id="nombre"><label ><font color="red" id="pnombre" name="pnombre"></font> </label></td>
+                        <td>Nombre:</td><td><input type="text" name="nombre" id="nombre"><label ><font color="red" id="pnombre" name="pnombre">* </font> </label></td>
                     <tr>  
                     <tr>
-                        <td>Apellido:</td><td><input type="text" name="apellido" id="apellido"></td>
+                        <td>Apellido:</td><td><input type="text" name="apellido" id="apellido"><label ><font id="papellido" name="papellido" color="red">*  </font></label></td>
+                    </tr>
                     <tr>
+                        <td>Direccion:</td><td><input type="text" name="direccion" id="direccion"><label ><font color="red" id="pdireccion" name="pdireccion">* </font> </label></td>
+                    </tr>
                     <tr>
-                        <td>Dirección:</td><td><input type="text" name="direccion" id="direccion"></td>
-                    <tr>
-                    <tr>
-                        <td> Teléfono de contacto:</td><td><input type="number" name="telefono" id="telefono"><label ><font color="red" id="ptelefono" name="ptelefono"> </font></label></td>
+                        <td> Teléfono de contacto:</td><td><input type="number" name="telefono" id="telefono"><label ><font color="red" id="ptelefono" name="ptelefono">* </font></label></td>
                     </tr>
                     <tr id="trrubro">
                         <td>Rubro:</td><td><select id='selectrubro' name='selectrubro'></select></td>

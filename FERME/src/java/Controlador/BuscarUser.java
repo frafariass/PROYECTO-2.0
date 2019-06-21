@@ -16,6 +16,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -84,7 +85,8 @@ public class BuscarUser extends HttpServlet {
                 request.getSession().setAttribute("rubrobuscar1", rubro);
                 request.getSession().setAttribute("estadobuscar1", estado);
                 request.getSession().setAttribute("usubuscar1", usu);
-                response.sendRedirect("usubuscarpaso2.jsp");
+                RequestDispatcher requestDispatcher = request.getRequestDispatcher("usubuscarpaso2.jsp");
+                requestDispatcher.forward(request, response);
             }
             
             

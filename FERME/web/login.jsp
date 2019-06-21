@@ -88,6 +88,7 @@
                     return false;
                 }else
                 {
+                    jQuery("#submitlogin").prop('disabled', false);
                     document.getElementById("prut").innerHTML = "<font color='red'>* </font>";
                     return true;
                 }
@@ -102,10 +103,17 @@
             jQuery("#submitlogin").prop('disabled', true);
             var clave = $('#clave').val();
             var clavecifrada = new PBKDF2(clave, 1234, 1000, 32);
+            var estatus = true;
             var status_callback = function(percent_done) {
-
+                $("#clave").on("paste keyup", function() {
+                    estatus = false;
+                });
             };
             var result_callback = function(key) {
+                if(estatus === false)
+                {
+                    return;
+                }
                 jQuery("#submitlogin").prop('disabled', false);
                 document.getElementById("clavesecreta").value = key;};
             clavecifrada.deriveKey(status_callback, result_callback);            
@@ -116,6 +124,10 @@
             
             $("#clave").on("paste keyup", function() {
                 cifrado();
+            });
+            
+            $("#rut").on("paste keyup", function() {
+                validarrut();
             });
 
             var toValidate = jQuery('#rut, #clave'),
@@ -195,7 +207,7 @@
                     </tr>
 
                     <tr>
-                        <td>Clave:</td><td><input type="password" id="clave" ><font color="red">* </font> <input type="hidden" style="display: none" id="clavesecreta" name="clavesecreta"></td>
+                        <td>Clave:</td><td><input type="password" id="clave" ><font color="red" id='status'>* </font> <input type="hidden" style="display: none" id="clavesecreta" name="clavesecreta"></td>
                     </tr>
                     <tr>
                         <td><a href="registro.jsp">Registrarse</a>&nbsp;</td><td><input type="submit" value="Ingresar" id="submitlogin" name="submitlogin"></td>

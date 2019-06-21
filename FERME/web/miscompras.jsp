@@ -36,7 +36,7 @@
             <!-- Page Features -->
             <div id="miscomprasdiv">
                 
-              <table class="table table-bordered">
+              <table class="datatable table table-bordered">
                   
                       <%
                             if(res.next())
@@ -51,6 +51,10 @@
                                      {
                                          estado = "Pendiente";
                                      }
+                                     if(estado.equals("-1"))
+                                     {
+                                         estado = "Anulado";
+                                     }
                                      if(estado.equals("3"))
                                      {
                                          estado = "Enviado";
@@ -62,9 +66,14 @@
                                     %>
                                   <tr>
                                     <td><%= res.getString("numero_boleta") %></td><td><%= res.getString("fecha_boleta") %></td><td><%= res.getString("sum(total_venta)") %></td><td><%= estado %></td>
+                                    <td>
                                     <form method="post" action="EspecificacionBoleta">
-                                    <td><input type="submit" value="Ver detalle" name="submitboleta" id="submitboleta"><input name="nroboleta" style="display: none" value="<%= res.getString("numero_boleta")%>"></td>
+                                    <input type="submit" value="Ver detalle" name="submitboleta" id="submitboleta"><input name="nroboleta" style="display: none" value="<%= res.getString("numero_boleta")%>">
                                     </form>
+                                    <form method="post" action="AnularBoleta" onsubmit="return verificarestado()">
+                                    <input type="submit" value="Anular compra" name="submitboletaanu" id="submitboletaanu"><input name="nroboleta" style="display: none" value="<%= res.getString("numero_boleta")%>" ><input name="estadoboleta" style="display: none" value="<%= res.getString("estado_id_estado")%>">
+                                    </form>
+                                    </td>
                                   </tr>
                                 <% } while (res.next()); %>
                             <%}else
