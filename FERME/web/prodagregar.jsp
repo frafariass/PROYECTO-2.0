@@ -10,6 +10,8 @@
 <html>
     
     <%
+        
+        
         if(usu == null)
         {
             response.sendRedirect("index.jsp");
@@ -20,34 +22,61 @@
                 response.sendRedirect("index.jsp");
             }
         }
+        
+        BD bd = new BD();
+        String q = "SELECT * FROM USUARIO WHERE ROL_ID_ROL =" + 5;
+        ResultSet res = bd.read(q);
+        res.next();
+        String relleno = "";
+        do {
+                relleno = "<option value='" + res.getString("id_user") + "'>" + res.getString("nombre_user") + "</option>";
+            } while (res.next());
+    
+        
     %>
     
-    <script>
+    <script type='text/javascript'>
         function agregarprod()
         {
-            <%
-               BD bd = new BD();
-               String q = "inset into producto values ()";
-            %>
+            
         }
+        
+        function sortSelectOptions(selectElement) {
+            var options = $(selectElement + " option");
+
+            options.sort(function(a,b) {
+                    if (a.text.toUpperCase() > b.text.toUpperCase()) return 1;
+                    else if (a.text.toUpperCase() < b.text.toUpperCase()) return -1;
+                    else return 0;
+            });
+
+            $(selectElement).empty().append( options );
+        }
+        
+        $(window).on('load', function()
+        {
+            var relleno = "<%= relleno %>";
+            $('#selectproveedores').html(relleno);
+            sortSelectOptions('#selectproveedores');
+        });
     </script>
     
     <body>
     <div class="container">
     <!-- Page Features -->
-    <div class="formularioagregarprod">
+    <div class="formularioregistro">
 
         <div id="registroDiv1">
             <h5>Agregar producto</h5>
             <div id="registroDiv">
                 <form method="post" action="AgregarProd">
-                    <table>
+                    <table class="table">
                         <tr>
                             <td>Nombre:</td><td><input type="text" name="nombre" required>*</td>
                         </tr>
 
                         <tr>
-                            <td>Descripción:</td><td><input type="password" name="descripcion" required>*</td>
+                            <td>Descripción:</td><td><textarea type="textarea" name="descripcion" required>Escriba o pegue aquí...</textarea></td>
                         </tr>
 
                         <tr>
@@ -63,18 +92,12 @@
                         </tr>
 
                         <tr>
-                            <td>Apellido:</td><td><input type="text" name="apellido" required></td>
+                            <td>Fecha de vencimiento:</td><td><input type="date" name="fecha" required> <input type="checkbox" name="aplica" value="no"> No aplica</td>
                         </tr>
-
-
+                        
                         <tr>
-                            <td>Direccion:</td><td><input type="text" name="direccion"></td>
+                            <td>Proveedor:</td><td><select id="selectproveedores" name="selectproveedores"></select></td>
                         </tr>
-
-                        <tr>
-                            <td>Teléfono de contacto:</td><td><input type="number" name="telefono"></td>
-                        </tr>
-
                         <tr>
                             <td><a href="javascript:window.history.back();">&laquo; Volver</a></td><td><input type="submit" value="Enviar" name="submitn"></td>
                         </tr>
