@@ -8,8 +8,10 @@ package Controlador;
 import Modelo.BD;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.ResultSet;
+import java.time.LocalDate;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,48 +35,64 @@ public class AgregarAOC extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         
         try{
-        String totalstring = request.getParameter("precio");
-        int total_oc = Integer.parseInt(totalstring);
-        int estado = 1;
-        String ustr = request.getParameter("auxuser");
-        int userid = Integer.parseInt(ustr);
-        String cants = request.getParameter("cantid");
-        int cant = Integer.parseInt(cants);
-        String prod = request.getParameter("h_idprod");
+            String totalstring = request.getParameter("precio");
+            int total_oc = Integer.parseInt(totalstring);
+            int estado = 1;
+            String ustr = request.getParameter("i_proveedores");
+            int userid = Integer.parseInt(ustr);
+            String cants = request.getParameter("cantid");
+            int cant = Integer.parseInt(cants);
+            String prod = request.getParameter("h_idprod");
+            Date fech = Date.valueOf(LocalDate.now());
         
-        BD bd = new BD();
+            BD bd = new BD();
         
-        String q = "select max(id_orden) from orden_compra";
-        int idorden = 0;
-        ResultSet res_oc = bd.read(q);
-        if(res_oc.next()){
-            if(res_oc.getString("max(id_orden)") != null){
-                idorden = Integer.parseInt(res_oc.getString("max(id_orden)")) + 1;
-            }else
-            {
-             idorden=1;   
+            String q = "select max(id_orden) from orden_compra";
+            int idorden = 0;
+            ResultSet res_oc = bd.read(q);
+            if(res_oc.next()){
+                if(res_oc.getString("max(id_orden)") != null){
+                    idorden = Integer.parseInt(res_oc.getString("max(id_orden)")) + 1;
+                }else
+                {
+                idorden=1;   
+                }
+            }
+        
+            String q2 = "select nro_oc from orden_compra where estado_id_estado=1 and usuario_id_user="+userid;
+            String q3 = "select max(nro_oc) from orden_compra";
+            int nroc = 0;
+            ResultSet res_nro = bd.read(q2);
+            ResultSet resmax = bd.read(q3);
+        
+            if(res_nro.next()){
+                if(res_nro.getString("nro_oc") != null){
+                    
+                    nroc = Integer.parseInt(res_nro.getString("nro_oc"));
+                }else{
+                    nroc = Integer.parseInt(resmax.getString("max(nro_oc)")) + 1;
+                }
+            }else{
+                nroc = 1;
+            }
+        
+            String ins = "insert into orden_compra "
+                    + "values ('"+idorden+"', '"+fech+"', '"+total_oc+"',"
+                    + " '"+estado+"', '"+userid+"', '"+cant+"', '"+nroc+"')";
+            bd.update(ins);
+        
+        
+            response.sendRedirect("index.jsp");
+            }catch (NumberFormatException | SQLException e){
+                response.sendRedirect("error.jsp");
             }
         }
-        
-        String q2 = "select nro_oc from orden_compra where estado_id_estado=1 and usuario_id_user="+userid;
-        int nroc = 0;
-        ResultSet res_nro = bd.read(q2);
-        if(res_nro.next()){
-            
-        }
-        
-        
-            
-        }catch (NumberFormatException | SQLException e){
-            response.sendRedirect("error.jsp");
-        }
-    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

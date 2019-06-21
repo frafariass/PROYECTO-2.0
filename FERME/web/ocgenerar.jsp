@@ -74,12 +74,12 @@
         <h1>Generar Orden de Compra</h1>
         <div class="container generaroc">
             <div class="input-group mb-3">
-            <form action="agregarAOC()" method="post" id="data">
+            <form action="AgregarAOC" method="post" id="data">
                 <table>
                     <tr>
                         <td>Seleccionar Proveedor</td>
                         <td>
-                            <select class="custom-select" id="i_proveedores" name="proveedores" onchange="cargarProductos()">
+                            <select class="custom-select" id="i_proveedores" name="i_proveedores" onchange="cargarProductos()">
                                 <!--Query para rellenar select PROVEEDORES -->
                                 <%
                                     BD bd = new BD();
@@ -132,6 +132,7 @@
                                         String inputstring = i + "input";
                                         %>
                                         <input style="display: none" id="<%=inputstring%>" value="<%=relleno%>">
+                                        <input type="hidden" id="auxuser" name="auxuser" value="">
                                         <%b = 0;
                                     } 
                                 }                             
@@ -156,11 +157,9 @@
                         </td>
                     </tr>
                 </table>
-                   <%int userid = usu.getId_user();%>
-                   <input type="hidden" value="<%=userid%>" id="auxuser" name="auxuser">
             </form>
                         
-                    <form>
+                    <form style="display: none">
                         <table>
                             <tr>
                                 <th>Nombre Producto</th>
