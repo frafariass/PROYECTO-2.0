@@ -52,10 +52,8 @@
                     <a class="nav-link collapsed" href="#submenu2" data-toggle="collapse" data-target="#submenu2">Administrar orden de compra</a>
                     <div class="collapse" id="submenu2" aria-expanded="false">
                         <ul class="flex-column pl-2 nav">
-                            <li class="nav-item"><a class="nav-link py-0" href="ocanular.jsp">Anular OC</a></li>
                             <li class="nav-item"><a class="nav-link py-0" href="ocbuscar.jsp">Buscar OC</a></li>
                             <li class="nav-item"><a class="nav-link py-0" href="ocgenerar.jsp">Generar OC</a></li>
-                            <li class="nav-item"><a class="nav-link py-0" href="ocmodificar.jsp">Modificar OC</a></li>
                             <li class="nav-item"><a class="nav-link py-0" href="ocrecepcionar.jsp">Recepcionar OC</a></li>
                         </ul>
                     </div>
@@ -67,9 +65,7 @@
                     <a class="nav-link collapsed" href="#submenu3" data-toggle="collapse" data-target="#submenu3">Administrar ventas</a>
                     <div class="collapse" id="submenu3" aria-expanded="false">
                         <ul class="flex-column pl-2 nav">
-                            <li class="nav-item"><a class="nav-link py-0" href="venanular.jsp">Anular venta</a></li>
                             <li class="nav-item"><a class="nav-link py-0" href="venbuscar.jsp">Buscar venta</a></li>
-                            <li class="nav-item"><a class="nav-link py-0" href="venmodificar.jsp">Modificar venta</a></li>
                         </ul>
                     </div>
                 </li>
@@ -81,10 +77,8 @@
                         <a class="nav-link collapsed" href="#submenu4" data-toggle="collapse" data-target="#submenu4">Administrar usuarios</a>
                         <div class="collapse" id="submenu4" aria-expanded="false">
                             <ul class="flex-column pl-2 nav">
-                                <li class="nav-item"><a class="nav-link py-0" href="usuanular.jsp">Anular usuario</a></li>
                                 <li class="nav-item"><a class="nav-link py-0" href="usubuscar.jsp">Buscar usuario</a></li>
-                                <li class="nav-item"><a class="nav-link py-0" href="usucrear.jsp">Crear usuario</a></li>
-                                <li class="nav-item"><a class="nav-link py-0" href="usumodificar.jsp">Modificar usuario</a></li>
+                                <li class="nav-item"><a class="nav-link py-0" href="registro.jsp">Crear usuario</a></li>
                             </ul>
                         </div>
                     </li>

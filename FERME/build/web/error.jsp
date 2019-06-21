@@ -6,16 +6,18 @@
 
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
 <%@ include file="master.jsp" %>
+<%Error error = (Error)request.getSession().getAttribute("error1"); %>
 <!DOCTYPE html>
 <html>
     
 
   <!-- Page Content -->
-  <div class="container">
+  <div class="container" style="text-align: center">
 
-      <h1>ERROR</h1>
+      
+      <h5><% out.println(error.getMessage()); %></h5>
+      <a href="javascript:window.history.back();">&laquo; Volver</a>
     <!-- /.row -->
 
   </div>

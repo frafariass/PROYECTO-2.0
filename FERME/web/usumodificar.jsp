@@ -220,6 +220,8 @@
             %>
             document.getElementById("selectrubro").innerHTML = "<%= relleno2 %>";
             
+            
+            
             var auxrubro = "<%= usubuscar.getRubro_id_rubro()%>";
             var auxrol = "<%= usubuscar.getRol_id_rol()%>";
             $("#selectrubro").val(auxrubro);
@@ -340,10 +342,10 @@
                     <tr>
                         <td>Email:</td><td><input type="email" name="email" id="email"><label><font id="pemail" name="pemail" color="red"></font> </label></td>
                     <tr>
-                        <td>Nueva clave:</td><td><input type="password" name="nuevaclave" id="nuevaclave" > <input type="hidden" style="display: none" id="nuevaclavesecreta" name="nuevaclavesecreta"></td>
+                        <td>Nueva clave:</td><td><input type="password" id="nuevaclave" > <input type="hidden" style="display: none" id="nuevaclavesecreta" name="nuevaclavesecreta"></td>
                     </tr>
                     <tr>
-                        <td>Confirmar clave:</td><td><input type="password" name="connuevaclave" id="connuevaclave" ><label><font color="red" id="pconclave" name="pconclave"></font></label></td>
+                        <td>Confirmar clave:</td><td><input type="password"  id="connuevaclave" ><label><font color="red" id="pconclave" name="pconclave"></font></label></td>
                     </tr>
                     <tr>
                         <td>Nombre:</td><td><input type="text" name="nombre" id="nombre"><label ><font color="red" id="pnombre" name="pnombre"></font> </label></td>

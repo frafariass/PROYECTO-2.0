@@ -94,7 +94,7 @@
                             </li>
                         <%}%>
                         <li class="nav-item">
-                            <a class="nav-link" href="editarperfil.jsp">Editar perfil</a>
+                            <a class="nav-link" href="LimpiarBuscarUsu">Editar perfil</a>
                         </li>
                         
                         <li class="nav-item">

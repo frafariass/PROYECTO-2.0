@@ -45,86 +45,103 @@ public class Registro extends HttpServlet {
         rut = rut.trim();
         String rutsinguion = rut;
         rutsinguion = rutsinguion.replace("-", "");
-
+        int rutint;
+        if(rutsinguion.length() >= 9)
+        {
+            String rutingresar = rutsinguion.substring(0,8);
+            rutint = Integer.parseInt(rutingresar);
+        }else
+        {
+            String rutingresar = rutsinguion.substring(0,7);
+            rutint = Integer.parseInt(rutingresar);
+        }
+        
         
         String digitorutingresado = Character.toString(rut.charAt(rut.length()-1));
         
                 try {
-                    int rol = 4;
-                    int rubro = 1;
-                    if(request.getParameter("tiporegistro").equals("regadmin"))
-                    {
-                        rol = Integer.parseInt(request.getParameter("selectrol"));
-                        rubro = Integer.parseInt(request.getParameter("selectrubro"));
-                    }
-                    
-                    char digitochar = digitorutingresado.charAt(0);
-                    String clave = request.getParameter("nuevaclavesecreta");                                                                                 
-                    String nombre = request.getParameter("nombre");
-                    String email = request.getParameter("email");
-                    String apellido = request.getParameter("apellido");
-                    String direccion = request.getParameter("direccion");
-                    String telefono = request.getParameter("telefono");
-                    
-                    if(telefono.length() == 0)
-                    {
-                        telefono = "0";
-                    }
-                    if(direccion.length() == 0)
-                    {
-                        direccion = "NO INGRESADO";
-                    }
-                    if(apellido.length() == 0)
-                    {
-                        apellido = "NO INGRESADO";
-                    }
-                    int rutint;
-                    if(rutsinguion.length() >= 9)
-                    {
-                        String rutingresar = rutsinguion.substring(0,8);
-                        rutint = Integer.parseInt(rutingresar);
-                    }else
-                    {
-                        String rutingresar = rutsinguion.substring(0,7);
-                        rutint = Integer.parseInt(rutingresar);
-                    }
-
                     BD bd = new BD();
                     String q;
-                    int idmaximo = 0;
-                    if(rol == 5)
+                    ResultSet res;
+                    q = "select rut_user, dv_user from usuario where rut_user =" + rutint;
+                    res = bd.read(q);
+                    
+                    try
                     {
-                        q = "select max(id_user) from usuario WHERE ID_USER <= 999";
-                    }else
+                        res.next();
+                        String rutarmado = res.getString("rut_user") + "-" + res.getString("dv_user");
+                        String mensaje = "El rut " + rutarmado + " ya está registrado en el sistema";
+                        Error error = new Error(mensaje);
+                        request.getSession().setAttribute("error1", error);
+                        response.sendRedirect("error.jsp");
+                    }catch(Exception e)
                     {
-                        q  = "select max(id_user) from usuario where id_user >= 1001";
-                    }
-                    ResultSet res = bd.read(q);
-                    if(res.next())
-                    {
-                        if(res.getString("max(id_user)") != null)
+                        int rol = 4;
+                        int rubro = 1;
+                        if(request.getParameter("tiporegistro").equals("regadmin"))
                         {
-                            idmaximo = Integer.parseInt(res.getString("max(id_user)")) + 1;
+                            rol = Integer.parseInt(request.getParameter("selectrol"));
+                            rubro = Integer.parseInt(request.getParameter("selectrubro"));
+                        }
+
+                        char digitochar = digitorutingresado.charAt(0);
+                        String clave = request.getParameter("nuevaclavesecreta");                                                                                 
+                        String nombre = request.getParameter("nombre");
+                        String email = request.getParameter("email");
+                        String apellido = request.getParameter("apellido");
+                        String direccion = request.getParameter("direccion");
+                        String telefono = request.getParameter("telefono");
+
+                        if(telefono.length() == 0)
+                        {
+                            telefono = "0";
+                        }
+                        if(direccion.length() == 0)
+                        {
+                            direccion = "NO INGRESADO";
+                        }
+                        if(apellido.length() == 0)
+                        {
+                            apellido = "NO INGRESADO";
+                        }
+                        
+                        
+
+
+                        int idmaximo = 0;
+                        if(rol == 5)
+                        {
+                            q = "select max(id_user) from usuario WHERE ID_USER <= 999";
                         }else
                         {
-                            if(rol == 5)
+                            q  = "select max(id_user) from usuario where id_user >= 1001";
+                        }
+                        res = bd.read(q);
+                        if(res.next())
+                        {
+                            if(res.getString("max(id_user)") != null)
                             {
-                                idmaximo = 101;
+                                idmaximo = Integer.parseInt(res.getString("max(id_user)")) + 1;
                             }else
                             {
-                                idmaximo = 1001;
+                                if(rol == 5)
+                                {
+                                    idmaximo = 101;
+                                }else
+                                {
+                                    idmaximo = 1001;
+                                }
                             }
                         }
-                    }
-                    
-               
-                    q = "insert into usuario "
-                                      + "values ('"+digitochar+"', '"+nombre+"', "
-                                       + "'"+apellido+"', '"+email+"', '"+clave+"', '"+direccion+"', "
-                            + "'"+telefono+"', "+0+", "+rubro+", "+idmaximo+", "+rol+", "+rutint+")";
-                    bd.update(q);
-                    
-                    response.sendRedirect("exito.jsp");
+
+
+                        String q2 = "insert into usuario "
+                                          + "values ('"+digitochar+"', '"+nombre+"', "
+                                           + "'"+apellido+"', '"+email+"', '"+clave+"', '"+direccion+"', "
+                                + "'"+telefono+"', "+0+", "+rubro+", "+idmaximo+", "+rol+", "+rutint+")";
+                        bd.update(q2);
+                        response.sendRedirect("exito.jsp");
+                    }                   
                 }catch (IOException | NumberFormatException | SQLException e) { 
                     response.sendRedirect("error.jsp");
                 }

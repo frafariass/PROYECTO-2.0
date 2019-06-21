@@ -17,19 +17,20 @@ public class ConsolaTest {
     {
         BD bd = new BD();
       System.out.println(bd.insertarImagen("C:\\Users\\lordp\\Desktop\\PROYECTO 2.0\\images\\tipo_producto\\cable.jpg",
-                "tipo_producto", "tipoprod_imagen", 104L, "id_tipoprod"));
+               "tipo_producto", "tipoprod_imagen", 104L, "id_tipoprod"));
               System.out.println(bd.insertarImagen("C:\\Users\\lordp\\Desktop\\PROYECTO 2.0\\images\\tipo_producto\\clavos.jpg",
-             "tipo_producto", "tipoprod_imagen", 101L, "id_tipoprod"));
+            "tipo_producto", "tipoprod_imagen", 101L, "id_tipoprod"));
                System.out.println(bd.insertarImagen("C:\\Users\\lordp\\Desktop\\PROYECTO 2.0\\images\\tipo_producto\\tornillos.jpg",
               "tipo_producto", "tipoprod_imagen", 103L, "id_tipoprod"));
-                        System.out.println(bd.insertarImagen("C:\\Users\\lordp\\Desktop\\PROYECTO 2.0\\images\\tipo_producto\\tuercas.jpg",
-             "tipo_producto", "tipoprod_imagen", 102L, "id_tipoprod"));
+                       System.out.println(bd.insertarImagen("C:\\Users\\lordp\\Desktop\\PROYECTO 2.0\\images\\tipo_producto\\tuercas.jpg",
+            "tipo_producto", "tipoprod_imagen", 102L, "id_tipoprod"));
                                 System.out.println(bd.insertarImagen("C:\\Users\\lordp\\Desktop\\PROYECTO 2.0\\images\\tipo_producto\\plagas.jpg",
-              "tipo_producto", "tipoprod_imagen", 107L, "id_tipoprod"));
+             "tipo_producto", "tipoprod_imagen", 107L, "id_tipoprod"));
                                     System.out.println(bd.insertarImagen("C:\\Users\\lordp\\Desktop\\PROYECTO 2.0\\images\\tipo_producto\\tuberia.jpg",
-                "tipo_producto", "tipoprod_imagen", 106L, "id_tipoprod"));
-                                         System.out.println(bd.insertarImagen("C:\\Users\\lordp\\Desktop\\PROYECTO 2.0\\images\\tipo_producto\\productos\\clavogrande.jpg",
-                    "producto", "imagen", 10110100000000101L, "id_producto"));
+               "tipo_producto", "tipoprod_imagen", 106L, "id_tipoprod"));
+                                       System.out.println(bd.insertarImagen("C:\\Users\\lordp\\Desktop\\PROYECTO 2.0\\images\\tipo_producto\\productos\\clavogrande.jpg",
+                "producto", "imagen", 10110100000000101L, "id_producto"));
+
 
         
        

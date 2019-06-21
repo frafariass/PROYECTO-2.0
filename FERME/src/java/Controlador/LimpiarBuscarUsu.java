@@ -5,13 +5,9 @@
  */
 package Controlador;
 
-import Modelo.BD;
+import Modelo.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author lordp
  */
-@WebServlet(name = "test", urlPatterns = {"/test"})
-public class test extends HttpServlet {
+@WebServlet(name = "LimpiarBuscarUsu", urlPatterns = {"/LimpiarBuscarUsu"})
+public class LimpiarBuscarUsu extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,23 +31,16 @@ public class test extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            
-            try
+            if(request.getSession().getAttribute("usubuscar1") != null)
             {
-                BD bd = new BD();
-                String q = "select * from perfil pe join usuario us "
-                        + "on (pe.usuario_rut_user=us.rut_user) "
-                        + "where pe.rol_id_rol = 5";
-                ResultSet res = bd.read(q);
-                res.next();
-            }catch(Exception e)
-            {
+                Usuario usucerrar = null;
+                request.getSession().setAttribute("usubuscar1", usucerrar);
             }
-                        
+            response.sendRedirect("editarperfil.jsp");
         }
     }
 
@@ -67,11 +56,7 @@ public class test extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -85,11 +70,7 @@ public class test extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**

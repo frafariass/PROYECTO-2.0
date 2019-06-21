@@ -40,8 +40,9 @@ public class EditarPerfil extends HttpServlet {
             try
             {
                 Usuario usu = (Usuario)request.getSession().getAttribute("usu1");
-                Usuario usueditar;
+                Usuario usueditar = new Usuario();
                 String auxsaber = request.getParameter("tipomod");
+                
                 if(auxsaber.equals("modadmin"))
                 {
                     usueditar = (Usuario)request.getSession().getAttribute("usubuscar1");
@@ -54,6 +55,16 @@ public class EditarPerfil extends HttpServlet {
                     usueditar = usu;
                 }
                 String clavecifrada = request.getParameter("nuevaclavesecreta");
+                if(clavecifrada != "")
+                {
+                    usueditar.setContrasena(clavecifrada);
+                } 
+                String contraono = " , contrasena = '" + usueditar.getContrasena() + "' ";
+                if(auxsaber.equals("modadmin"))
+                {
+                    contraono = "";
+                }
+                
                 BD bd = new BD();
                 if(request.getParameter("email") != "")
                 {
@@ -66,10 +77,7 @@ public class EditarPerfil extends HttpServlet {
                 {
                     usueditar.setFono_user("0");
                 }
-                if(clavecifrada != "")
-                {
-                    usueditar.setContrasena(clavecifrada);
-                } 
+                
                 if(request.getParameter("direccion") != "")
                 {
                     usueditar.setDireccion_user(request.getParameter("direccion"));
@@ -87,18 +95,25 @@ public class EditarPerfil extends HttpServlet {
                 if(request.getParameter("nombre") != "")
                 {
                     usueditar.setNombre_user(request.getParameter("nombre"));
-                }   
+                }
+                
+                
                 String q = "update usuario"
-                        + " set email_user = '" + usueditar.getEmail_user() + "', contrasena = '" + usueditar.getContrasena()
-                        + "', fono_user = '" + usueditar.getFono_user() + "', direccion_user = '" + usueditar.getDireccion_user() 
+                        + " set email_user = '" + usueditar.getEmail_user() + "' " + contraono +", fono_user = '" + usueditar.getFono_user() + "', direccion_user = '" + usueditar.getDireccion_user() 
                         + "' , apellido_user = '" + usueditar.getApellido_user() + "' , nombre_user = '" + usueditar.getNombre_user() 
                         + "', rol_id_rol = "+usueditar.getRol_id_rol()+" , rubro_id_rubro ="+ usueditar.getRubro_id_rubro()+
                         "where rut_user = " + usueditar.getRut_user();
                 bd.update(q);
-                if(usu.getRol_id_rol() != 1)
+                if(!auxsaber.equals("modadmin"))
                 {
                     request.getSession().setAttribute("usu1", usueditar);
+                }else
+                {
+                    Usuario usucerrar = null;
+                    request.getSession().setAttribute("usubuscar1", usucerrar);
                 }
+                
+                
                 response.sendRedirect("exito.jsp");
             }catch(Exception e)
             {

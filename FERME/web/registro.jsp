@@ -9,7 +9,7 @@
 
 <% 
     
-   if(usu != null)
+   if(usu != null && usu.getRol_id_rol() != 1)
    {
        response.sendRedirect("index.jsp");
    }
@@ -233,25 +233,65 @@
         
         //VALIDA QUE LOS CAMPOS NECESARIOS ESTEN LLENOS
         //SI NO ESTAN LLENOS, EL SUBMIT SE DESHABILITA
-        $(window).on('load', function() {         
-            $("#clave").on("change paste keyup", function() {
+        $(window).on('load', function() {  
+            var rolactual = -2;
+            <%
+                if(usu != null){%> rolactual = <%= usu.getRol_id_rol()%>
+            <%}%>
+            if(rolactual !== 1)
+            {
+                $('#tiporegistro').val('reguser')
+                document.getElementById("trrubro").style.display = "none";
+                document.getElementById("trrol").style.display = "none";
+            }
+            <%
+                BD bd = new BD();
+                String q = "select * from rol";
+                ResultSet res = bd.read(q);
+                res.next();
+                String relleno = "";
+                do {
+                        relleno = relleno + "<option value='" + res.getString("id_rol") +"'>" + 
+                                res.getString("nombre_rol") +"</option>";
+                    } while (res.next());
+                %>
+                 document.getElementById("selectrol").innerHTML = "<%= relleno %>";
+                <%                                            
+                q = "select * from rubro";
+                res = bd.read(q);
+                res.next();
+                String relleno2 = "";
+                do {
+                        relleno2 = relleno2 + "<option value='" + res.getString("id_rubro") +"'>" + 
+                                res.getString("nombre_rubro") +"</option>";
+                        } while (res.next());
+            %>
+            document.getElementById("selectrubro").innerHTML = "<%= relleno2 %>";
+                    
+            var auxrubro = "1";
+            var auxrol = "4";
+            $("#selectrubro").val(auxrubro);
+            $("#selectrol").val(auxrol);
+            
+            
+            $("#clave").on("paste keyup", function() {
                 cifrado();
             });
-            $("#conclave").on("change paste keyup", function() {
+            $("#conclave").on("paste keyup", function() {
                 cifrado();
             });
             
-            $("#apellido").on("change paste keyup input", function() {
+            $("#apellido").on("paste keyup input", function() {
                 validarapellido();
             });
             
-            $("#direccion").on("change paste keyup input", function() {
+            $("#direccion").on("paste keyup input", function() {
                 validardireccion();
             });
             
             jQuery("#submitn").prop('disabled', true);
 
-            var toValidate = jQuery('#rut, #clave, #conclave, #email, #nombre, #telefono'),
+            var toValidate = jQuery('#rut, #clave, #conclave, #email, #nombre, #telefono, #apellido, #direccion'),
                 valid = false;
             toValidate.keyup(function () {
                 if (jQuery(this).val().length > 0) {
@@ -288,6 +328,26 @@
                     if(jQuery(this).attr('id') === 'nombre')
                     {
                         if(validarnombre())
+                        {                                
+                            valid = true;
+                        }else
+                        {
+                            valid = false;
+                        }
+                    }
+                    if(jQuery(this).attr('id') === 'direccion')
+                    {
+                        if(validardireccion())
+                        {                                
+                            valid = true;
+                        }else
+                        {
+                            valid = false;
+                        }
+                    }
+                    if(jQuery(this).attr('id') === 'apellido')
+                    {
+                        if(validarapellido())
                         {                                
                             valid = true;
                         }else
@@ -402,11 +462,11 @@
                         </tr>
 
                         <tr>
-                            <td>Clave:</td><td><input type="password" name="clave" id="clave" ><font color="red">* </font> <input type="hidden" style="display: none" id="nuevaclavesecreta" name="nuevaclavesecreta"></td>
+                            <td>Clave:</td><td><input type="password" id="clave" ><font color="red">* </font> <input type="hidden" style="display: none" id="nuevaclavesecreta" name="nuevaclavesecreta"></td>
                         </tr>
 
                         <tr>
-                            <td>Confirmar Clave:</td><td><input type="password" name="conclave" id="conclave" ><label ><font color="red" id="pconclave" name="pconclave">* </font></label></td>
+                            <td>Confirmar Clave:</td><td><input type="password" id="conclave" ><label ><font color="red" id="pconclave" name="pconclave">* </font></label></td>
                         </tr>
                         
                         <tr>
@@ -427,20 +487,24 @@
                         <tr>
                             <td>Teléfono de contacto:</td><td><input type="number" name="telefono" id="telefono"><label ><font color="red" id="ptelefono" name="ptelefono"> </font></label></td>
                         </tr>
-
+                        <tr id="trrubro">
+                        <td>Rubro:</td><td><select id='selectrubro' name='selectrubro'></select></td>
+                        </tr>
+                        <tr id="trrol">
+                        <td>Rol:</td><td><select id='selectrol' name='selectrol'></select></td>
+                        </tr>
                         <tr>
                             <td><a href="javascript:window.history.back();">&laquo; Volver</a></td><td><input type="submit" value="Enviar" name="submitn" id="submitn"></td>
-                        </tr>
-                        <input type="hidden" style="display: none" id="tiporegistro" name="tiporegistro" value="reguser">
+                        </tr>  
                     </table>
+                    <input type='hidden' style='display: none' id='tiporegistro' name='tiporegistro' value='regadmin'>
                 </form>
-            </div>
-        </div>
-      
+            </div> 
+        </div> 
     </div>
-
-
   </div>
+  
+  <div id="generarcampoadmin"></div>
     <!-- /.row -->
   <!-- /.container -->
 

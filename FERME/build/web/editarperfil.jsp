@@ -5,9 +5,11 @@
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ include file="master.jsp" %>
+<% Usuario usubuscar = (Usuario)request.getSession().getAttribute("usubuscar1");%> 
+
 
 <% 
-   if(usu == null)
+   if(usu == null && usu.getRol_id_rol() != 1)
    {
        response.sendRedirect("login.jsp");
    }
@@ -123,19 +125,88 @@
         
         $(window).on('load', function()
         {
-            var email = "<%= usu.getEmail_user() %>";
-            var telefono = "<%= usu.getFono_user()%>";
-            var direccion = "<%= usu.getDireccion_user()%>";
-            var nombre = "<%= usu.getNombre_user()%>";
-            var apellido = "<%= usu.getApellido_user()%>";
+            var usubuscar = null;
             
-            $("#nuevaclave").on("change paste keyup", function() {
+            var email;
+            var telefono;
+            var direccion;
+            var nombre;
+            var apellido;
+            var auxrubro;
+            var auxrol;
+            
+            <%
+                if(usu != null && usubuscar != null){%> usubuscar = true;
+            <%}%>
+            if(usubuscar === null)
+            {
+                email = "<%= usu.getEmail_user() %>";
+                telefono = "<%= usu.getFono_user()%>";
+                direccion = "<%= usu.getDireccion_user()%>";
+                nombre = "<%= usu.getNombre_user()%>";
+                apellido = "<%= usu.getApellido_user()%>";
+                auxrubro = "<%= usu.getRubro_id_rubro() %>";
+                auxrol = "<%= usu.getRol_id_rol()%>";
+                $('#tipomod').val('moduser')
+                document.getElementById("trrubro").style.display = "none";
+                document.getElementById("trrol").style.display = "none";
+            }else
+            {
+                <%
+                    if(usubuscar != null)
+                    {%>
+                        email = "<%= usubuscar.getEmail_user() %>";
+                        document.getElementById("nuevaclavesecreta").value = "<%= usubuscar.getContrasena()%>";
+                        telefono = "<%= usubuscar.getFono_user()%>";
+                        direccion = "<%= usubuscar.getDireccion_user()%>";
+                        nombre = "<%= usubuscar.getNombre_user()%>";
+                        apellido = "<%= usubuscar.getApellido_user()%>";
+                        auxrubro = "<%= usubuscar.getRubro_id_rubro() %>";
+                        auxrol = "<%= usubuscar.getRol_id_rol()%>";  
+                    <%}
+                %>
+                
+            }
+            
+            <%
+                BD bd = new BD();
+                String q = "select * from rol";
+                ResultSet res = bd.read(q);
+                res.next();
+                String relleno = "";
+                do {
+                        relleno = relleno + "<option value='" + res.getString("id_rol") +"'>" + 
+                                res.getString("nombre_rol") +"</option>";
+                    } while (res.next());
+                %>
+                 document.getElementById("selectrol").innerHTML = "<%= relleno %>";
+                <%                                            
+                q = "select * from rubro";
+                res = bd.read(q);
+                res.next();
+                String relleno2 = "";
+                do {
+                        relleno2 = relleno2 + "<option value='" + res.getString("id_rubro") +"'>" + 
+                                res.getString("nombre_rubro") +"</option>";
+                        } while (res.next());
+            %>
+            document.getElementById("selectrubro").innerHTML = "<%= relleno2 %>";
+            
+            $("#selectrubro").val(auxrubro);
+            $("#selectrol").val(auxrol);
+            
+            
+            
+            
+            
+            
+            $("#nuevaclave").on("paste keyup", function() {
                 cifrado();
             });
-            $("#connuevaclave").on("change paste keyup", function() {
+            $("#connuevaclave").on("paste keyup", function() {
                 cifrado();
             });
-            $("#clave").on("change paste keyup", function() {
+            $("#clave").on("paste keyup", function() {
                 cifradoclaveactual();
             });
             $("#nombre").on("change paste keyup", function() {
@@ -170,14 +241,23 @@
         function validar()
         {
             var valido = true;
-            var claveusuariologeado = "<%= usu.getContrasena()%>";
-
-            
-            if(claveusuariologeado !== document.getElementById("clavesecreta").value)   
-            {
-                valido = false;
-            }
-            
+            var claveusuariologeado = "";
+            <%
+                if(usubuscar == null)
+                {%>
+                    claveusuariologeado = "<%= usu.getContrasena()%>";
+                    if(claveusuariologeado !== "")
+                    {
+                        var test = document.getElementById("clavesecreta").value;
+                        if(claveusuariologeado !== test)   
+                        {
+                            valido = false;
+                        }
+                    }
+                    
+                <%}
+                %>
+                        
             if(!validarclaves())
             {
                 valido = false;
@@ -197,6 +277,7 @@
             {
                 valido = false;
             }
+            
             if(valido)
             {
                 jQuery("#submiteditar").prop('disabled', false);
@@ -222,16 +303,21 @@
             <h5>Ingrese sus datos, los campos con * son necesarios</h5>
             <form mode="post" action="EditarPerfil" onsubmit="return validar()">
                 <table class="table">
-                    <tr>
-                        <td>Clave actual:</td><td><input type="password" name="clave" id="clave" ><font color="red">* </font><input type="hidden" style="display: none" id="clavesecreta" name="clavesecreta"></td>
-                    </tr>
+                    <%
+                        if(usubuscar == null)
+                        {%>
+                            <tr>
+                                <td>Clave actual:</td><td><input type="password" id="clave" ><font color="red">* </font><input type="hidden" style="display: none" id="clavesecreta" name="clavesecreta"></td>
+                            </tr>
+                        <%}
+                    %>
                     <tr>
                         <td>Email:</td><td><input type="email" name="email" id="email"><label><font id="pemail" name="pemail" color="red"></font> </label></td>
                     <tr>
-                        <td>Nueva clave:</td><td><input type="password" name="nuevaclave" id="nuevaclave" > <input type="hidden" style="display: none" id="nuevaclavesecreta" name="nuevaclavesecreta"></td>
+                        <td>Nueva clave:</td><td><input type="password" id="nuevaclave" > <input type="hidden" style="display: none" id="nuevaclavesecreta" name="nuevaclavesecreta"></td>
                     </tr>
                     <tr>
-                        <td>Confirmar clave:</td><td><input type="password" name="connuevaclave" id="connuevaclave" ><label><font color="red" id="pconclave" name="pconclave"></font></label></td>
+                        <td>Confirmar clave:</td><td><input type="password" id="connuevaclave" ><label><font color="red" id="pconclave" name="pconclave"></font></label></td>
                     </tr>
                     <tr>
                         <td>Nombre:</td><td><input type="text" name="nombre" id="nombre"><label ><font color="red" id="pnombre" name="pnombre"></font> </label></td>
@@ -245,10 +331,16 @@
                     <tr>
                         <td> Teléfono de contacto:</td><td><input type="number" name="telefono" id="telefono"><label ><font color="red" id="ptelefono" name="ptelefono"> </font></label></td>
                     </tr>
+                    <tr id="trrubro">
+                        <td>Rubro:</td><td><select id='selectrubro' name='selectrubro'></select></td>
+                        </tr>
+                        <tr id="trrol">
+                        <td>Rol:</td><td><select id='selectrol' name='selectrol'></select></td>
+                        </tr>
                     <tr>
-                        <td><input type="submit" value="Editar perfil" name="submiteditar" id="submiteditar"></td>
+                        <td></td><td><input type="submit" value="Editar perfil" name="submiteditar" id="submiteditar"></td>
                     </tr>
-                    <input type="hidden" style="display: none" id="tipomod" name="tipomod" value="modnormal">
+                    <input type="hidden" style="display: none" id="tipomod" name="tipomod" value="modadmin">
                 </table>
             </form>
         </div>

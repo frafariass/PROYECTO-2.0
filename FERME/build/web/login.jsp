@@ -114,11 +114,11 @@
         $(window).on('load', function() {
             jQuery("#submitlogin").prop('disabled', true);
             
-            $("#clave").on("change paste keyup", function() {
+            $("#clave").on("paste keyup", function() {
                 cifrado();
             });
 
-            var toValidate = jQuery('#rut, #clave, #conclave, #email, #nombre, #telefono'),
+            var toValidate = jQuery('#rut, #clave'),
                 valid = false;
             toValidate.keyup(function () {
                 if (jQuery(this).val().length > 0) {
@@ -137,18 +137,10 @@
                     jQuery(this).data('valid', false);
                 }
                 toValidate.each(function () {
-                    if (jQuery(this).data('valid') == true && jQuery(this).attr('id') !== "telefono") {
-                        valid = true; 
-                    } else {
-                        if(jQuery(this).attr('id') === "telefono" && (jQuery(this).val().length === 0 || jQuery(this).val().length === 9))
-                        {
-                            valid = true;
-                        }else
-                        {
-                            valid = false;
-                            return false;
-                        }
-                    }
+                        if (jQuery(this).data('valid') == true) {
+                            valid = true; 
+                        } 
+                    });
                 });
                 
                 if (valid === true) {
@@ -157,7 +149,6 @@
                     jQuery("#submitlogin").prop('disabled', true);
                 }
             });
-        });
         
         function validar()
         {
@@ -204,7 +195,7 @@
                     </tr>
 
                     <tr>
-                        <td>Clave:</td><td><input type="password" name="clave" id="clave" ><font color="red">* </font> <input type="hidden" style="display: none" id="clavesecreta" name="clavesecreta"></td>
+                        <td>Clave:</td><td><input type="password" id="clave" ><font color="red">* </font> <input type="hidden" style="display: none" id="clavesecreta" name="clavesecreta"></td>
                     </tr>
                     <tr>
                         <td><a href="registro.jsp">Registrarse</a>&nbsp;</td><td><input type="submit" value="Ingresar" id="submitlogin" name="submitlogin"></td>

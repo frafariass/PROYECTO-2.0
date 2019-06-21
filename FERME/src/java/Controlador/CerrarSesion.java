@@ -37,6 +37,7 @@ public class CerrarSesion extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             Usuario usu = null;
             request.getSession().setAttribute("usu1", usu);
+            request.getSession().setAttribute("usubuscar1", usu);
             response.setHeader("Cache-Control", "no-cache");
             response.setHeader("Cache-Control", "no-store");
             response.setHeader("Pragma", "no-cache");

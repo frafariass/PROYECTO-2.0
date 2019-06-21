@@ -54,7 +54,7 @@
                 <td><input type="submit" value="Activar Usuario" name="submitactivarusu" id="submitactivarusu"><input name="iduserac" style="display: none" value="<%= usubuscar.getId_user()%>"></td>
             </form>
             <%}%>
-            <form action="usumodificar.jsp" method="post">
+            <form action="editarperfil.jsp" method="post">
                     <td><input type="submit" value="Modificar Usuario" name="submitmodiusu" id="submitmodiusu"><input name="idusermod" style="display: none" value="<%= usubuscar.getId_user()%>"></td>
             </form>
             </tr>
