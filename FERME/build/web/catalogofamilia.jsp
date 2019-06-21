@@ -18,7 +18,14 @@
     
 
   <!-- Page Content -->
-
+<script type="text/javascript">
+        
+        function submitfamilia()
+        {
+            $('form#catalogofamilia').submit();
+        }
+        
+    </script>
 
     
     <!-- Page Features -->
@@ -29,16 +36,17 @@
       <div class="col-lg-3">
         <h1 class="my-4">Categorías</h1>
         <div class="list-group">
-            <%
+           <%
                 BD bd = new BD();
                 String q = "select * from familia";
                 ResultSet res = bd.read(q);
                 res.next();
-                do {
-                        out.println("<form method='post' action='CatalogoFamilia'>");
-                        out.println("<input class='list-group-item' type='submit' name = 'dato'"+ "value = '"+ res.getString("id_familia") + ": " + res.getString("NOMBRE_FAMILIA")+"'>");
-                        out.println("</form>");
-                    } while (res.next());
+                do {%>
+                        <form method='post' action='CatalogoFamilia'>
+                        <button onclick="submitfamilia()" class='list-group-item' type='submit'><% out.println(res.getString("NOMBRE_FAMILIA")); %></button>
+                        <input type="hidden" style="display: none" name = 'dato' value = '<% out.println(res.getString("id_familia")); %>'>
+                        </form>
+                    <%} while (res.next());
                 
             %>
         </div>
@@ -99,21 +107,25 @@
 
 
                         inputStream.close();
-                        outputStream.close();
-                        out.println("<div class='col-lg-4 col-md-6 mb-4'>");
-                        out.println("<div class='card h-100'>");
-                        out.println("<img class='card-img-top' src='data:image/jpg;base64," + base64Image + "'/>");
-                        out.println("<div class='card-body'>");
-                        out.println("<h4 class='card-title'>");
-                        out.println("<form method='post' action='CatalogoTipoProd'>");
-                        out.println("<input class='list-group-item' type='submit' name = 'dato'"+ "value = '" + res1.getString("nombre_tipoprod")+"'>");
-                        out.println("</form>");
-                        out.println("</h4>");
-                        out.println("</div>");
-                        out.println("</div>");
-                        out.println("</div>");
+                        outputStream.close(); %>
                         
-                    } while (res1.next());
+                        <div class='col-lg-4 col-md-6 mb-4'>
+                        <div class='card h-100'>
+                        <img class='card-img-top' src='data:image/jpg;base64, <% out.println(base64Image); %>'/>
+                        <div class='card-body'>
+                        <h4 class='card-title'>
+                        <form method='post' action='CatalogoTipoProd'>
+                        <input class='list-group-item' type='submit' value = ' <% out.println(res1.getString("nombre_tipoprod")); %>' >
+                        <input type="hidden" style="display: none" name = 'dato' value = '<% 
+                            
+                            out.println(res1.getString("id_tipoprod")); %>' >
+                        </form>
+                        </h4>
+                        </div>
+                        </div>
+                        </div>
+                        
+                   <% } while (res1.next());
             }else{
                 out.println("<p>No hay productos en esta categoria</p>");
             }

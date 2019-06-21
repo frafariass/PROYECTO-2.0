@@ -44,12 +44,9 @@ public class CatalogoFamilia extends HttpServlet {
             try
             {
                 BD bd = new BD();
-                int idint = Integer.parseInt(request.getParameter("dato").substring(0,3));
-                String asd = request.getParameter("dato");
-                String id = asd.substring(0,3);
-                String nombre = asd.substring(3, asd.length());
-                nombre = nombre.trim();
-                Familia fa = new Familia(Integer.parseInt(id), nombre);
+                String id = request.getParameter("dato");
+                id = id.trim();
+                Familia fa = new Familia(Integer.parseInt(id), "");
                 request.getSession().setAttribute("fa1", fa);
                 response.sendRedirect("catalogofamilia.jsp");
             }catch(Exception e)

@@ -22,6 +22,15 @@
     <!-- Page Features -->
 <div class="container">
 
+    <script type="text/javascript">
+        
+        function submitfamilia()
+        {
+            $('form#catalogofamilia').submit();
+        }
+        
+    </script>
+    
     <div class="row">
 
       <div class="col-lg-3">
@@ -32,11 +41,12 @@
                 String q = "select * from familia";
                 ResultSet res = bd.read(q);
                 res.next();
-                do {
-                        out.println("<form method='post' action='CatalogoFamilia'>");
-                        out.println("<input class='list-group-item' type='submit' name = 'dato'"+ "value = '"+ res.getString("id_familia") + ": " + res.getString("NOMBRE_FAMILIA")+"'>");
-                        out.println("</form>");
-                    } while (res.next());
+                do {%>
+                        <form method='post' action='CatalogoFamilia' id="catalogofamilia">
+                            <button onclick="submitfamilia()" class='list-group-item' type='submit'><% out.println(res.getString("NOMBRE_FAMILIA")); %></button>
+                        <input type="hidden" style="display: none" name = 'dato' value = '<% out.println(res.getString("id_familia")); %>'>
+                        </form>
+                    <%} while (res.next());
                 
             %>
         </div>

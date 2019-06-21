@@ -40,10 +40,10 @@ public class CatalogoTipoProd extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             try
             {
-                String nombretipoprod = request.getParameter("dato");
-                nombretipoprod = nombretipoprod.trim();
+                String idtipoprod = request.getParameter("dato");
+                idtipoprod = idtipoprod.trim();
                 BD bd = new BD();
-                String q = "select id_tipoprod from tipo_producto where nombre_tipoprod = '" + nombretipoprod + "'";
+                String q = "select id_tipoprod from tipo_producto where id_tipoprod = " + idtipoprod;
                 ResultSet res = bd.read(q);
                 res.next();
                 TipoProducto tipo = new TipoProducto();

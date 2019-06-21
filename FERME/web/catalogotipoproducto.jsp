@@ -11,7 +11,14 @@
 <!DOCTYPE html>
 <html>
     
-
+<script type="text/javascript">
+        
+        function submitfamilia()
+        {
+            $('form#catalogofamilia').submit();
+        }
+        
+    </script>
   <!-- Page Content -->
 
     
@@ -28,11 +35,12 @@
                 String q = "select * from familia";
                 ResultSet res = bd.read(q);
                 res.next();
-                do {
-                        out.println("<form method='post' action='CatalogoFamilia'>");
-                        out.println("<input class='list-group-item' type='submit' name = 'dato'"+ "value = '"+ res.getString("id_familia") + ": " + res.getString("NOMBRE_FAMILIA")+"'>");
-                        out.println("</form>");
-                    } while (res.next());
+                do {%>
+                        <form method='post' action='CatalogoFamilia'>
+                        <button onclick="submitfamilia()" class='list-group-item' type='submit'><% out.println(res.getString("NOMBRE_FAMILIA")); %></button>
+                        <input type="hidden" style="display: none" name = 'dato' value = '<% out.println(res.getString("id_familia")); %>'>
+                        </form>
+                    <%} while (res.next());
                 
             %>
         </div>
@@ -91,27 +99,28 @@
 
                         byte[] imageBytes = outputStream.toByteArray();
                         String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+                         %>
+                         
+                        <div class='col-lg-4 col-md-6 mb-4'>
+                        <div class='card h-100'>
+                        <img class='card-img-top' src='data:image/jpg;base64, <%  out.println(base64Image); %>'/>
+                        <div class='card-body'>
+                        <form method='post' action='EspecificacionProducto'>
+                        <h4 class='card-title'>
+                        <input class='list-group-item' type='submit' name = 'dato' value = '<% out.println(res1.getString("nombre")); %>'>
+                        </h4>
+                        </form>
+                        </form>
+                        <h5> Precio: $ <% out.println(Integer.parseInt(res1.getString("precio_compra"))*1.19); %></h5>
+                        <p class='card-text'><% out.println(res1.getString("desc_producto")); %></p>
+                        </div>
+                        <div class='card-footer'>
+                        <small class='text-muted'>&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                        </div>
+                        </div>
+                        </div>
                         
-                        out.println("<div class='col-lg-4 col-md-6 mb-4'>");
-                        out.println("<div class='card h-100'>");
-                        out.println("<img class='card-img-top' src='data:image/jpg;base64," + base64Image + "'/>");
-                        out.println("<div class='card-body'>");
-                        out.println("<form method='post' action='EspecificacionProducto'>");
-                        out.println("<h4 class='card-title'>");
-                        out.println("<input class='list-group-item' type='submit' name = 'dato'"+ "value = '" + res1.getString("nombre")+"'>");
-                        out.println("</h4>");
-                        out.println("</form>");
-                        out.println("</form>");
-                        out.println("<h5> Precio unitario: $"+ res1.getString("precio_unitario") +"</h5>");
-                        out.println("<p class='card-text'>"+ res1.getString("desc_producto") +"</p>");
-                        out.println("</div>");
-                        out.println("<div class='card-footer'>");
-                        out.println("<small class='text-muted'>&#9733; &#9733; &#9733; &#9733; &#9734;</small>");
-                        out.println("</div>");
-                        out.println("</div>");
-                        out.println("</div>");
-                        
-                    } while (res1.next());
+                   <% } while (res1.next());
             }else{
                 out.println("<p>No hay productos en esta categoria</p>");
             }

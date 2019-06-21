@@ -42,6 +42,8 @@ body {
 .list-group-item
 {
     font-size: small;
+    width: 215px;
+    padding: 15px;
 }
 
 .vfcx
