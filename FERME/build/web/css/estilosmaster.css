@@ -35,6 +35,10 @@ body {
     
 }
 
+#cantid {
+    width: 60px;
+}
+
 .list-group-item
 {
     font-size: small;
